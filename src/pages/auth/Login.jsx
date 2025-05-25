@@ -14,8 +14,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { user, token } = await loginUser(email, password);
-      localStorage.setItem('token', token);
+      const { user } = await loginUser(email, password);
       setUser(user);
 
       // Cek role user dan arahkan ke halaman sesuai role
