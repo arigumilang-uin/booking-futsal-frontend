@@ -1,5 +1,5 @@
 // src/pages/pengelola/Dashboard.jsx
-const Dashboard = () => {
+const UserDashboard = () => {
   return (
     <div>
       <h1>Dashboard User</h1>
@@ -7,4 +7,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default UserDashboard;
