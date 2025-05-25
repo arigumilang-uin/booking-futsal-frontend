@@ -7,22 +7,15 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
- useEffect(() => {
+// authProvider.jsx
+useEffect(() => {
   const loadUser = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      setLoading(false);
-      return;
-    }
-
     try {
-      const data = await fetchProfile();
+      const data = await fetchProfile(); // fetch menggunakan cookie HttpOnly
       setUser(data.user);
     } catch (err) {
       console.error('Error loading profile:', err);
       setUser(null);
-      localStorage.removeItem('token'); // hapus token invalid
-      // opsional: redirect ke login jika perlu
     } finally {
       setLoading(false);
     }
@@ -30,6 +23,7 @@ const AuthProvider = ({ children }) => {
 
   loadUser();
 }, []);
+
 
 
   return (
