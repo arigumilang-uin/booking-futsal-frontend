@@ -7,27 +7,30 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadUser = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        setLoading(false);
-        return;
-      }
+ useEffect(() => {
+  const loadUser = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setLoading(false);
+      return;
+    }
 
-      try {
-        const data = await fetchProfile(); // hanya dipanggil kalau ada token
-        setUser(data.user);
-      } catch (err) {
-        console.error('Error loading profile:', err);
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
+    try {
+      const data = await fetchProfile();
+      setUser(data.user);
+    } catch (err) {
+      console.error('Error loading profile:', err);
+      setUser(null);
+      localStorage.removeItem('token'); // hapus token invalid
+      // opsional: redirect ke login jika perlu
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    loadUser();
-  }, []);
+  loadUser();
+}, []);
+
 
   return (
     <AuthContext.Provider value={{ user, setUser, loading }}>
