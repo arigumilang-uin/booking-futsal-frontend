@@ -7,7 +7,7 @@ const baseURL =
 
 const axiosInstance = axios.create({
   baseURL,
-  withCredentials: true, // ✅ cookie dikirim
+  withCredentials: true, // kirim cookie untuk autentikasi
 });
 
 export default axiosInstance;

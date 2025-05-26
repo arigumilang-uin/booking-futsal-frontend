@@ -9,6 +9,11 @@ const AuthProvider = ({ children }) => {
 
 // authProvider.jsx
 useEffect(() => {
+   if (window.location.pathname === '/login' || window.location.pathname === '/register') {
+    setLoading(false);
+    return;
+  }
+  
   const loadUser = async () => {
     try {
       const data = await fetchProfile(); // fetch menggunakan cookie HttpOnly
