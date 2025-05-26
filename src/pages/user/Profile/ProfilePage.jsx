@@ -2,7 +2,7 @@
 const ProfilePage = () => {
   return (
     <div>
-      <h1>Dashboard Pengelola</h1>
+      <h1>Profilepage</h1>
     </div>
   );
 };
