@@ -30,21 +30,21 @@ const Login = () => {
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
       <div className="bg-blue-900 py-4">
-        <h1 className="text-center text-white text-lg font-semibold">LOGIN</h1>
+        <h1 className="text-2xl font-bold text-white text-center uppercase">Bookingsss</h1>
       </div>
 
       {/* Form Container */}
       <div className="flex-1 flex items-center justify-center px-4">
         <div className="w-full max-w-sm">
-          <h2 className="text-3xl font-semibold text-center text-blue-900 mb-8">Login</h2>
+          <h2 className="text-3xl font-bold text-center text-blue-900 mb-8">Login</h2>
 
           {error && (
             <div className="bg-red-100 text-red-700 p-3 mb-4 rounded text-sm">{error}</div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm text-gray-700 mb-1">Email Address</label>
+              <label className="block text-sm text-gray-800 mb-1">Email Address</label>
               <input
                 type="email"
                 value={email}
@@ -56,7 +56,7 @@ const Login = () => {
             </div>
 
             <div>
-              <label className="block text-sm text-gray-700 mb-1">Password</label>
+              <label className="block text-sm text-gray-800 mb-1">Password</label>
               <input
                 type="password"
                 value={password}
@@ -69,7 +69,7 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full bg-blue-900 text-white font-semibold py-2 rounded-md hover:bg-blue-800 transition"
+              className="w-full bg-blue-900 text-white font-bold py-2 rounded-md hover:bg-blue-800 transition"
             >
               LOGIN
             </button>
