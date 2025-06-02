@@ -1,28 +1,39 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../api/authAPI';
 import useAuth from '../../hooks/useAuth';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setUser } = useAuth();
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const { user } = await loginUser(email, password);
-      setUser(user);
+    setLoading(true);
+    setError('');
 
-      if (user.role === 'pengelola') {
-        navigate('/pengelola');
+    try {
+      const result = await login({ email, password });
+
+      if (result.success) {
+        // Redirect based on user role
+        if (result.user.role === 'penyewa') {
+          navigate('/');
+        } else if (['staff_kasir', 'operator_lapangan', 'manajer_futsal', 'supervisor_sistem'].includes(result.user.role)) {
+          navigate('/staff');
+        } else {
+          navigate('/');
+        }
       } else {
-        navigate('/');
+        setError(result.error || 'Login gagal');
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'Login gagal');
+      setError('Terjadi kesalahan saat login');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,7 +41,7 @@ const Login = () => {
     <div className="min-h-screen bg-white flex flex-col">
       {/* Header */}
       <div className="bg-blue-900 py-4">
-        <h1 className="text-2xl font-bold text-white text-center uppercase">Bookingsss</h1>
+        <h1 className="text-2xl font-bold text-white text-center uppercase">Booking Futsal</h1>
       </div>
 
       {/* Form Container */}
@@ -41,6 +52,17 @@ const Login = () => {
           {error && (
             <div className="bg-red-100 text-red-700 p-3 mb-4 rounded text-sm">{error}</div>
           )}
+
+          {/* Test Users Info */}
+          <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4 text-sm">
+            <p className="font-semibold text-blue-800 mb-2">Test Users:</p>
+            <div className="space-y-1 text-blue-700">
+              <p><strong>Customer:</strong> ari@gmail.com / password123</p>
+              <p><strong>Kasir:</strong> kasir1@futsalapp.com / password123</p>
+              <p><strong>Manager:</strong> manajer1@futsalapp.com / password123</p>
+              <p><strong>Supervisor:</strong> pweb@futsalapp.com / password123</p>
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -69,9 +91,10 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full bg-blue-900 text-white font-bold py-2 rounded-md hover:bg-blue-800 transition"
+              disabled={loading}
+              className="w-full bg-blue-900 text-white font-bold py-2 rounded-md hover:bg-blue-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              LOGIN
+              {loading ? 'Loading...' : 'LOGIN'}
             </button>
           </form>
 

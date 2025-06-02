@@ -4,11 +4,18 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode development",
+    "dev:prod": "vite --mode production",
     "build": "vite build",
+    "build:dev": "vite build --mode development",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview",
-    "start": "vite preview --port $PORT"
+    "start": "vite preview --port $PORT",
+    "setup": "node scripts/dev-setup.js",
+    "test:dev": "echo 'Open browser console and run: testDevelopmentEnvironment()'",
+    "clean": "rm -rf dist node_modules/.vite",
+    "health": "curl -f http://localhost:5173 || echo 'Frontend not running'"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.7",

@@ -1,28 +1,28 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import AuthProvider from "./contexts/AuthProvider"; 
+import AuthProvider from "./contexts/AuthProvider";
 
 // Layouts
-import UserLayout from "./layouts/UserLayout";
-import PengelolaLayout from "./layouts/PengelolaLayout";
+import CustomerLayout from "./layouts/CustomerLayout";
+import StaffLayout from "./layouts/StaffLayout";
 
 // Auth Pages
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 
-// User Pages
-import UserDashboard from "./pages/user/Dashboard";
-import BookingForm from "./pages/user/Booking/BookingForm";
-import BookingList from "./pages/user/Booking/BookingList";
-import FieldList from "./pages/user/Field/FieldList";
-import PaymentPage from "./pages/user/Payment/PaymentPage";
-import ProfilePage from "./pages/user/Profile/ProfilePage";
+// Customer Pages (penyewa)
+import CustomerDashboard from "./pages/customer/Dashboard";
+import BookingForm from "./pages/customer/Booking/BookingForm";
+import BookingList from "./pages/customer/Booking/BookingList";
+import FieldList from "./pages/customer/Field/FieldList";
+import PaymentPage from "./pages/customer/Payment/PaymentPage";
+import ProfilePage from "./pages/customer/Profile/ProfilePage";
 
-// Pengelola Pages
-import PengelolaDashboard from "./pages/pengelola/Dashboard";
-import BookingManagement from "./pages/pengelola/Booking/BookingManagement";
-import FieldManagement from "./pages/pengelola/Field/FieldManagement";
-import PaymentManagement from "./pages/pengelola/Payment/PaymentManagement";
-import UserManagement from "./pages/pengelola/User/UserManagement";
+// Staff Pages (kasir, operator, manager, supervisor)
+import StaffDashboard from "./pages/staff/Dashboard";
+import BookingManagement from "./pages/staff/Booking/BookingManagement";
+import FieldManagement from "./pages/staff/Field/FieldManagement";
+import PaymentManagement from "./pages/staff/Payment/PaymentManagement";
+import UserManagement from "./pages/staff/User/UserManagement";
 
 // Protected Route Wrapper
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -36,16 +36,16 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* USER ROUTES */}
+          {/* CUSTOMER ROUTES (penyewa) */}
           <Route
             path="/"
             element={
-              <ProtectedRoute role="user">
-                <UserLayout />
+              <ProtectedRoute allowedRoles={["penyewa"]}>
+                <CustomerLayout />
               </ProtectedRoute>
             }
           >
-            <Route index element={<UserDashboard />} />
+            <Route index element={<CustomerDashboard />} />
             <Route path="bookings/new" element={<BookingForm />} />
             <Route path="bookings" element={<BookingList />} />
             <Route path="fields" element={<FieldList />} />
@@ -53,16 +53,16 @@ function App() {
             <Route path="profile" element={<ProfilePage />} />
           </Route>
 
-          {/* PENGELOLA ROUTES */}
+          {/* STAFF ROUTES (kasir, operator, manager, supervisor) */}
           <Route
-            path="/pengelola"
+            path="/staff"
             element={
-              <ProtectedRoute role="pengelola">
-                <PengelolaLayout />
+              <ProtectedRoute allowedRoles={["staff_kasir", "operator_lapangan", "manajer_futsal", "supervisor_sistem"]}>
+                <StaffLayout />
               </ProtectedRoute>
             }
           >
-            <Route index element={<PengelolaDashboard />} />
+            <Route index element={<StaffDashboard />} />
             <Route path="bookings" element={<BookingManagement />} />
             <Route path="fields" element={<FieldManagement />} />
             <Route path="payments" element={<PaymentManagement />} />
