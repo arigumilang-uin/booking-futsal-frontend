@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { getAllBookings, getBookingAnalytics } from "../../api/bookingAPI";
 import { getAllFields } from "../../api/fieldAPI";
-import { getAllPayments, getPaymentAnalytics } from "../../api/paymentAPI";
+import { getAllPayments } from "../../api/paymentAPI";
 
 const StaffDashboard = () => {
   const { user, logout } = useAuth();

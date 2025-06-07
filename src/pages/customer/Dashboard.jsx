@@ -49,10 +49,7 @@ const CustomerDashboard = () => {
     }
   };
 
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login");
-  };
+  // Logout handler removed - handled by AuthProvider
 
   if (loading) {
     return (
