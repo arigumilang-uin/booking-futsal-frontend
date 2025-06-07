@@ -2,6 +2,7 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import NotificationBadge from "./NotificationBadge";
 
 const CustomerNavbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -27,6 +28,7 @@ const CustomerNavbar = () => {
       <div className="flex items-center gap-4">
         {user && (
           <>
+            <NotificationBadge />
             <span>Halo, {user.name}</span>
             <button onClick={handleLogout} className="bg-red-500 px-3 py-1 rounded hover:bg-red-600">
               Logout

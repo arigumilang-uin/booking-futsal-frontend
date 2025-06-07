@@ -74,5 +74,108 @@ export {
   getUserAnalytics
 } from './userAPI';
 
+// Enhanced Features APIs
+
+// Notification APIs
+export {
+  getNotifications,
+  markNotificationAsRead,
+  markAllNotificationsAsRead,
+  deleteNotification,
+  getNotificationStatistics,
+  getAdminNotifications,
+  createSystemNotification,
+  broadcastNotification,
+  getNotificationDeliveryStatus,
+  getNotificationAnalytics,
+  subscribeToNotifications,
+  getUnreadNotificationCount
+} from './notificationAPI';
+
+// Review APIs
+export {
+  getUserReviews,
+  createReview,
+  updateReview,
+  deleteReview,
+  getReviewDetail,
+  checkCanReview,
+  getFieldReviews,
+  getFieldRating,
+  getAdminReviews,
+  moderateReview,
+  getReviewAnalytics,
+  uploadReviewImages,
+  getReviewStatistics,
+  calculateAverageRating,
+  getRatingDistribution,
+  formatReviewDate
+} from './reviewAPI';
+
+// Favorites APIs
+export {
+  getFavoriteFields,
+  addToFavorites,
+  removeFromFavorites,
+  toggleFavorite,
+  checkIsFavorite,
+  getFavoriteStatistics,
+  getRecommendations,
+  getPersonalizedRecommendations,
+  getPopularFields,
+  getSimilarFields,
+  getAdminFavoriteAnalytics,
+  getFieldPopularityStats,
+  getFavoritesWithAvailability,
+  getFavoriteFieldsCount,
+  syncFavoritesWithServer
+} from './favoritesAPI';
+
+// Promotion APIs
+export {
+  getAvailablePromotions,
+  validatePromotion,
+  applyPromotion,
+  getPromotionDetail,
+  getUserPromotionHistory,
+  checkPromotionEligibility,
+  getAdminPromotions,
+  createPromotion,
+  updatePromotion,
+  deletePromotion,
+  togglePromotionStatus,
+  getPromotionAnalytics,
+  getPromotionUsageStats,
+  calculateDiscount,
+  formatPromotionCode,
+  isPromotionValid,
+  getPromotionStatusText,
+  formatPromotionPeriod
+} from './promotionAPI';
+
+// Analytics APIs
+export {
+  getDashboardStats,
+  getBookingAnalytics as getBookingAnalyticsData,
+  getRevenueAnalytics,
+  getFieldAnalytics,
+  getUserAnalytics as getUserAnalyticsData,
+  getPerformanceMetrics,
+  getOccupancyRate,
+  getPeakHours,
+  getCustomerRetention,
+  generateReport,
+  getReportList,
+  downloadReport,
+  deleteReport,
+  getRealTimeStats,
+  getActiveBookings,
+  getCurrentOccupancy,
+  formatAnalyticsData,
+  formatCurrency,
+  calculateGrowthPercentage,
+  getDateRangeOptions
+} from './analyticsAPI';
+
 // Axios instance for direct use if needed
 export { default as axiosInstance } from './axiosInstance';
