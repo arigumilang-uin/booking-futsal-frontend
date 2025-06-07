@@ -4,6 +4,7 @@ import AuthProvider from "./contexts/AuthProvider";
 // Layouts
 import CustomerLayout from "./layouts/CustomerLayout";
 import StaffLayout from "./layouts/StaffLayout";
+import SupervisorLayout from "./layouts/SupervisorLayout";
 
 // Auth Pages
 import Login from "./pages/auth/Login";
@@ -23,7 +24,6 @@ import BookingManagement from "./pages/staff/Booking/BookingManagement";
 import FieldManagement from "./pages/staff/Field/FieldManagement";
 import PaymentManagement from "./pages/staff/Payment/PaymentManagement";
 import UserManagement from "./pages/staff/User/UserManagement";
-import AnalyticsDashboard from "./pages/staff/AnalyticsDashboard";
 
 // Protected Route Wrapper
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -68,7 +68,6 @@ function App() {
             <Route path="fields" element={<FieldManagement />} />
             <Route path="payments" element={<PaymentManagement />} />
             <Route path="users" element={<UserManagement />} />
-            <Route path="analytics" element={<AnalyticsDashboard />} />
           </Route>
 
           {/* Redirect unknown route */}

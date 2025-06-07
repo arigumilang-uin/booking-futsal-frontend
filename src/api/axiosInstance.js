@@ -1,15 +1,16 @@
 import axios from 'axios';
 
-// API Base URL Configuration - Updated for Production
-const baseURL = import.meta.env.VITE_API_URL || 'https://booking-futsal-production.up.railway.app/api';
+// API Base URL Configuration - Force relative path for Vite proxy
+const baseURL = '/api';
 
 // Development logging
 const isDevelopment = import.meta.env.VITE_NODE_ENV === 'development' || import.meta.env.DEV;
 
 if (isDevelopment) {
   console.log('🔧 Development Mode Detected');
-  console.log('📡 API Base URL:', baseURL);
+  console.log('📡 API Base URL (FORCED):', baseURL);
   console.log('🌍 Environment:', import.meta.env.VITE_NODE_ENV);
+  console.log('🔍 VITE_API_URL env var:', import.meta.env.VITE_API_URL);
 }
 
 // Create axios instance with default configuration

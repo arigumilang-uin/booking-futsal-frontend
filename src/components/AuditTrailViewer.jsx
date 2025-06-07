@@ -1,8 +1,15 @@
 // src/components/AuditTrailViewer.jsx
 import { useState, useEffect } from 'react';
-import { axiosInstance } from '../api';
+import useAuth from '../hooks/useAuth';
+import {
+  getAdminAuditLogs,
+  getAuditLogDetail,
+  getAuditStatistics,
+  exportAuditLogs
+} from '../api';
 
 const AuditTrailViewer = () => {
+  const { user } = useAuth();
   const [auditLogs, setAuditLogs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState({
@@ -28,10 +35,10 @@ const AuditTrailViewer = () => {
       const params = Object.fromEntries(
         Object.entries(filters).filter(([_, value]) => value !== '')
       );
-      
-      const response = await axiosInstance.get('/admin/audit-logs', { params });
-      if (response.data.success) {
-        setAuditLogs(response.data.data?.logs || []);
+
+      const response = await getAdminAuditLogs(params);
+      if (response.success) {
+        setAuditLogs(response.data?.logs || []);
       }
     } catch (error) {
       console.error('Error loading audit logs:', error);
@@ -42,9 +49,9 @@ const AuditTrailViewer = () => {
 
   const loadStatistics = async () => {
     try {
-      const response = await axiosInstance.get('/admin/audit-logs/statistics');
-      if (response.data.success) {
-        setStatistics(response.data.data?.statistics);
+      const response = await getAuditStatistics();
+      if (response.success) {
+        setStatistics(response.data?.statistics);
       }
     } catch (error) {
       console.error('Error loading audit statistics:', error);
@@ -61,9 +68,9 @@ const AuditTrailViewer = () => {
 
   const handleViewDetail = async (logId) => {
     try {
-      const response = await axiosInstance.get(`/admin/audit-logs/${logId}`);
-      if (response.data.success) {
-        setSelectedLog(response.data.data);
+      const response = await getAuditLogDetail(logId);
+      if (response.success) {
+        setSelectedLog(response.data);
       }
     } catch (error) {
       console.error('Error loading audit log detail:', error);
@@ -103,13 +110,47 @@ const AuditTrailViewer = () => {
     }
   };
 
+  const handleExport = async () => {
+    try {
+      const blob = await exportAuditLogs(filters);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `audit-logs-${new Date().toISOString().split('T')[0]}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Error exporting audit logs:', error);
+      alert('Gagal mengexport audit logs');
+    }
+  };
+
+  // Role check - only supervisor can access
+  if (user?.role !== 'supervisor_sistem') {
+    return (
+      <div className="text-center py-8">
+        <p className="text-red-600">Akses ditolak. Hanya supervisor sistem yang dapat mengakses audit trail.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-4">
-          🔍 Audit Trail Viewer
-        </h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-2xl font-semibold text-gray-900">
+            🔍 Audit Trail Viewer
+          </h2>
+          <button
+            onClick={handleExport}
+            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+          >
+            📊 Export CSV
+          </button>
+        </div>
         
         {/* Statistics */}
         {statistics && (

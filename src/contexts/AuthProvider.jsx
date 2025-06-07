@@ -84,12 +84,15 @@ const AuthProvider = ({ children }) => {
       if (response.success && response.user) {
         setUser(response.user);
         setIsAuthenticated(true);
+        // Store user data in localStorage for API calls
+        localStorage.setItem('user', JSON.stringify(response.user));
         console.log('✅ Profile loaded successfully:', response.user.role);
         return true;
       } else {
         console.log('❌ Profile load failed:', response.error);
-        // Clear invalid token
+        // Clear invalid token and user data
         localStorage.removeItem('auth_token');
+        localStorage.removeItem('user');
         setUser(null);
         setIsAuthenticated(false);
         return false;
@@ -107,6 +110,8 @@ const AuthProvider = ({ children }) => {
           if (retryResponse.success && retryResponse.user) {
             setUser(retryResponse.user);
             setIsAuthenticated(true);
+            // Store user data in localStorage for API calls
+            localStorage.setItem('user', JSON.stringify(retryResponse.user));
             console.log('✅ Profile loaded after token refresh');
             return true;
           }
@@ -115,8 +120,9 @@ const AuthProvider = ({ children }) => {
         console.error('Token refresh failed:', refreshError);
       }
 
-      // Clear invalid token on error
+      // Clear invalid token and user data on error
       localStorage.removeItem('auth_token');
+      localStorage.removeItem('user');
       setUser(null);
       setIsAuthenticated(false);
       return false;
@@ -147,6 +153,8 @@ const AuthProvider = ({ children }) => {
       if (response.success && response.user) {
         setUser(response.user);
         setIsAuthenticated(true);
+        // Store user data in localStorage for API calls
+        localStorage.setItem('user', JSON.stringify(response.user));
         console.log('✅ Login successful:', response.user.role);
         return { success: true, user: response.user };
       }
@@ -171,6 +179,8 @@ const AuthProvider = ({ children }) => {
       if (response.success && response.user) {
         setUser(response.user);
         setIsAuthenticated(true);
+        // Store user data in localStorage for API calls
+        localStorage.setItem('user', JSON.stringify(response.user));
         console.log('✅ Registration successful:', response.user.role);
         return { success: true, user: response.user };
       }
@@ -195,6 +205,9 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
+      // Clear all auth data
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('user');
       setUser(null);
       setIsAuthenticated(false);
       setLoading(false);
@@ -205,6 +218,12 @@ const AuthProvider = ({ children }) => {
 
   const updateUser = (updatedUser) => {
     setUser(updatedUser);
+    // Update localStorage as well
+    if (updatedUser) {
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+    } else {
+      localStorage.removeItem('user');
+    }
   };
 
   const contextValue = {

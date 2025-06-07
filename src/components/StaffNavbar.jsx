@@ -36,16 +36,12 @@ const StaffNavbar = () => {
           ...baseNav,
           { path: "/staff/fields", label: "Kelola Lapangan" },
           { path: "/staff/payments", label: "Kelola Pembayaran" },
-          { path: "/staff/users", label: "Kelola Staff" },
-          { path: "/staff/analytics", label: "📊 Analytics" }
+          { path: "/staff/users", label: "Kelola Staff" }
         ];
       case 'supervisor_sistem':
+        // SUPERVISOR GETS MINIMAL NAVIGATION - ALL FEATURES IN DASHBOARD
         return [
-          ...baseNav,
-          { path: "/staff/fields", label: "Kelola Lapangan" },
-          { path: "/staff/payments", label: "Kelola Pembayaran" },
-          { path: "/staff/users", label: "Kelola Pengguna" },
-          { path: "/staff/analytics", label: "🔍 Analytics & Audit" }
+          { path: "/staff", label: "🎯 Supervisor Dashboard" }
         ];
       default:
         return baseNav;

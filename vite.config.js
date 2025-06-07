@@ -19,8 +19,8 @@ export default defineConfig(({ mode }) => {
       open: true, // Auto-open browser
       cors: true,
 
-      // Proxy configuration for development - Fixed for production backend
-      proxy: isDevelopment ? {
+      // Proxy configuration for development - Always enabled for CORS fix
+      proxy: {
         '/api': {
           target: 'https://booking-futsal-production.up.railway.app',
           changeOrigin: true,
@@ -32,15 +32,21 @@ export default defineConfig(({ mode }) => {
             });
             proxy.on('proxyReq', (proxyReq, req) => {
               console.log('📤 Sending Request to the Target:', req.method, req.url);
-              // Add necessary headers for CORS
-              proxyReq.setHeader('Origin', 'http://localhost:5173');
+              // Add necessary headers for CORS and authentication
+              proxyReq.setHeader('Origin', 'https://booking-futsal-production.up.railway.app');
+              proxyReq.setHeader('Access-Control-Allow-Credentials', 'true');
             });
             proxy.on('proxyRes', (proxyRes, req) => {
               console.log('📥 Received Response from the Target:', proxyRes.statusCode, req.url);
+              // Add CORS headers to response
+              proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:5174';
+              proxyRes.headers['Access-Control-Allow-Credentials'] = 'true';
+              proxyRes.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
+              proxyRes.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, Cookie';
             });
           },
         }
-      } : undefined
+      }
     },
 
     // Build configuration

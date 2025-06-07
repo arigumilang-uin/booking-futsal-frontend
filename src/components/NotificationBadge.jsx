@@ -47,12 +47,12 @@ const NotificationBadge = () => {
     <>
       <button
         onClick={handleNotificationClick}
-        className="relative p-2 text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
+        className="relative p-3 text-white hover:text-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-300 rounded-xl transition-all duration-200 group"
         title="Notifikasi"
       >
-        {/* Bell Icon */}
+        {/* Enhanced Bell Icon */}
         <svg
-          className="w-6 h-6"
+          className={`w-6 h-6 transition-transform duration-200 ${unreadCount > 0 ? 'animate-bounce' : 'group-hover:scale-110'}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -66,16 +66,21 @@ const NotificationBadge = () => {
           />
         </svg>
 
-        {/* Badge */}
+        {/* Enhanced Badge */}
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+          <span className="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold shadow-lg ring-2 ring-white">
             {unreadCount > 99 ? '99+' : unreadCount}
           </span>
         )}
 
-        {/* Pulse animation for new notifications */}
+        {/* Enhanced Pulse animation for new notifications */}
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-red-500 rounded-full h-5 w-5 animate-ping opacity-75"></span>
+          <span className="absolute -top-1 -right-1 bg-red-400 rounded-full h-6 w-6 animate-ping opacity-60"></span>
+        )}
+
+        {/* Notification indicator dot */}
+        {unreadCount > 0 && (
+          <span className="absolute top-1 right-1 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
         )}
       </button>
 

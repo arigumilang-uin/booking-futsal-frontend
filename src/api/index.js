@@ -26,7 +26,7 @@ export {
   updateBookingStatus,
   confirmBooking,
   rejectBooking,
-  getBookingAnalytics
+  getBookingAnalytics as getBookingAnalyticsBasic
 } from './bookingAPI';
 
 // Field APIs
@@ -71,7 +71,7 @@ export {
   updateUser,
   deleteUser,
   updateUserRole,
-  getUserAnalytics
+  getUserAnalytics as getUserAnalyticsBasic
 } from './userAPI';
 
 // Enhanced Features APIs
@@ -176,6 +176,40 @@ export {
   calculateGrowthPercentage,
   getDateRangeOptions
 } from './analyticsAPI';
+
+// Supervisor APIs
+export {
+  getSupervisorDashboard,
+  getSystemHealth,
+  getSystemConfig,
+  getDatabaseStats,
+  getAllUsersForSupervisor,
+  createStaffUser,
+  forceUpdateUserRole,
+  getSystemAnalytics,
+  getBusinessAnalytics,
+  getSupervisorAuditLogs,
+  getAdminAuditLogs,
+  getAuditLogDetail,
+  getAuditStatistics,
+  getUserActivityLogs,
+  getTableActivityLogs,
+  exportAuditLogs,
+  getAllSystemSettings,
+  getSystemSetting,
+  updateSystemSetting,
+  createSystemSetting,
+  deleteSystemSetting,
+  resetSettingToDefault,
+  triggerSystemMaintenance,
+  cleanOldAuditLogs,
+  getRoleManagementDashboard,
+  getAllUsersForRoleManagement,
+  changeUserRoleDirect,
+  formatSystemUptime,
+  formatMemoryUsage,
+  getSystemHealthStatus
+} from './supervisorAPI';
 
 // Axios instance for direct use if needed
 export { default as axiosInstance } from './axiosInstance';

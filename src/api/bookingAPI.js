@@ -40,12 +40,32 @@ export const getAllBookings = async (params = {}) => {
     // ✅ ALL ENDPOINTS NOW WORKING! Role-based endpoint selection with FIXED ENDPOINTS
     console.log('✅ Getting all bookings for staff (ALL ENDPOINTS FIXED!)...');
 
-    // Get user role from localStorage or context
-    const userStr = localStorage.getItem('user');
-    const user = userStr ? JSON.parse(userStr) : null;
-    const userRole = user?.role;
+    // Get user role from localStorage with better error handling
+    let userRole = null;
+    try {
+      const userStr = localStorage.getItem('user');
+      const user = userStr ? JSON.parse(userStr) : null;
+      userRole = user?.role;
 
-    console.log(`👤 User role: ${userRole}`);
+      if (!userRole) {
+        console.warn('⚠️ User role not found in localStorage. User may not be logged in or data is corrupted.');
+        // Try to get from auth token if available
+        const token = localStorage.getItem('auth_token');
+        if (!token) {
+          console.warn('⚠️ No auth token found. User needs to login again.');
+        }
+      }
+    } catch (error) {
+      console.error('❌ Error parsing user data from localStorage:', error);
+      userRole = null;
+    }
+
+    console.log(`👤 User role: ${userRole || 'undefined (not logged in)'}`);
+
+    // If no user role, provide fallback behavior
+    if (!userRole) {
+      console.warn('⚠️ No user role detected. Using customer endpoints as fallback.');
+    }
 
     // Define role-specific endpoints in order of preference (ALL ENDPOINTS NOW WORKING! ✅)
     const roleEndpoints = {
@@ -190,8 +210,37 @@ export const rejectBooking = async (id, reason) => {
 };
 
 export const getBookingAnalytics = async (params = {}) => {
-  const response = await axiosInstance.get('/staff/bookings/analytics', { params });
-  return response.data;
+  try {
+    // Use the correct endpoint for booking statistics
+    const response = await axiosInstance.get('/admin/bookings/statistics', { params });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Get booking analytics error:', error.response?.data || error.message);
+
+    // Fallback to business analytics if booking statistics not available
+    try {
+      const fallbackResponse = await axiosInstance.get('/admin/analytics/business', { params });
+      return {
+        success: true,
+        data: {
+          totalRevenue: fallbackResponse.data?.data?.revenue_analytics?.total_revenue || 0,
+          totalBookings: fallbackResponse.data?.data?.booking_analytics?.total_bookings || 0,
+          ...fallbackResponse.data?.data
+        }
+      };
+    } catch (fallbackError) {
+      console.error('❌ Fallback analytics error:', fallbackError.response?.data || fallbackError.message);
+      // Return empty data instead of throwing error
+      return {
+        success: false,
+        data: {
+          totalRevenue: 0,
+          totalBookings: 0
+        },
+        message: 'Analytics data not available'
+      };
+    }
+  }
 };
 
 // ===== ADMIN BOOKING APIs (roles: manajer_futsal, supervisor_sistem) =====
