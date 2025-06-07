@@ -2,6 +2,7 @@
 import { useState, useEffect, lazy, Suspense, useCallback, useMemo } from 'react';
 import useAuth from '../hooks/useAuth';
 import { getSupervisorDashboard, getSystemHealth } from '../api/supervisorAPI';
+import SupervisorHeader from './SupervisorHeader';
 
 // Lazy load management components
 const UserManagementPanel = lazy(() => import('./UserManagementPanel'));
@@ -55,24 +56,6 @@ const MinimalistSupervisorDashboard = () => {
 
 
   // Helper functions (not hooks)
-  const getStatusColor = (status) => {
-    switch (status) {
-      case 'healthy': return 'bg-green-50/80 border-green-200 text-green-800';
-      case 'warning': return 'bg-yellow-50/80 border-yellow-200 text-yellow-800';
-      case 'critical': return 'bg-red-50/80 border-red-200 text-red-800';
-      default: return 'bg-gray-50/80 border-gray-200 text-gray-800';
-    }
-  };
-
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'healthy': return '●';
-      case 'warning': return '●';
-      case 'critical': return '●';
-      default: return '●';
-    }
-  };
-
   const formatUptime = (seconds) => {
     if (!seconds || typeof seconds !== 'number') return 'N/A';
     const hours = Math.floor(seconds / 3600);
@@ -104,45 +87,20 @@ const MinimalistSupervisorDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-slate-50">
-      {/* Modern Header with Glassmorphism */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-purple-600/10 via-blue-600/10 to-purple-600/10 border-b border-purple-200/50">
-        <div className="max-w-7xl mx-auto p-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl">
-                <span className="text-2xl">⚡</span>
-              </div>
-              <div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-800 to-purple-800 bg-clip-text text-transparent">
-                  Control Center
-                </h1>
-                <p className="text-slate-600 mt-1 text-lg">Advanced System Administration</p>
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              {/* System Status Card */}
-              <div className={`flex items-center space-x-3 px-6 py-3 rounded-2xl backdrop-blur-sm border shadow-lg ${getStatusColor(health?.status)} transition-all duration-300`}>
-                <div className={`w-3 h-3 rounded-full animate-pulse ${
-                  health?.status === 'healthy' ? 'bg-green-500' : 'bg-red-500'
-                }`}></div>
-                <span className="font-semibold">{getStatusIcon(health?.status)} {health?.status || 'unknown'}</span>
-              </div>
-
-              {/* Refresh Button */}
-              <button
-                onClick={loadDashboardData}
-                className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-2xl hover:from-purple-700 hover:to-blue-700 flex items-center space-x-2 shadow-lg transition-all duration-200 transform hover:scale-105"
-              >
-                <span className="text-lg">🔄</span>
-                <span className="font-medium">Refresh</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Modern Supervisor Header */}
+      <SupervisorHeader />
 
       <div className="max-w-7xl mx-auto p-6 space-y-6">
+        {/* Refresh Button */}
+        <div className="flex justify-end">
+          <button
+            onClick={loadDashboardData}
+            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-2xl hover:from-purple-700 hover:to-blue-700 flex items-center space-x-2 shadow-lg transition-all duration-200 transform hover:scale-105"
+          >
+            <span className="text-lg">🔄</span>
+            <span className="font-medium">Refresh Data</span>
+          </button>
+        </div>
 
       {/* Enhanced Quick Stats Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
