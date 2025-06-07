@@ -41,45 +41,55 @@ export const checkFieldAvailability = async (fieldId, date) => {
 
 export const getAllFields = async (params = {}) => {
   try {
-    const response = await axiosInstance.get('/staff/fields', { params });
+    // Use admin endpoint for field management
+    const response = await axiosInstance.get('/admin/fields', { params });
     return response.data;
   } catch (error) {
+    console.error('❌ Get all fields error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const createField = async (fieldData) => {
   try {
-    const response = await axiosInstance.post('/staff/fields', fieldData);
+    // Use admin endpoint for field creation
+    const response = await axiosInstance.post('/admin/fields', fieldData);
     return response.data;
   } catch (error) {
+    console.error('❌ Create field error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const updateField = async (id, fieldData) => {
   try {
-    const response = await axiosInstance.put(`/staff/fields/${id}`, fieldData);
+    // Use admin endpoint for field updates
+    const response = await axiosInstance.put(`/admin/fields/${id}`, fieldData);
     return response.data;
   } catch (error) {
+    console.error('❌ Update field error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const deleteField = async (id) => {
   try {
-    const response = await axiosInstance.delete(`/staff/fields/${id}`);
+    // Use admin endpoint for field deletion
+    const response = await axiosInstance.delete(`/admin/fields/${id}`);
     return response.data;
   } catch (error) {
+    console.error('❌ Delete field error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const updateFieldStatus = async (id, status) => {
   try {
-    const response = await axiosInstance.patch(`/staff/fields/${id}/status`, { status });
+    // Use admin endpoint for field status updates
+    const response = await axiosInstance.patch(`/admin/fields/${id}/status`, { status });
     return response.data;
   } catch (error) {
+    console.error('❌ Update field status error:', error.response?.data || error.message);
     throw error;
   }
 };

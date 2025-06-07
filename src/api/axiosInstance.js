@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// API Base URL Configuration
-const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+// API Base URL Configuration - Updated for Production
+const baseURL = import.meta.env.VITE_API_URL || 'https://booking-futsal-production.up.railway.app/api';
 
 // Development logging
 const isDevelopment = import.meta.env.VITE_NODE_ENV === 'development' || import.meta.env.DEV;

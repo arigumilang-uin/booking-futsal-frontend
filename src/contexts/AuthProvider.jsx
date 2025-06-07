@@ -18,16 +18,52 @@ const AuthProvider = ({ children }) => {
     return roles.includes(user?.role);
   }, [user]);
 
-  // Check if user is staff (any staff role)
+  // Enhanced role checking based on backend 6-level hierarchy
+  // Level 1: pengunjung (Guest)
+  // Level 2: penyewa (Customer)
+  // Level 3: staff_kasir (Cashier)
+  // Level 4: operator_lapangan (Field Operator)
+  // Level 5: manajer_futsal (Manager)
+  // Level 6: supervisor_sistem (System Supervisor)
+
+  // Check if user is staff (any staff role - Level 3+)
   const isStaff = useCallback(() => {
     const staffRoles = ['staff_kasir', 'operator_lapangan', 'manajer_futsal', 'supervisor_sistem'];
     return staffRoles.includes(user?.role);
   }, [user]);
 
-  // Check if user is management (manager or supervisor)
+  // Check if user is management (manager or supervisor - Level 5+)
   const isManagement = useCallback(() => {
     const managementRoles = ['manajer_futsal', 'supervisor_sistem'];
     return managementRoles.includes(user?.role);
+  }, [user]);
+
+  // Check if user is customer (Level 2+)
+  const isCustomer = useCallback(() => {
+    const customerRoles = ['penyewa', 'staff_kasir', 'operator_lapangan', 'manajer_futsal', 'supervisor_sistem'];
+    return customerRoles.includes(user?.role);
+  }, [user]);
+
+  // Check if user is admin (Level 6 only)
+  const isAdmin = useCallback(() => {
+    return user?.role === 'supervisor_sistem';
+  }, [user]);
+
+  // Check minimum role level
+  const hasMinimumRole = useCallback((minimumRole) => {
+    const roleLevels = {
+      'pengunjung': 1,
+      'penyewa': 2,
+      'staff_kasir': 3,
+      'operator_lapangan': 4,
+      'manajer_futsal': 5,
+      'supervisor_sistem': 6
+    };
+
+    const userLevel = roleLevels[user?.role] || 0;
+    const requiredLevel = roleLevels[minimumRole] || 0;
+
+    return userLevel >= requiredLevel;
   }, [user]);
 
   // Load user profile
@@ -184,8 +220,11 @@ const AuthProvider = ({ children }) => {
     // Role checking utilities
     hasRole,
     hasAnyRole,
+    hasMinimumRole,
     isStaff,
-    isManagement
+    isManagement,
+    isCustomer,
+    isAdmin
   };
 
   return (

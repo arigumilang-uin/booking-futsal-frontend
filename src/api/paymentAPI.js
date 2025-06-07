@@ -52,45 +52,55 @@ export const uploadPaymentProof = async (paymentId, formData) => {
 
 export const getAllPayments = async (params = {}) => {
   try {
-    const response = await axiosInstance.get('/staff/payments', { params });
+    // Use kasir endpoint for payment management
+    const response = await axiosInstance.get('/staff/kasir/payments', { params });
     return response.data;
   } catch (error) {
+    console.error('❌ Get all payments error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const verifyPayment = async (id) => {
   try {
-    const response = await axiosInstance.patch(`/staff/payments/${id}/verify`);
+    // Use kasir endpoint for payment verification
+    const response = await axiosInstance.put(`/staff/kasir/payments/${id}/confirm`);
     return response.data;
   } catch (error) {
+    console.error('❌ Verify payment error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const rejectPayment = async (id, reason) => {
   try {
-    const response = await axiosInstance.patch(`/staff/payments/${id}/reject`, { reason });
+    // Use kasir endpoint for payment rejection
+    const response = await axiosInstance.patch(`/staff/kasir/payments/${id}/reject`, { reason });
     return response.data;
   } catch (error) {
+    console.error('❌ Reject payment error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const getPaymentAnalytics = async (params = {}) => {
   try {
-    const response = await axiosInstance.get('/staff/payments/analytics', { params });
+    // Use kasir endpoint for payment analytics
+    const response = await axiosInstance.get('/staff/kasir/statistics', { params });
     return response.data;
   } catch (error) {
+    console.error('❌ Get payment analytics error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const generatePaymentReport = async (params = {}) => {
   try {
-    const response = await axiosInstance.get('/staff/payments/report', { params });
+    // Use kasir endpoint for payment reports
+    const response = await axiosInstance.get('/staff/kasir/daily-report', { params });
     return response.data;
   } catch (error) {
+    console.error('❌ Generate payment report error:', error.response?.data || error.message);
     throw error;
   }
 };

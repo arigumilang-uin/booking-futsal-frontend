@@ -10,10 +10,23 @@ export const loginUser = async (credentials) => {
   try {
     const response = await axiosInstance.post('/auth/login', credentials);
 
-    // Handle token storage for development/cross-domain scenarios
-    if (response.data.success && response.data.token) {
-      localStorage.setItem('auth_token', response.data.token);
-      console.log('🔑 Token stored from response body');
+    // Handle backend response structure: { success: true, message: "Login berhasil", data: { user: {...}, token: "..." } }
+    if (response.data.success) {
+      // Store token from response data
+      if (response.data.data?.token) {
+        localStorage.setItem('auth_token', response.data.data.token);
+        console.log('🔑 Token stored from response data');
+      } else if (response.data.token) {
+        localStorage.setItem('auth_token', response.data.token);
+        console.log('🔑 Token stored from response body');
+      }
+
+      // Return normalized response
+      return {
+        success: true,
+        user: response.data.data?.user || response.data.user,
+        message: response.data.message || 'Login successful'
+      };
     }
 
     return response.data;
@@ -27,10 +40,23 @@ export const registerUser = async (userData) => {
   try {
     const response = await axiosInstance.post('/auth/register', userData);
 
-    // Handle token storage for auto-login after registration
-    if (response.data.success && response.data.token) {
-      localStorage.setItem('auth_token', response.data.token);
-      console.log('🔑 Token stored after registration');
+    // Handle backend response structure: { success: true, message: "Registration successful", data: { user: {...}, token: "..." } }
+    if (response.data.success) {
+      // Store token from response data
+      if (response.data.data?.token) {
+        localStorage.setItem('auth_token', response.data.data.token);
+        console.log('🔑 Token stored from registration response data');
+      } else if (response.data.token) {
+        localStorage.setItem('auth_token', response.data.token);
+        console.log('🔑 Token stored from registration response body');
+      }
+
+      // Return normalized response
+      return {
+        success: true,
+        user: response.data.data?.user || response.data.user,
+        message: response.data.message || 'Registration successful'
+      };
     }
 
     return response.data;
@@ -62,6 +88,15 @@ export const logoutUser = async () => {
 export const getProfile = async () => {
   try {
     const response = await axiosInstance.get('/auth/profile');
+
+    // Handle backend response structure: { success: true, data: { user: {...} } }
+    if (response.data.success && response.data.data?.user) {
+      return {
+        success: true,
+        user: response.data.data.user
+      };
+    }
+
     return response.data;
   } catch (error) {
     console.error('❌ Get profile error:', error.response?.data || error.message);

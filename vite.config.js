@@ -19,20 +19,23 @@ export default defineConfig(({ mode }) => {
       open: true, // Auto-open browser
       cors: true,
 
-      // Proxy configuration for development
+      // Proxy configuration for development - Fixed for production backend
       proxy: isDevelopment ? {
         '/api': {
-          target: 'http://localhost:3000',
+          target: 'https://booking-futsal-production.up.railway.app',
           changeOrigin: true,
-          secure: false,
-          configure: (proxy, _options) => {
-            proxy.on('error', (err, _req, _res) => {
+          secure: true,
+          rewrite: (path) => path, // Keep /api path as is
+          configure: (proxy) => {
+            proxy.on('error', (err) => {
               console.log('🚨 Proxy error:', err);
             });
-            proxy.on('proxyReq', (proxyReq, req, _res) => {
+            proxy.on('proxyReq', (proxyReq, req) => {
               console.log('📤 Sending Request to the Target:', req.method, req.url);
+              // Add necessary headers for CORS
+              proxyReq.setHeader('Origin', 'http://localhost:5173');
             });
-            proxy.on('proxyRes', (proxyRes, req, _res) => {
+            proxy.on('proxyRes', (proxyRes, req) => {
               console.log('📥 Received Response from the Target:', proxyRes.statusCode, req.url);
             });
           },

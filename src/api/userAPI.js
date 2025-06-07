@@ -19,18 +19,21 @@ export const getProfile = async () => {
 
 export const updateProfile = async (profileData) => {
   try {
-    const response = await axiosInstance.put('/auth/profile', profileData);
+    // Use customer profile endpoint for profile updates
+    const response = await axiosInstance.put('/customer/profile', profileData);
     return response.data;
   } catch (error) {
+    console.error('❌ Update profile error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const changePassword = async (passwordData) => {
   try {
-    const response = await axiosInstance.put('/auth/change-password', passwordData);
+    const response = await axiosInstance.post('/auth/change-password', passwordData);
     return response.data;
   } catch (error) {
+    console.error('❌ Change password error:', error.response?.data || error.message);
     throw error;
   }
 };
@@ -39,63 +42,77 @@ export const changePassword = async (passwordData) => {
 
 export const getAllUsers = async (params = {}) => {
   try {
-    const response = await axiosInstance.get('/staff/users', { params });
+    // Use admin endpoint for user management
+    const response = await axiosInstance.get('/admin/users', { params });
     return response.data;
   } catch (error) {
+    console.error('❌ Get all users error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const getUserById = async (id) => {
   try {
-    const response = await axiosInstance.get(`/staff/users/${id}`);
+    // Use admin endpoint for user details
+    const response = await axiosInstance.get(`/admin/users/${id}`);
     return response.data;
   } catch (error) {
+    console.error('❌ Get user by ID error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const createUser = async (userData) => {
   try {
-    const response = await axiosInstance.post('/staff/users', userData);
+    // Use admin endpoint for user creation
+    const response = await axiosInstance.post('/admin/users', userData);
     return response.data;
   } catch (error) {
+    console.error('❌ Create user error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const updateUser = async (id, userData) => {
   try {
-    const response = await axiosInstance.put(`/staff/users/${id}`, userData);
+    // Use admin endpoint for user updates
+    const response = await axiosInstance.put(`/admin/users/${id}`, userData);
     return response.data;
   } catch (error) {
+    console.error('❌ Update user error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const deleteUser = async (id) => {
   try {
-    const response = await axiosInstance.delete(`/staff/users/${id}`);
+    // Use admin endpoint for user deletion
+    const response = await axiosInstance.delete(`/admin/users/${id}`);
     return response.data;
   } catch (error) {
+    console.error('❌ Delete user error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const updateUserRole = async (id, role) => {
   try {
-    const response = await axiosInstance.patch(`/staff/users/${id}/role`, { role });
+    // Use admin endpoint for role updates
+    const response = await axiosInstance.patch(`/admin/users/${id}/role`, { role });
     return response.data;
   } catch (error) {
+    console.error('❌ Update user role error:', error.response?.data || error.message);
     throw error;
   }
 };
 
 export const getUserAnalytics = async (params = {}) => {
   try {
-    const response = await axiosInstance.get('/staff/users/analytics', { params });
+    // Use admin endpoint for user analytics
+    const response = await axiosInstance.get('/admin/users/analytics', { params });
     return response.data;
   } catch (error) {
+    console.error('❌ Get user analytics error:', error.response?.data || error.message);
     throw error;
   }
 };
