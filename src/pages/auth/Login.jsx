@@ -30,7 +30,7 @@ const Login = () => {
       } else {
         setError(result.error || 'Login gagal');
       }
-    } catch (err) {
+    } catch {
       setError('Terjadi kesalahan saat login');
     } finally {
       setLoading(false);

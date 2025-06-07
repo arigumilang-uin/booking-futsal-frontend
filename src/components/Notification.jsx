@@ -1,5 +1,5 @@
 // src/components/Notification.jsx
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 const Notification = ({ type = 'info', message, show, onClose, duration = 5000 }) => {
   useEffect(() => {

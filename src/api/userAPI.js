@@ -9,12 +9,8 @@ import axiosInstance from './axiosInstance';
 // ===== PROFILE APIs (all authenticated users) =====
 
 export const getProfile = async () => {
-  try {
-    const response = await axiosInstance.get('/auth/profile');
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.get('/auth/profile');
+  return response.data;
 };
 
 export const updateProfile = async (profileData) => {

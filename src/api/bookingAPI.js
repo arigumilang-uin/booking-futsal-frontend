@@ -9,48 +9,28 @@ import axiosInstance from './axiosInstance';
 // ===== CUSTOMER BOOKING APIs (role: penyewa) =====
 
 export const createBooking = async (bookingData) => {
-  try {
-    const response = await axiosInstance.post('/customer/bookings', bookingData);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.post('/customer/bookings', bookingData);
+  return response.data;
 };
 
 export const getCustomerBookings = async (params = {}) => {
-  try {
-    const response = await axiosInstance.get('/customer/bookings', { params });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.get('/customer/bookings', { params });
+  return response.data;
 };
 
 export const getBookingById = async (id) => {
-  try {
-    const response = await axiosInstance.get(`/customer/bookings/${id}`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.get(`/customer/bookings/${id}`);
+  return response.data;
 };
 
 export const updateBooking = async (id, bookingData) => {
-  try {
-    const response = await axiosInstance.put(`/customer/bookings/${id}`, bookingData);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.put(`/customer/bookings/${id}`, bookingData);
+  return response.data;
 };
 
 export const cancelBooking = async (id) => {
-  try {
-    const response = await axiosInstance.patch(`/customer/bookings/${id}/cancel`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.patch(`/customer/bookings/${id}/cancel`);
+  return response.data;
 };
 
 // ===== STAFF BOOKING APIs (roles: kasir, operator, manager, supervisor) =====
@@ -200,30 +180,18 @@ export const updateBookingStatus = async (id, status, reason = '') => {
 };
 
 export const confirmBooking = async (id) => {
-  try {
-    const response = await axiosInstance.patch(`/staff/bookings/${id}/confirm`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.patch(`/staff/bookings/${id}/confirm`);
+  return response.data;
 };
 
 export const rejectBooking = async (id, reason) => {
-  try {
-    const response = await axiosInstance.patch(`/staff/bookings/${id}/reject`, { reason });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.patch(`/staff/bookings/${id}/reject`, { reason });
+  return response.data;
 };
 
 export const getBookingAnalytics = async (params = {}) => {
-  try {
-    const response = await axiosInstance.get('/staff/bookings/analytics', { params });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.get('/staff/bookings/analytics', { params });
+  return response.data;
 };
 
 // ===== ADMIN BOOKING APIs (roles: manajer_futsal, supervisor_sistem) =====

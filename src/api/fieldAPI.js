@@ -9,32 +9,20 @@ import axiosInstance from './axiosInstance';
 // ===== PUBLIC FIELD APIs =====
 
 export const getPublicFields = async (params = {}) => {
-  try {
-    const response = await axiosInstance.get('/public/fields', { params });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.get('/public/fields', { params });
+  return response.data;
 };
 
 export const getFieldById = async (id) => {
-  try {
-    const response = await axiosInstance.get(`/public/fields/${id}`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.get(`/public/fields/${id}`);
+  return response.data;
 };
 
 export const checkFieldAvailability = async (fieldId, date) => {
-  try {
-    const response = await axiosInstance.get(`/public/fields/${fieldId}/availability`, {
-      params: { date }
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axiosInstance.get(`/public/fields/${fieldId}/availability`, {
+    params: { date }
+  });
+  return response.data;
 };
 
 // ===== STAFF FIELD APIs (roles: operator, manager, supervisor) =====
