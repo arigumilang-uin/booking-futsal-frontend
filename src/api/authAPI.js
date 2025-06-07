@@ -3,7 +3,7 @@ import axiosInstance from './axiosInstance';
 
 /**
  * Authentication API calls
- * Menggunakan cookie-based authentication sesuai backend
+ * Updated to match backend enhanced authentication system
  */
 
 export const loginUser = async (credentials) => {
@@ -26,6 +26,13 @@ export const loginUser = async (credentials) => {
 export const registerUser = async (userData) => {
   try {
     const response = await axiosInstance.post('/auth/register', userData);
+
+    // Handle token storage for auto-login after registration
+    if (response.data.success && response.data.token) {
+      localStorage.setItem('auth_token', response.data.token);
+      console.log('🔑 Token stored after registration');
+    }
+
     return response.data;
   } catch (error) {
     console.error('❌ Register error:', error.response?.data || error.message);
@@ -68,6 +75,88 @@ export const updateProfile = async (profileData) => {
     return response.data;
   } catch (error) {
     console.error('❌ Update profile error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const refreshToken = async () => {
+  try {
+    const response = await axiosInstance.post('/auth/refresh');
+
+    // Update stored token if provided
+    if (response.data.success && response.data.data?.token) {
+      localStorage.setItem('auth_token', response.data.data.token);
+      console.log('🔄 Token refreshed and stored');
+    }
+
+    return response.data;
+  } catch (error) {
+    console.error('❌ Refresh token error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const changePassword = async (passwordData) => {
+  try {
+    const response = await axiosInstance.put('/auth/change-password', passwordData);
+    return response.data;
+  } catch (error) {
+    console.error('❌ Change password error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Email verification functions
+export const sendEmailVerification = async () => {
+  try {
+    const response = await axiosInstance.post('/auth/send-verification');
+    return response.data;
+  } catch (error) {
+    console.error('❌ Send verification error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const verifyEmail = async (token) => {
+  try {
+    const response = await axiosInstance.post('/auth/verify-email', { token });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Verify email error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Password reset functions
+export const requestPasswordReset = async (email) => {
+  try {
+    const response = await axiosInstance.post('/auth/forgot-password', { email });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Request password reset error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const resetPassword = async (token, newPassword) => {
+  try {
+    const response = await axiosInstance.post('/auth/reset-password', {
+      token,
+      password: newPassword
+    });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Reset password error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const validateResetToken = async (token) => {
+  try {
+    const response = await axiosInstance.get(`/auth/reset-password/${token}`);
+    return response.data;
+  } catch (error) {
+    console.error('❌ Validate reset token error:', error.response?.data || error.message);
     throw error;
   }
 };
