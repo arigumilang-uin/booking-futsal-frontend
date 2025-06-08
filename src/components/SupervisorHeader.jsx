@@ -4,12 +4,14 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import NotificationBadge from "./NotificationBadge";
+import ProfileSettingsModal from "./ProfileSettingsModal";
 
 const SupervisorHeader = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
   // Update time every second for real-time clock
   useEffect(() => {
@@ -33,6 +35,7 @@ const SupervisorHeader = () => {
   };
 
   return (
+    <>
     <header className="bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 text-white shadow-2xl border-b-4 border-purple-500">
       <div className="max-w-7xl mx-auto">
         {/* Main Header */}
@@ -162,8 +165,8 @@ const SupervisorHeader = () => {
 
                     <button
                       onClick={() => {
-                        // Show profile settings modal or navigate
-                        alert('🚧 Fitur Pengaturan Profil sedang dalam pengembangan.\n\nFitur yang akan tersedia:\n• Edit informasi profil\n• Ubah password\n• Preferensi notifikasi\n• Theme settings');
+                        // Open profile settings modal
+                        setShowProfileModal(true);
                         setShowUserMenu(false);
                       }}
                       className="w-full text-left px-6 py-3 text-sm text-gray-700 hover:bg-purple-50 flex items-center space-x-3 transition-colors duration-200"
@@ -173,24 +176,7 @@ const SupervisorHeader = () => {
                       </div>
                       <div>
                         <p className="font-medium">Pengaturan Profil</p>
-                        <p className="text-xs text-gray-500">Kelola akun dan preferensi</p>
-                      </div>
-                    </button>
-
-                    <button
-                      onClick={() => {
-                        // Show system settings info
-                        alert('🔧 System Settings\n\nAkses melalui dashboard tabs:\n• System & Audit tab\n• Analytics tab\n• User Management tab\n\nSemua pengaturan sistem tersedia di dashboard utama.');
-                        setShowUserMenu(false);
-                      }}
-                      className="w-full text-left px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 flex items-center space-x-3 transition-colors duration-200"
-                    >
-                      <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
-                        <span>🔧</span>
-                      </div>
-                      <div>
-                        <p className="font-medium">System Settings</p>
-                        <p className="text-xs text-gray-500">Konfigurasi sistem</p>
+                        <p className="text-xs text-gray-500">Edit profil & ubah password</p>
                       </div>
                     </button>
                   </div>
@@ -254,6 +240,13 @@ const SupervisorHeader = () => {
       {/* Bottom Border Gradient */}
       <div className="h-1 bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500"></div>
     </header>
+
+    {/* Profile Settings Modal */}
+    <ProfileSettingsModal
+      isOpen={showProfileModal}
+      onClose={() => setShowProfileModal(false)}
+    />
+  </>
   );
 };
 

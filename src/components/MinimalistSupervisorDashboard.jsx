@@ -2,7 +2,7 @@
 import { useState, useEffect, lazy, Suspense, useCallback, useMemo } from 'react';
 import useAuth from '../hooks/useAuth';
 import { getSupervisorDashboard, getSystemHealth } from '../api/supervisorAPI';
-import SupervisorHeader from './SupervisorHeader';
+import MinimalistSupervisorHeader from './MinimalistSupervisorHeader';
 
 // Lazy load management components
 const UserManagementPanel = lazy(() => import('./UserManagementPanel'));
@@ -86,127 +86,133 @@ const MinimalistSupervisorDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-slate-50">
-      {/* Modern Supervisor Header */}
-      <SupervisorHeader />
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-50" style={{
+      backgroundImage: `
+        linear-gradient(90deg, rgba(34, 197, 94, 0.03) 1px, transparent 1px),
+        linear-gradient(rgba(34, 197, 94, 0.03) 1px, transparent 1px)
+      `,
+      backgroundSize: '20px 20px'
+    }}>
+      {/* Futsal Supervisor Header */}
+      <MinimalistSupervisorHeader />
 
       <div className="max-w-7xl mx-auto p-6 space-y-6">
-        {/* Refresh Button */}
+        {/* Refresh Button - Futsal Style */}
         <div className="flex justify-end">
           <button
             onClick={loadDashboardData}
-            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-2xl hover:from-purple-700 hover:to-blue-700 flex items-center space-x-2 shadow-lg transition-all duration-200 transform hover:scale-105"
+            className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-lg flex items-center space-x-2 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
-            <span className="text-lg">🔄</span>
-            <span className="font-medium">Refresh Data</span>
+            <span>🔄</span>
+            <span className="font-medium">Muat Ulang Dashboard</span>
           </button>
         </div>
 
-      {/* Enhanced Quick Stats Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl shadow-lg border border-blue-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+      {/* Futsal Stats Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-green-500 hover:shadow-md transition-all duration-200 hover:border-l-green-600">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-3xl font-bold text-blue-900">{overview?.total_users || 0}</div>
-              <div className="text-sm font-medium text-blue-600 mt-1">Total Users</div>
-              <div className="text-xs text-blue-700 mt-1">Terdaftar di sistem</div>
+              <div className="text-2xl font-bold text-gray-900">{overview?.total_users || 0}</div>
+              <div className="text-sm font-medium text-green-600 mt-1">Total Pengguna</div>
+              <div className="text-xs text-gray-500 mt-1">Semua role sistem</div>
             </div>
-            <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">👥</span>
+            <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+              <span className="text-lg">👥</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl shadow-lg border border-green-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-blue-500 hover:shadow-md transition-all duration-200 hover:border-l-blue-600">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-3xl font-bold text-green-900">{overview?.total_fields || 0}</div>
-              <div className="text-sm font-medium text-green-600 mt-1">Total Fields</div>
-              <div className="text-xs text-green-700 mt-1">{overview?.active_fields || 0} aktif</div>
+              <div className="text-2xl font-bold text-gray-900">{overview?.total_fields || 0}</div>
+              <div className="text-sm font-medium text-blue-600 mt-1">Total Lapangan</div>
+              <div className="text-xs text-gray-500 mt-1">{overview?.active_fields || 0} siap main</div>
             </div>
-            <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">🏟️</span>
+            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+              <span className="text-lg">🏟️</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-2xl shadow-lg border border-purple-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-emerald-500 hover:shadow-md transition-all duration-200 hover:border-l-emerald-600">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-3xl font-bold text-purple-900">{overview?.active_fields || 0}</div>
-              <div className="text-sm font-medium text-purple-600 mt-1">Active Fields</div>
-              <div className="text-xs text-purple-700 mt-1">Siap digunakan</div>
+              <div className="text-2xl font-bold text-gray-900">{overview?.active_fields || 0}</div>
+              <div className="text-sm font-medium text-emerald-600 mt-1">Lapangan Aktif</div>
+              <div className="text-xs text-gray-500 mt-1">Siap pertandingan</div>
             </div>
-            <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">✅</span>
+            <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+              <span className="text-lg">🥅</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-2xl shadow-lg border border-orange-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-orange-500 hover:shadow-md transition-all duration-200 hover:border-l-orange-600">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-3xl font-bold text-orange-900">{overview?.total_bookings || 0}</div>
-              <div className="text-sm font-medium text-orange-600 mt-1">Bookings</div>
-              <div className="text-xs text-orange-700 mt-1">Hari ini</div>
+              <div className="text-2xl font-bold text-gray-900">{overview?.total_bookings || 0}</div>
+              <div className="text-sm font-medium text-orange-600 mt-1">Booking Lapangan</div>
+              <div className="text-xs text-gray-500 mt-1">Hari ini</div>
             </div>
-            <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">📅</span>
+            <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+              <span className="text-lg">📅</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-2xl shadow-lg border border-red-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-purple-500 hover:shadow-md transition-all duration-200 hover:border-l-purple-600">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-3xl font-bold text-red-900">
+              <div className="text-2xl font-bold text-gray-900">
                 {serverInfo?.uptime ? formatUptime(serverInfo.uptime) : 'N/A'}
               </div>
-              <div className="text-sm font-medium text-red-600 mt-1">Uptime</div>
-              <div className="text-xs text-red-700 mt-1">Server aktif</div>
+              <div className="text-sm font-medium text-purple-600 mt-1">Waktu Operasi</div>
+              <div className="text-xs text-gray-500 mt-1">Sistem berjalan</div>
             </div>
-            <div className="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">⏱️</span>
+            <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+              <span className="text-lg">⏱️</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-2xl shadow-lg border border-indigo-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-indigo-500 hover:shadow-md transition-all duration-200 hover:border-l-indigo-600">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-3xl font-bold text-indigo-900">
+              <div className="text-2xl font-bold text-gray-900">
                 {serverInfo?.memory_usage?.heapUsed ? formatMemory(serverInfo.memory_usage.heapUsed) : 'N/A'}
               </div>
-              <div className="text-sm font-medium text-indigo-600 mt-1">Memory</div>
-              <div className="text-xs text-indigo-700 mt-1">Penggunaan RAM</div>
+              <div className="text-sm font-medium text-indigo-600 mt-1">Performa</div>
+              <div className="text-xs text-gray-500 mt-1">Penggunaan memori</div>
             </div>
-            <div className="w-12 h-12 bg-indigo-500 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">💾</span>
+            <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
+              <span className="text-lg">📊</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Enhanced Navigation Tabs */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-2">
-        <nav className="flex space-x-2">
+      {/* Futsal Navigation Tabs */}
+      <div className="bg-white rounded-lg shadow-sm border border-green-200 p-1">
+        <nav className="flex space-x-1">
           {[
-            { id: 'overview', label: 'Ringkasan', icon: '📊', color: 'blue' },
-            { id: 'users', label: 'Pengguna', icon: '👥', color: 'green' },
-            { id: 'fields', label: 'Lapangan', icon: '🏟️', color: 'purple' },
-            { id: 'system', label: 'Sistem & Audit', icon: '⚙️', color: 'indigo' },
-            { id: 'analytics', label: 'Analitik Bisnis', icon: '📈', color: 'orange' }
+            { id: 'overview', label: 'Ringkasan', icon: '🏆' },
+            { id: 'users', label: 'Manajemen Pengguna', icon: '👥' },
+            { id: 'fields', label: 'Lapangan', icon: '🏟️' },
+            { id: 'system', label: 'Sistem & Audit', icon: '⚙️' },
+            { id: 'analytics', label: 'Analitik Bisnis', icon: '📈' }
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveView(tab.id)}
-              className={`flex-1 py-4 px-6 rounded-xl font-medium text-sm transition-all duration-200 flex items-center justify-center space-x-2 ${
+              className={`flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all duration-200 flex items-center justify-center space-x-2 ${
                 activeView === tab.id
-                  ? `bg-gradient-to-r from-${tab.color}-500 to-${tab.color}-600 text-white shadow-lg transform scale-105`
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-sm'
+                  : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
               }`}
             >
-              <span className="text-lg">{tab.icon}</span>
+              <span>{tab.icon}</span>
               <span className="hidden md:inline">{tab.label}</span>
             </button>
           ))}

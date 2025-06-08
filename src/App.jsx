@@ -5,10 +5,12 @@ import AuthProvider from "./contexts/AuthProvider";
 import CustomerLayout from "./layouts/CustomerLayout";
 import StaffLayout from "./layouts/StaffLayout";
 import SupervisorLayout from "./layouts/SupervisorLayout";
+import ConditionalStaffLayout from "./layouts/ConditionalStaffLayout";
 
 // Auth Pages
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 // Customer Pages (penyewa)
 import CustomerDashboard from "./pages/customer/Dashboard";
@@ -36,6 +38,7 @@ function App() {
           {/* Public Routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           {/* CUSTOMER ROUTES (penyewa) */}
           <Route
@@ -54,12 +57,12 @@ function App() {
             <Route path="profile" element={<ProfilePage />} />
           </Route>
 
-          {/* STAFF ROUTES (kasir, operator, manager, supervisor) */}
+          {/* STAFF ROUTES - CONDITIONAL LAYOUT BASED ON ROLE */}
           <Route
             path="/staff"
             element={
               <ProtectedRoute allowedRoles={["staff_kasir", "operator_lapangan", "manajer_futsal", "supervisor_sistem"]}>
-                <StaffLayout />
+                <ConditionalStaffLayout />
               </ProtectedRoute>
             }
           >

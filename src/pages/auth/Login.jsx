@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import ModernAuthContainer from '../../components/auth/ModernAuthContainer';
+import { requestPasswordReset } from '../../api/authAPI';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,6 +11,10 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
+  const [forgotPasswordMessage, setForgotPasswordMessage] = useState('');
+  const [forgotPasswordLoading, setForgotPasswordLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,75 +43,163 @@ const Login = () => {
     }
   };
 
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    setForgotPasswordLoading(true);
+    setForgotPasswordMessage('');
+
+    try {
+      const result = await requestPasswordReset(forgotPasswordEmail);
+      if (result.success) {
+        setForgotPasswordMessage('Link reset password telah dikirim ke email Anda. Silakan cek inbox atau folder spam.');
+      } else {
+        setForgotPasswordMessage(result.message || 'Gagal mengirim email reset password');
+      }
+    } catch (error) {
+      setForgotPasswordMessage(error.response?.data?.message || 'Terjadi kesalahan saat mengirim email reset password');
+    } finally {
+      setForgotPasswordLoading(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      {/* Header */}
-      <div className="bg-blue-900 py-4">
-        <h1 className="text-2xl font-bold text-white text-center uppercase">Booking Futsal</h1>
-      </div>
+    <ModernAuthContainer>
+      {/* Error Message */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 p-4 mb-6 rounded-lg text-sm">
+          <div className="flex items-center space-x-2">
+            <span>❌</span>
+            <span>{error}</span>
+          </div>
+        </div>
+      )}
 
-      {/* Form Container */}
-      <div className="flex-1 flex items-center justify-center px-4">
-        <div className="w-full max-w-sm">
-          <h2 className="text-3xl font-bold text-center text-blue-900 mb-8">Login</h2>
 
-          {error && (
-            <div className="bg-red-100 text-red-700 p-3 mb-4 rounded text-sm">{error}</div>
-          )}
 
-          {/* Test Users Info */}
-          <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4 text-sm">
-            <p className="font-semibold text-blue-800 mb-2">Test Users:</p>
-            <div className="space-y-1 text-blue-700">
-              <p><strong>Customer:</strong> ari@gmail.com / password123</p>
-              <p><strong>Kasir:</strong> kasir1@futsalapp.com / password123</p>
-              <p><strong>Manager:</strong> manajer1@futsalapp.com / password123</p>
-              <p><strong>Supervisor:</strong> pweb@futsalapp.com / password123</p>
-            </div>
+      {/* Login Form */}
+      {!showForgotPassword ? (
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Email Address
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+              placeholder="Masukkan email Anda"
+            />
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Password
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="current-password"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+              placeholder="Masukkan password Anda"
+            />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <button
+              type="button"
+              onClick={() => setShowForgotPassword(true)}
+              className="text-sm text-green-600 hover:text-green-800 font-medium"
+            >
+              Lupa Password?
+            </button>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
+          >
+            {loading ? (
+              <div className="flex items-center justify-center space-x-2">
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span>Masuk...</span>
+              </div>
+            ) : (
+              'Masuk ke Akun'
+            )}
+          </button>
+        </form>
+      ) : (
+        /* Forgot Password Form */
+        <div className="space-y-6">
+          <div className="text-center">
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Lupa Password?</h3>
+            <p className="text-gray-600 text-sm">
+              Masukkan email Anda dan kami akan mengirimkan link untuk reset password.
+            </p>
+          </div>
+
+          {forgotPasswordMessage && (
+            <div className="bg-blue-50 border border-blue-200 text-blue-700 p-4 rounded-lg text-sm">
+              <div className="flex items-center space-x-2">
+                <span>ℹ️</span>
+                <span>{forgotPasswordMessage}</span>
+              </div>
+            </div>
+          )}
+
+          <form onSubmit={handleForgotPassword} className="space-y-6">
             <div>
-              <label className="block text-sm text-gray-800 mb-1">Email Address</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email Address
+              </label>
               <input
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={forgotPasswordEmail}
+                onChange={(e) => setForgotPasswordEmail(e.target.value)}
                 required
-                autoComplete="email"
-                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                placeholder="Masukkan email Anda"
               />
             </div>
 
-            <div>
-              <label className="block text-sm text-gray-800 mb-1">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                autoComplete="current-password"
-                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+            <div className="space-y-3">
+              <button
+                type="submit"
+                disabled={forgotPasswordLoading}
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {forgotPasswordLoading ? (
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Mengirim...</span>
+                  </div>
+                ) : (
+                  'Kirim Link Reset'
+                )}
+              </button>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-blue-900 text-white font-bold py-2 rounded-md hover:bg-blue-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? 'Loading...' : 'LOGIN'}
-            </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowForgotPassword(false);
+                  setForgotPasswordMessage('');
+                  setForgotPasswordEmail('');
+                }}
+                className="w-full text-gray-600 hover:text-gray-800 font-medium py-2"
+              >
+                Kembali ke Login
+              </button>
+            </div>
           </form>
-
-          <p className="text-sm text-center mt-6 text-blue-900">
-            <a href="/register" className="hover:underline font-medium">
-              Register
-            </a>
-          </p>
         </div>
-      </div>
-    </div>
+      )}
+    </ModernAuthContainer>
   );
 };
 

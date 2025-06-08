@@ -140,62 +140,60 @@ const NotificationCenter = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-end backdrop-blur-sm">
-      <div className="bg-white w-full max-w-lg h-full shadow-2xl overflow-hidden border-l-4 border-purple-500">
-        {/* Enhanced Header */}
-        <div className="bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 text-white p-6">
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-end">
+      <div className="bg-white w-full max-w-md h-full shadow-xl overflow-hidden border-l-4 border-l-green-500">
+        {/* Futsal Header */}
+        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-                <span className="text-xl">🔔</span>
+              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                <span className="text-lg">⚽</span>
               </div>
               <div>
-                <h2 className="text-xl font-bold">Notification Center</h2>
-                <p className="text-purple-100 text-sm">Pusat notifikasi sistem</p>
+                <h2 className="text-lg font-semibold text-white">Pemberitahuan Lapangan</h2>
+                <p className="text-green-100 text-sm">Update sistem futsal</p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="text-white hover:text-purple-200 p-2 rounded-lg hover:bg-white/10 transition-colors duration-200"
+              className="text-white hover:text-green-200 p-1 rounded-lg hover:bg-white/10 transition-colors duration-200"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
 
-          {/* Enhanced Stats */}
-          <div className="mt-4 flex items-center space-x-4">
-            {unreadCount > 0 && (
-              <div className="bg-red-500/20 border border-red-400/30 px-3 py-2 rounded-xl backdrop-blur-sm">
-                <span className="text-red-100 text-sm font-medium">
-                  {unreadCount} notifikasi belum dibaca
+          {/* Futsal Stats */}
+          {unreadCount > 0 && (
+            <div className="mt-3 flex items-center space-x-2">
+              <div className="bg-white/20 border border-white/30 px-3 py-1 rounded-lg backdrop-blur-sm">
+                <span className="text-white text-sm font-medium">
+                  🔔 {unreadCount} pemberitahuan baru
                 </span>
               </div>
-            )}
-            <div className="bg-white/10 px-3 py-2 rounded-xl backdrop-blur-sm">
-              <span className="text-purple-100 text-sm">
-                Total: {notifications.length}
-              </span>
+              <div className="text-green-100 text-sm">
+                dari {notifications.length} total
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
-        {/* Enhanced Filter */}
-        <div className="p-6 border-b border-gray-100 bg-gray-50">
-          <div className="flex flex-wrap gap-3 mb-4">
+        {/* Futsal Filter */}
+        <div className="p-4 border-b border-green-100 bg-green-50">
+          <div className="flex gap-2 mb-3">
             {['all', 'unread', 'read'].map((filterType) => (
               <button
                 key={filterType}
                 onClick={() => setFilter(filterType)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                   filter === filterType
-                    ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200 hover:border-purple-300'
+                    ? 'bg-green-500 text-white shadow-sm'
+                    : 'bg-white text-gray-600 hover:bg-green-100 hover:text-green-700'
                 }`}
               >
-                {filterType === 'all' ? '📋 Semua' :
-                 filterType === 'unread' ? '🔴 Belum Dibaca' : '✅ Sudah Dibaca'}
+                {filterType === 'all' ? '🏆 Semua' :
+                 filterType === 'unread' ? '🔔 Belum Dibaca' : '✅ Sudah Dibaca'}
               </button>
             ))}
           </div>
@@ -203,84 +201,83 @@ const NotificationCenter = ({ isOpen, onClose }) => {
           {unreadCount > 0 && (
             <button
               onClick={handleMarkAllAsRead}
-              className="flex items-center space-x-2 text-sm text-purple-600 hover:text-purple-800 font-medium bg-purple-50 hover:bg-purple-100 px-4 py-2 rounded-xl transition-colors duration-200"
+              className="text-sm text-green-700 hover:text-green-800 font-medium hover:bg-green-100 px-3 py-1.5 rounded-lg transition-colors duration-200 flex items-center space-x-1"
             >
-              <span>✅</span>
-              <span>Tandai semua sebagai dibaca ({unreadCount})</span>
+              <span>⚽</span>
+              <span>Tandai semua dibaca ({unreadCount})</span>
             </button>
           )}
         </div>
 
-        {/* Enhanced Notifications List */}
-        <div className="flex-1 overflow-y-auto bg-gray-50">
+        {/* Minimalist Notifications List */}
+        <div className="flex-1 overflow-y-auto">
           {loading ? (
             <div className="p-8 text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-4 border-purple-200 border-t-purple-600 mx-auto"></div>
-              <p className="mt-4 text-gray-600 font-medium">Memuat notifikasi...</p>
-              <p className="text-sm text-gray-500">Mohon tunggu sebentar</p>
+              <div className="animate-spin rounded-full h-8 w-8 border-2 border-gray-300 border-t-blue-500 mx-auto"></div>
+              <p className="mt-3 text-gray-600">Memuat notifikasi...</p>
             </div>
           ) : notifications.length === 0 ? (
-            <div className="p-12 text-center text-gray-500">
-              <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">📭</span>
+            <div className="p-8 text-center text-gray-500">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Tidak ada notifikasi</h3>
-              <p className="text-sm">Semua notifikasi akan muncul di sini</p>
+              <h3 className="font-medium text-gray-900 mb-1">Tidak ada notifikasi</h3>
+              <p className="text-sm">Semua pemberitahuan akan muncul di sini</p>
             </div>
           ) : (
-            <div className="divide-y divide-gray-200">
+            <div className="divide-y divide-gray-100">
               {notifications.map((notification) => (
                 <div
                   key={notification.id}
-                  className={`p-6 hover:bg-white transition-colors duration-200 ${
-                    !notification.read_at
-                      ? 'bg-gradient-to-r from-blue-50 to-purple-50 border-l-4 border-l-purple-500'
-                      : 'bg-white'
+                  className={`p-4 hover:bg-gray-50 transition-colors duration-200 ${
+                    !notification.read_at ? 'bg-blue-50 border-l-4 border-l-blue-500' : ''
                   }`}
                 >
-                  <div className="flex items-start space-x-4">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                  <div className="flex items-start space-x-3">
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
                       !notification.read_at
-                        ? 'bg-gradient-to-br from-purple-500 to-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-600'
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-200 text-gray-500'
                     }`}>
-                      <span className="text-xl">
+                      <span className="text-sm">
                         {getNotificationIcon(notification.type)}
                       </span>
                     </div>
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between">
-                        <h4 className={`font-semibold truncate ${
-                          !notification.read_at ? 'text-gray-900' : 'text-gray-700'
+                        <h4 className={`font-medium text-sm ${
+                          !notification.read_at ? 'text-gray-900' : 'text-gray-600'
                         }`}>
                           {notification.title}
                         </h4>
                         {!notification.read_at && (
-                          <span className="ml-2 w-3 h-3 bg-red-500 rounded-full flex-shrink-0"></span>
+                          <span className="ml-2 w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
                         )}
                       </div>
-                      <p className="text-sm text-gray-600 mt-1 leading-relaxed">
+                      <p className="text-sm text-gray-600 mt-1">
                         {notification.message}
                       </p>
-                      <div className="flex items-center justify-between mt-3">
-                        <p className="text-xs text-gray-500 font-medium">
+                      <div className="flex items-center justify-between mt-2">
+                        <p className="text-xs text-gray-500">
                           {formatNotificationTime(notification.created_at)}
                         </p>
                         <div className="flex items-center space-x-2">
                           {!notification.read_at && (
                             <button
                               onClick={() => handleMarkAsRead(notification.id)}
-                              className="text-xs text-purple-600 hover:text-purple-800 bg-purple-100 hover:bg-purple-200 px-3 py-1 rounded-full font-medium transition-colors duration-200"
+                              className="text-xs text-blue-600 hover:text-blue-800 font-medium"
                             >
-                              ✅ Tandai dibaca
+                              Tandai dibaca
                             </button>
                           )}
                           <button
                             onClick={() => handleDeleteNotification(notification.id)}
-                            className="text-xs text-red-600 hover:text-red-800 bg-red-100 hover:bg-red-200 px-3 py-1 rounded-full font-medium transition-colors duration-200"
+                            className="text-xs text-red-600 hover:text-red-800 font-medium"
                           >
-                            🗑️ Hapus
+                            Hapus
                           </button>
                         </div>
                       </div>

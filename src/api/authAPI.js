@@ -133,7 +133,7 @@ export const refreshToken = async () => {
 
 export const changePassword = async (passwordData) => {
   try {
-    const response = await axiosInstance.put('/auth/change-password', passwordData);
+    const response = await axiosInstance.post('/auth/change-password', passwordData);
     return response.data;
   } catch (error) {
     console.error('❌ Change password error:', error.response?.data || error.message);

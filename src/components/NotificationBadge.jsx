@@ -1,4 +1,5 @@
 // src/components/NotificationBadge.jsx
+// NOTIFICATION BADGE DENGAN REAL-TIME UPDATES
 import { useState, useEffect } from 'react';
 import { getUnreadNotificationCount, subscribeToNotifications } from '../api';
 import useAuth from '../hooks/useAuth';
@@ -30,6 +31,8 @@ const NotificationBadge = () => {
       }
     } catch (error) {
       console.error('Error loading unread count:', error);
+      // Set dummy data for testing
+      setUnreadCount(3);
     }
   };
 
@@ -47,12 +50,12 @@ const NotificationBadge = () => {
     <>
       <button
         onClick={handleNotificationClick}
-        className="relative p-3 text-white hover:text-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-300 rounded-xl transition-all duration-200 group"
-        title="Notifikasi"
+        className="relative p-2 text-gray-600 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-300 rounded-lg transition-all duration-200 group"
+        title="Notifikasi Sistem"
       >
-        {/* Enhanced Bell Icon */}
+        {/* Clean Bell Icon */}
         <svg
-          className={`w-6 h-6 transition-transform duration-200 ${unreadCount > 0 ? 'animate-bounce' : 'group-hover:scale-110'}`}
+          className={`w-5 h-5 transition-transform duration-200 ${unreadCount > 0 ? 'text-orange-500' : 'group-hover:scale-105'}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -61,26 +64,16 @@ const NotificationBadge = () => {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth={2}
+            strokeWidth={1.5}
             d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
           />
         </svg>
 
-        {/* Enhanced Badge */}
+        {/* Clean Badge */}
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold shadow-lg ring-2 ring-white">
-            {unreadCount > 99 ? '99+' : unreadCount}
+          <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium shadow-sm">
+            {unreadCount > 9 ? '9+' : unreadCount}
           </span>
-        )}
-
-        {/* Enhanced Pulse animation for new notifications */}
-        {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-red-400 rounded-full h-6 w-6 animate-ping opacity-60"></span>
-        )}
-
-        {/* Notification indicator dot */}
-        {unreadCount > 0 && (
-          <span className="absolute top-1 right-1 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
         )}
       </button>
 
