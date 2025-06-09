@@ -1,25 +1,42 @@
 import axios from 'axios';
 
-// API Base URL Configuration - Force relative path for Vite proxy
-const baseURL = '/api';
-
-// Development logging
+// API Base URL Configuration
 const isDevelopment = import.meta.env.VITE_NODE_ENV === 'development' || import.meta.env.DEV;
+const isProduction = import.meta.env.PROD;
+
+// Determine base URL based on environment
+let baseURL;
+if (isProduction) {
+  // Production: Use direct Railway API URL
+  baseURL = 'https://booking-futsal-production.up.railway.app/api';
+} else {
+  // Development: Use Vite proxy
+  baseURL = '/api';
+}
+
+// Environment logging
+console.log('🌍 Environment Mode:', isProduction ? 'PRODUCTION' : 'DEVELOPMENT');
+console.log('📡 API Base URL:', baseURL);
 
 if (isDevelopment) {
-  console.log('🔧 Development Mode Detected');
-  console.log('📡 API Base URL (FORCED):', baseURL);
-  console.log('🌍 Environment:', import.meta.env.VITE_NODE_ENV);
+  console.log('🔧 Development Mode - Using Vite Proxy');
   console.log('🔍 VITE_API_URL env var:', import.meta.env.VITE_API_URL);
+} else {
+  console.log('🚀 Production Mode - Direct Railway API');
 }
 
 // Create axios instance with default configuration
 const axiosInstance = axios.create({
   baseURL,
   withCredentials: true, // Important for HttpOnly cookie authentication
-  timeout: 10000, // 10 seconds timeout
+  timeout: 15000, // 15 seconds timeout for production
   headers: {
     'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    // Add Origin header for production CORS
+    ...(isProduction && {
+      'Origin': 'https://booking-futsal-frontend.vercel.app'
+    })
   },
 });
 

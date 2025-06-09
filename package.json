@@ -9,6 +9,8 @@
     "start": "node scripts/start-info.js",
     "build": "vite build",
     "build:prod": "cross-env NODE_ENV=production vite build --mode production",
+    "deploy": "node scripts/deploy-production.js",
+    "test:api": "node scripts/test-production-api.js",
     "lint": "eslint .",
     "preview": "vite preview --port $PORT",
     "clean": "rm -rf dist node_modules/.vite"
