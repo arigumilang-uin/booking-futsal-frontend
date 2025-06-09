@@ -12,8 +12,8 @@ import {
   getSystemHealthStatus
 } from '../api';
 
-// Lazy load AuditTrailViewer untuk menghindari duplikasi
-const AuditTrailViewer = lazy(() => import('./AuditTrailViewer'));
+// Lazy load AuditLogsPanel untuk audit logs management
+const AuditLogsPanel = lazy(() => import('./AuditLogsPanel'));
 
 const SystemMaintenancePanel = () => {
   const { user } = useAuth();
@@ -406,15 +406,15 @@ const SystemMaintenancePanel = () => {
         </div>
       )}
 
-      {/* AUDIT TAB - INTEGRATED AUDIT TRAIL */}
+      {/* AUDIT TAB - INTEGRATED AUDIT LOGS */}
       {activeTab === 'audit' && (
         <Suspense fallback={
           <div className="bg-white rounded-lg shadow p-8 text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-2 text-gray-600">Memuat audit trail...</p>
+            <p className="mt-2 text-gray-600">Memuat audit logs...</p>
           </div>
         }>
-          <AuditTrailViewer />
+          <AuditLogsPanel />
         </Suspense>
       )}
 

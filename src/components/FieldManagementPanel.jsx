@@ -7,8 +7,11 @@ const FieldManagementPanel = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [fields, setFields] = useState([]);
+  const [operators, setOperators] = useState([]);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [editingField, setEditingField] = useState(null);
+  const [showAssignModal, setShowAssignModal] = useState(false);
+  const [selectedField, setSelectedField] = useState(null);
   const [filters, setFilters] = useState({
     status: '',
     type: '',
@@ -19,13 +22,14 @@ const FieldManagementPanel = () => {
   const [newField, setNewField] = useState({
     name: '',
     description: '',
-    type: 'indoor',
-    price_per_hour: '',
+    type: 'futsal',
+    price: '',
+    price_weekend: '',
     capacity: '',
     facilities: [],
     location: '',
-    is_active: true,
-    maintenance_schedule: '',
+    address: '',
+    status: 'active',
     operating_hours: {
       start: '06:00',
       end: '23:00'
@@ -35,6 +39,7 @@ const FieldManagementPanel = () => {
   useEffect(() => {
     if (user?.role === 'supervisor_sistem') {
       loadFields();
+      loadOperators();
     }
   }, [user, filters]);
 
@@ -44,7 +49,7 @@ const FieldManagementPanel = () => {
       const params = Object.fromEntries(
         Object.entries(filters).filter(([_, value]) => value !== '')
       );
-      
+
       const response = await axiosInstance.get('/admin/fields', { params });
       console.log('✅ Fields data loaded:', response.data);
       // Backend returns data as array directly, not data.fields
@@ -56,92 +61,108 @@ const FieldManagementPanel = () => {
     }
   };
 
+  const loadOperators = async () => {
+    try {
+      const response = await axiosInstance.get('/admin/operators');
+      console.log('✅ Operators data loaded:', response.data);
+      setOperators(response.data.data || []);
+    } catch (error) {
+      console.error('Error loading operators:', error);
+    }
+  };
+
+  const handleAssignOperator = async (fieldId, operatorId) => {
+    try {
+      await axiosInstance.put(`/admin/fields/${fieldId}/assign-operator`, {
+        operator_id: operatorId
+      });
+      await loadFields(); // Reload fields to show updated assignment
+      setShowAssignModal(false);
+      alert('Operator berhasil ditugaskan');
+    } catch (error) {
+      console.error('Error assigning operator:', error);
+      alert('Gagal menugaskan operator');
+    }
+  };
+
   const handleCreateField = async () => {
     try {
-      if (!newField.name || !newField.price_per_hour) {
-        alert('Name dan price per hour harus diisi');
+      if (!newField.name || !newField.price) {
+        alert('Name dan price harus diisi');
         return;
       }
 
-      const response = await fetch('/api/admin/fields', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          ...newField,
-          price_per_hour: parseFloat(newField.price_per_hour),
-          capacity: newField.capacity ? parseInt(newField.capacity) : null,
-          facilities: Array.isArray(newField.facilities) ? newField.facilities : newField.facilities.split(',').map(f => f.trim()).filter(f => f)
-        })
-      });
+      const fieldData = {
+        ...newField,
+        price: parseFloat(newField.price),
+        price_weekend: newField.price_weekend ? parseFloat(newField.price_weekend) : null,
+        capacity: newField.capacity ? parseInt(newField.capacity) : 22,
+        facilities: Array.isArray(newField.facilities) ? newField.facilities : newField.facilities.split(',').map(f => f.trim()).filter(f => f)
+      };
 
-      if (response.ok) {
+      const response = await axiosInstance.post('/admin/fields', fieldData);
+
+      if (response.data.success) {
         await loadFields();
         resetForm();
         setShowCreateForm(false);
         alert('Lapangan berhasil dibuat');
+      } else {
+        alert('Gagal membuat lapangan: ' + response.data.message);
       }
     } catch (error) {
       console.error('Error creating field:', error);
-      alert('Gagal membuat lapangan: ' + error.message);
+      alert('Gagal membuat lapangan: ' + (error.response?.data?.message || error.message));
     }
   };
 
   const handleUpdateField = async () => {
     try {
-      if (!editingField.name || !editingField.price_per_hour) {
-        alert('Name dan price per hour harus diisi');
+      if (!editingField.name || !editingField.price) {
+        alert('Name dan price harus diisi');
         return;
       }
 
-      const response = await fetch(`/api/admin/fields/${editingField.id}`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          ...editingField,
-          price_per_hour: parseFloat(editingField.price_per_hour),
-          capacity: editingField.capacity ? parseInt(editingField.capacity) : null,
-          facilities: Array.isArray(editingField.facilities) ? editingField.facilities : editingField.facilities.split(',').map(f => f.trim()).filter(f => f)
-        })
-      });
+      const fieldData = {
+        ...editingField,
+        price: parseFloat(editingField.price),
+        price_weekend: editingField.price_weekend ? parseFloat(editingField.price_weekend) : null,
+        capacity: editingField.capacity ? parseInt(editingField.capacity) : null,
+        facilities: Array.isArray(editingField.facilities) ? editingField.facilities : editingField.facilities.split(',').map(f => f.trim()).filter(f => f)
+      };
 
-      if (response.ok) {
+      const response = await axiosInstance.put(`/admin/fields/${editingField.id}`, fieldData);
+
+      if (response.data.success) {
         await loadFields();
         setEditingField(null);
         alert('Lapangan berhasil diupdate');
+      } else {
+        alert('Gagal mengupdate lapangan: ' + response.data.message);
       }
     } catch (error) {
       console.error('Error updating field:', error);
-      alert('Gagal mengupdate lapangan: ' + error.message);
+      alert('Gagal mengupdate lapangan: ' + (error.response?.data?.message || error.message));
     }
   };
 
   const handleDeleteField = async (fieldId) => {
-    if (!confirm('Apakah Anda yakin ingin menghapus lapangan ini?')) {
+    if (!confirm('Apakah Anda yakin ingin menghapus lapangan ini? (Status akan diubah menjadi inactive)')) {
       return;
     }
 
     try {
-      const response = await fetch(`/api/admin/fields/${fieldId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-          'Content-Type': 'application/json'
-        }
-      });
+      const response = await axiosInstance.delete(`/admin/fields/${fieldId}`);
 
-      if (response.ok) {
+      if (response.data.success) {
         await loadFields();
-        alert('Lapangan berhasil dihapus');
+        alert('Lapangan berhasil dihapus (status diubah menjadi inactive)');
+      } else {
+        alert('Gagal menghapus lapangan: ' + response.data.message);
       }
     } catch (error) {
       console.error('Error deleting field:', error);
-      alert('Gagal menghapus lapangan: ' + error.message);
+      alert('Gagal menghapus lapangan: ' + (error.response?.data?.message || error.message));
     }
   };
 
@@ -149,13 +170,14 @@ const FieldManagementPanel = () => {
     setNewField({
       name: '',
       description: '',
-      type: 'indoor',
-      price_per_hour: '',
+      type: 'futsal',
+      price: '',
+      price_weekend: '',
       capacity: '',
       facilities: [],
       location: '',
-      is_active: true,
-      maintenance_schedule: '',
+      address: '',
+      status: 'active',
       operating_hours: {
         start: '06:00',
         end: '23:00'
@@ -226,6 +248,7 @@ const FieldManagementPanel = () => {
             className="border border-gray-300 rounded-lg px-3 py-2"
           >
             <option value="">Semua Type</option>
+            <option value="futsal">Futsal</option>
             <option value="indoor">Indoor</option>
             <option value="outdoor">Outdoor</option>
             <option value="synthetic">Synthetic</option>
@@ -274,26 +297,45 @@ const FieldManagementPanel = () => {
                 placeholder="Lapangan A"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Price per Hour <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
-                value={editingField ? editingField.price_per_hour : newField.price_per_hour}
+                value={editingField ? (editingField.price || editingField.price_per_hour) : newField.price}
                 onChange={(e) => {
                   if (editingField) {
-                    setEditingField(prev => ({ ...prev, price_per_hour: e.target.value }));
+                    setEditingField(prev => ({ ...prev, price: e.target.value }));
                   } else {
-                    setNewField(prev => ({ ...prev, price_per_hour: e.target.value }));
+                    setNewField(prev => ({ ...prev, price: e.target.value }));
                   }
                 }}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2"
                 placeholder="100000"
               />
             </div>
-            
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Price Weekend (Optional)
+              </label>
+              <input
+                type="number"
+                value={editingField ? editingField.price_weekend : newField.price_weekend}
+                onChange={(e) => {
+                  if (editingField) {
+                    setEditingField(prev => ({ ...prev, price_weekend: e.target.value }));
+                  } else {
+                    setNewField(prev => ({ ...prev, price_weekend: e.target.value }));
+                  }
+                }}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                placeholder="120000"
+              />
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Type</label>
               <select
@@ -307,13 +349,14 @@ const FieldManagementPanel = () => {
                 }}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2"
               >
+                <option value="futsal">Futsal</option>
                 <option value="indoor">Indoor</option>
                 <option value="outdoor">Outdoor</option>
                 <option value="synthetic">Synthetic</option>
                 <option value="grass">Grass</option>
               </select>
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Capacity</label>
               <input
@@ -330,7 +373,7 @@ const FieldManagementPanel = () => {
                 placeholder="22"
               />
             </div>
-            
+
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
               <textarea
@@ -347,7 +390,7 @@ const FieldManagementPanel = () => {
                 placeholder="Deskripsi lapangan"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
               <input
@@ -361,15 +404,32 @@ const FieldManagementPanel = () => {
                   }
                 }}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2"
-                placeholder="Lantai 1, Sektor A"
+                placeholder="Pekanbaru"
               />
             </div>
-            
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
+              <input
+                type="text"
+                value={editingField ? editingField.address : newField.address}
+                onChange={(e) => {
+                  if (editingField) {
+                    setEditingField(prev => ({ ...prev, address: e.target.value }));
+                  } else {
+                    setNewField(prev => ({ ...prev, address: e.target.value }));
+                  }
+                }}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                placeholder="Jl. Sudirman No. 123, Pekanbaru"
+              />
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Facilities (comma separated)</label>
               <input
                 type="text"
-                value={editingField ? 
+                value={editingField ?
                   (Array.isArray(editingField.facilities) ? editingField.facilities.join(', ') : editingField.facilities) :
                   (Array.isArray(newField.facilities) ? newField.facilities.join(', ') : newField.facilities)
                 }
@@ -384,7 +444,7 @@ const FieldManagementPanel = () => {
                 placeholder="AC, Shower, Parking, Locker"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Operating Hours Start</label>
               <input
@@ -392,13 +452,13 @@ const FieldManagementPanel = () => {
                 value={editingField ? editingField.operating_hours?.start : newField.operating_hours.start}
                 onChange={(e) => {
                   if (editingField) {
-                    setEditingField(prev => ({ 
-                      ...prev, 
+                    setEditingField(prev => ({
+                      ...prev,
                       operating_hours: { ...prev.operating_hours, start: e.target.value }
                     }));
                   } else {
-                    setNewField(prev => ({ 
-                      ...prev, 
+                    setNewField(prev => ({
+                      ...prev,
                       operating_hours: { ...prev.operating_hours, start: e.target.value }
                     }));
                   }
@@ -406,7 +466,7 @@ const FieldManagementPanel = () => {
                 className="w-full border border-gray-300 rounded-lg px-3 py-2"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Operating Hours End</label>
               <input
@@ -414,13 +474,13 @@ const FieldManagementPanel = () => {
                 value={editingField ? editingField.operating_hours?.end : newField.operating_hours.end}
                 onChange={(e) => {
                   if (editingField) {
-                    setEditingField(prev => ({ 
-                      ...prev, 
+                    setEditingField(prev => ({
+                      ...prev,
                       operating_hours: { ...prev.operating_hours, end: e.target.value }
                     }));
                   } else {
-                    setNewField(prev => ({ 
-                      ...prev, 
+                    setNewField(prev => ({
+                      ...prev,
                       operating_hours: { ...prev.operating_hours, end: e.target.value }
                     }));
                   }
@@ -428,26 +488,27 @@ const FieldManagementPanel = () => {
                 className="w-full border border-gray-300 rounded-lg px-3 py-2"
               />
             </div>
-            
+
             <div className="md:col-span-2">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={editingField ? editingField.is_active : newField.is_active}
-                  onChange={(e) => {
-                    if (editingField) {
-                      setEditingField(prev => ({ ...prev, is_active: e.target.checked }));
-                    } else {
-                      setNewField(prev => ({ ...prev, is_active: e.target.checked }));
-                    }
-                  }}
-                  className="mr-2"
-                />
-                <span className="text-sm text-gray-700">Aktifkan lapangan</span>
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+              <select
+                value={editingField ? editingField.status : newField.status}
+                onChange={(e) => {
+                  if (editingField) {
+                    setEditingField(prev => ({ ...prev, status: e.target.value }));
+                  } else {
+                    setNewField(prev => ({ ...prev, status: e.target.value }));
+                  }
+                }}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2"
+              >
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="maintenance">Maintenance</option>
+              </select>
             </div>
           </div>
-          
+
           <div className="flex space-x-3 mt-6">
             <button
               onClick={editingField ? handleUpdateField : handleCreateField}
@@ -504,6 +565,9 @@ const FieldManagementPanel = () => {
                     Operating Hours
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Assigned Operator
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -525,13 +589,28 @@ const FieldManagementPanel = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{field.type}</div>
-                      <div className="text-sm text-gray-500">Rp {field.price_per_hour?.toLocaleString('id-ID')}/jam</div>
+                      <div className="text-sm text-gray-500">
+                        Rp {(field.price || field.price_per_hour)?.toLocaleString('id-ID')}/jam
+                      </div>
+                      {field.price_weekend && (
+                        <div className="text-xs text-gray-400">Weekend: Rp {field.price_weekend?.toLocaleString('id-ID')}/jam</div>
+                      )}
                       {field.capacity && (
                         <div className="text-xs text-gray-400">Kapasitas: {field.capacity} orang</div>
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       <div>{field.operating_hours?.start} - {field.operating_hours?.end}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {field.operator_name ? (
+                        <div>
+                          <div className="font-medium text-gray-900">{field.operator_name}</div>
+                          <div className="text-xs text-gray-400">ID: {field.operator_employee_id}</div>
+                        </div>
+                      ) : (
+                        <span className="text-gray-400 italic">Belum ditugaskan</span>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(field)}`}>
@@ -540,6 +619,15 @@ const FieldManagementPanel = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex space-x-2">
+                        <button
+                          onClick={() => {
+                            setSelectedField(field);
+                            setShowAssignModal(true);
+                          }}
+                          className="text-purple-600 hover:text-purple-900"
+                        >
+                          Assign
+                        </button>
                         <button
                           onClick={() => setEditingField(field)}
                           className="text-blue-600 hover:text-blue-900"
@@ -561,6 +649,59 @@ const FieldManagementPanel = () => {
           </div>
         )}
       </div>
+
+      {/* Assign Operator Modal */}
+      {showAssignModal && selectedField && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <h3 className="text-lg font-semibold mb-4">Assign Operator - {selectedField.name}</h3>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Pilih Operator
+                </label>
+                <select
+                  defaultValue={selectedField.assigned_operator || ''}
+                  onChange={(e) => {
+                    const operatorId = e.target.value ? parseInt(e.target.value) : null;
+                    handleAssignOperator(selectedField.id, operatorId);
+                  }}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                >
+                  <option value="">-- Pilih Operator --</option>
+                  {operators.map(operator => (
+                    <option key={operator.id} value={operator.id}>
+                      {operator.name} ({operator.employee_id})
+                      {operator.is_available ? '' : ' - Sudah Ditugaskan'}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {selectedField.assigned_operator && (
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                  <p className="text-sm text-yellow-800">
+                    <strong>Operator Saat Ini:</strong> {selectedField.operator_name}
+                  </p>
+                  <p className="text-xs text-yellow-600 mt-1">
+                    Pilih operator baru untuk mengganti, atau pilih "-- Pilih Operator --" untuk menghapus penugasan.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-end space-x-3 mt-6">
+              <button
+                onClick={() => setShowAssignModal(false)}
+                className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium"
+              >
+                Batal
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

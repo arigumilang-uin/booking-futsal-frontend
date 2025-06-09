@@ -1,30 +1,22 @@
 // src/layouts/ConditionalStaffLayout.jsx
-// CONDITIONAL LAYOUT - DIFFERENT LAYOUT FOR SUPERVISOR VS OTHER STAFF
+// CONDITIONAL LAYOUT - MINIMALIST DESIGN FOR ALL STAFF ROLES
 import { Outlet } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
-import StaffNavbar from "../components/StaffNavbar";
 
 const ConditionalStaffLayout = () => {
   const { user } = useContext(AuthContext);
 
-  // Supervisor gets NO LAYOUT (direct component rendering)
-  if (user?.role === 'supervisor_sistem') {
-    return (
-      <div className="min-h-screen">
-        {/* No navbar for supervisor - they have their own header */}
-        <main>
-          <Outlet />
-        </main>
-      </div>
-    );
-  }
+  // ALL STAFF ROLES GET NO LAYOUT (direct component rendering)
+  // Each dashboard component has its own minimalist header
+  // Supervisor: MinimalistSupervisorDashboard (with MinimalistSupervisorHeader)
+  // Manager: MinimalistManagerDashboard (with MinimalistManagerHeader)
+  // Kasir & Operator: Will use their own minimalist dashboards
 
-  // Other staff roles get normal StaffLayout with navbar
   return (
-    <div>
-      <StaffNavbar />
-      <main className="p-4">
+    <div className="min-h-screen">
+      {/* No navbar for any staff - they have their own minimalist headers */}
+      <main>
         <Outlet />
       </main>
     </div>

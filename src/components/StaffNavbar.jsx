@@ -53,7 +53,7 @@ const StaffNavbar = () => {
   return (
     <nav className="bg-blue-800 text-white px-6 py-4 flex justify-between items-center">
       <div className="flex items-center gap-6">
-        <Link to="/staff" className="font-bold text-xl">Booking Futsal - Staff</Link>
+        <Link to="/staff" className="font-bold text-xl">Futsal Pekanbaru - Staff</Link>
         
         {navigation.map((nav, index) => (
           <Link key={index} to={nav.path} className="hover:underline">

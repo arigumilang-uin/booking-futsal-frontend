@@ -14,6 +14,7 @@ const BookingForm = () => {
   const [fields, setFields] = useState([]);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [checkingAvailability, setCheckingAvailability] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -25,14 +26,14 @@ const BookingForm = () => {
     notes: ''
   });
 
-  const [availableSlots, setAvailableSlots] = useState([]);
-
   const timeSlots = [
     '08:00-09:00', '09:00-10:00', '10:00-11:00', '11:00-12:00',
     '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00',
     '16:00-17:00', '17:00-18:00', '18:00-19:00', '19:00-20:00',
     '20:00-21:00', '21:00-22:00'
   ];
+
+  const [availableSlots, setAvailableSlots] = useState(timeSlots); // Initialize dengan default slots
 
   useEffect(() => {
     loadFields();
@@ -41,15 +42,24 @@ const BookingForm = () => {
   useEffect(() => {
     if (formData.fieldId && formData.date) {
       checkAvailability();
+    } else {
+      // Reset to default slots when field or date is cleared
+      setAvailableSlots(timeSlots);
     }
   }, [formData.fieldId, formData.date]);
 
   const loadFields = async () => {
     try {
       setLoading(true);
+      console.log('Loading fields...');
       const response = await getPublicFields();
+      console.log('Fields response:', response);
       if (response.success) {
+        console.log('Fields loaded:', response.data);
         setFields(response.data);
+      } else {
+        console.log('Failed to load fields:', response);
+        setError('Gagal memuat data lapangan');
       }
     } catch (error) {
       console.error('Error loading fields:', error);
@@ -61,24 +71,34 @@ const BookingForm = () => {
 
   const checkAvailability = async () => {
     try {
+      setCheckingAvailability(true);
+      console.log('Checking availability for field:', formData.fieldId, 'date:', formData.date);
       const response = await checkFieldAvailability(formData.fieldId, formData.date);
-      if (response.success && response.data.availability) {
+      console.log('Availability response:', response);
+
+      if (response.success && response.data && response.data.availability) {
         // Extract available time slots from backend response
         const available = response.data.availability
           .filter(slot => slot.available)
           .map(slot => `${slot.start_time}-${slot.end_time}`);
+        console.log('Available slots from API:', available);
         setAvailableSlots(available.length > 0 ? available : timeSlots);
       } else {
+        console.log('No availability data, using default slots');
         setAvailableSlots(timeSlots); // Fallback to all slots
       }
     } catch (error) {
       console.error('Error checking availability:', error);
+      console.log('API error, using default slots');
       setAvailableSlots(timeSlots); // Fallback to all slots
+    } finally {
+      setCheckingAvailability(false);
     }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log('Form input changed:', name, '=', value);
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -123,6 +143,17 @@ const BookingForm = () => {
 
       if (response.success) {
         setSuccess('Booking berhasil dibuat! Redirecting...');
+        console.log('Booking created successfully:', response.data);
+
+        // Reset form untuk memungkinkan booking baru
+        setFormData({
+          fieldId: '',
+          date: '',
+          timeSlot: '',
+          duration: 1,
+          notes: ''
+        });
+
         setTimeout(() => {
           navigate('/bookings');
         }, 2000);
@@ -210,9 +241,11 @@ const BookingForm = () => {
                 onChange={handleInputChange}
                 required
                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                disabled={!formData.fieldId || !formData.date}
+                disabled={!formData.fieldId || !formData.date || checkingAvailability}
               >
-                <option value="">Pilih waktu...</option>
+                <option value="">
+                  {checkingAvailability ? 'Mengecek ketersediaan...' : 'Pilih waktu...'}
+                </option>
                 {availableSlots.map(slot => (
                   <option key={slot} value={slot}>
                     {slot}
@@ -221,7 +254,11 @@ const BookingForm = () => {
               </select>
               {!formData.fieldId || !formData.date ? (
                 <p className="text-sm text-gray-500 mt-1">Pilih lapangan dan tanggal terlebih dahulu</p>
-              ) : null}
+              ) : checkingAvailability ? (
+                <p className="text-sm text-blue-500 mt-1">🔄 Mengecek ketersediaan waktu...</p>
+              ) : (
+                <p className="text-sm text-green-500 mt-1">✅ {availableSlots.length} slot waktu tersedia</p>
+              )}
             </div>
 
             {/* Duration */}

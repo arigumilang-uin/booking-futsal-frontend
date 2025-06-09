@@ -112,11 +112,35 @@ export const getNotificationAnalytics = async (params = {}) => {
 
 // ===== REAL-TIME NOTIFICATION HELPERS =====
 
-export const subscribeToNotifications = (userId, onNotification) => {
-  // Implementasi WebSocket atau Server-Sent Events untuk real-time notifications
-  // Untuk saat ini, kita bisa menggunakan polling sebagai fallback
+export const subscribeToNotifications = (userId, onNotification, useWebSocket = true) => {
+  // Primary: WebSocket implementation
+  if (useWebSocket && window.WebSocket) {
+    try {
+      // Import WebSocket service dynamically to avoid circular dependencies
+      import('../services/WebSocketService.js').then(({ default: webSocketService }) => {
+        // WebSocket notifications are handled by useWebSocket hook
+        console.log('🔌 Using WebSocket for real-time notifications');
+
+        // Setup WebSocket notification listener
+        const handleNotification = (notification) => {
+          onNotification([notification]);
+        };
+
+        webSocketService.on('notification', handleNotification);
+
+        // Return cleanup function
+        return () => {
+          webSocketService.off('notification', handleNotification);
+        };
+      });
+    } catch (error) {
+      console.error('❌ WebSocket not available, falling back to polling:', error);
+    }
+  }
+
+  // Fallback: Polling implementation
   const pollInterval = 30000; // 30 detik
-  
+
   const poll = async () => {
     try {
       const response = await getNotifications({ unread_only: true, limit: 10 });
@@ -128,9 +152,9 @@ export const subscribeToNotifications = (userId, onNotification) => {
     }
   };
 
-  // Start polling
+  // Start polling as fallback
   const intervalId = setInterval(poll, pollInterval);
-  
+
   // Return cleanup function
   return () => clearInterval(intervalId);
 };

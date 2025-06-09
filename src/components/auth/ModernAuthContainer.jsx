@@ -129,7 +129,7 @@ const ModernAuthContainer = ({ children }) => {
 
       {/* Footer */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center text-gray-500 text-sm">
-        <p>© 2025 FutsalPro. All rights reserved.</p>
+        <p>© 2025 FutsalPro Pekanbaru. All rights reserved.</p>
       </div>
 
 

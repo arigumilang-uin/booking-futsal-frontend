@@ -41,11 +41,11 @@ const FieldList = () => {
 
   const locationOptions = [
     { value: 'semua', label: 'Semua Lokasi' },
-    { value: 'jakarta_pusat', label: 'Jakarta Pusat' },
-    { value: 'jakarta_selatan', label: 'Jakarta Selatan' },
-    { value: 'jakarta_timur', label: 'Jakarta Timur' },
-    { value: 'jakarta_barat', label: 'Jakarta Barat' },
-    { value: 'jakarta_utara', label: 'Jakarta Utara' }
+    { value: 'pekanbaru_pusat', label: 'Pekanbaru Pusat' },
+    { value: 'pekanbaru_timur', label: 'Pekanbaru Timur' },
+    { value: 'pekanbaru_barat', label: 'Pekanbaru Barat' },
+    { value: 'pekanbaru_selatan', label: 'Pekanbaru Selatan' },
+    { value: 'pekanbaru_utara', label: 'Pekanbaru Utara' }
   ];
 
   useEffect(() => {
@@ -313,7 +313,7 @@ const FieldList = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
-                    <span className="text-sm">{field.location || 'Jakarta'}</span>
+                    <span className="text-sm">{field.location || 'Pekanbaru, Riau'}</span>
                   </div>
 
                   {/* Facilities */}
@@ -411,7 +411,7 @@ const FieldList = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Lokasi:</span>
-                      <span className="font-medium">{selectedField.location || 'Jakarta'}</span>
+                      <span className="font-medium">{selectedField.location || 'Pekanbaru, Riau'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Kapasitas:</span>

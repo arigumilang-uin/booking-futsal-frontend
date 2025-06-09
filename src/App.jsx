@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import AuthProvider from "./contexts/AuthProvider";
+import NotificationProvider from "./contexts/NotificationProvider";
+import EnhancedErrorBoundary from "./components/EnhancedErrorBoundary";
+import performanceService from "./services/PerformanceService";
 
 // Layouts
 import CustomerLayout from "./layouts/CustomerLayout";
@@ -19,6 +22,7 @@ import BookingList from "./pages/customer/Booking/BookingList";
 import FieldList from "./pages/customer/Field/FieldList";
 import PaymentPage from "./pages/customer/Payment/PaymentPage";
 import ProfilePage from "./pages/customer/Profile/ProfilePage";
+import BookingDebugger from "./components/BookingDebugger";
 
 // Staff Pages (kasir, operator, manager, supervisor)
 import StaffDashboard from "./pages/staff/Dashboard";
@@ -31,6 +35,13 @@ import UserManagement from "./pages/staff/User/UserManagement";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
+  console.log('🚀 Booking Futsal App is starting...');
+
+  // Initialize performance monitoring
+  // if (typeof window !== 'undefined') {
+  //   performanceService.startMeasure('app-initialization');
+  // }
+
   return (
     <AuthProvider>
       <Router>
@@ -52,6 +63,7 @@ function App() {
             <Route index element={<CustomerDashboard />} />
             <Route path="bookings/new" element={<BookingForm />} />
             <Route path="bookings" element={<BookingList />} />
+            <Route path="bookings/debug" element={<BookingDebugger />} />
             <Route path="fields" element={<FieldList />} />
             <Route path="payments" element={<PaymentPage />} />
             <Route path="profile" element={<ProfilePage />} />
@@ -74,7 +86,7 @@ function App() {
           </Route>
 
           {/* Redirect unknown route */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </Router>
     </AuthProvider>

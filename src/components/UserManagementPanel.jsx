@@ -19,7 +19,7 @@ const UserManagementPanel = () => {
   const [filters, setFilters] = useState({
     role: '',
     search: '',
-    is_active: '',
+    status: '',
     department: '',
     page: 1,
     limit: 20
@@ -109,8 +109,8 @@ const UserManagementPanel = () => {
     }
   };
 
-  const handleRoleChange = async (userId, newRole, reason = '') => {
-    if (!confirm(`Apakah Anda yakin ingin mengubah role user ini menjadi ${newRole}?`)) {
+  const handleRoleChange = async (userId, newRole, reason = 'Role changed by supervisor') => {
+    if (!confirm(`Apakah Anda yakin ingin mengubah role user ini menjadi ${getRoleLabel(newRole)}?`)) {
       return;
     }
 
@@ -121,6 +121,8 @@ const UserManagementPanel = () => {
         await loadRoleStats();
         setEditingUser(null);
         alert('Role berhasil diubah');
+      } else {
+        alert('Gagal mengubah role: ' + response.message);
       }
     } catch (error) {
       console.error('Error changing role:', error);
@@ -224,13 +226,13 @@ const UserManagementPanel = () => {
           />
 
           <select
-            value={filters.is_active}
-            onChange={(e) => setFilters(prev => ({ ...prev, is_active: e.target.value, page: 1 }))}
+            value={filters.status}
+            onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value, page: 1 }))}
             className="border border-gray-300 rounded-lg px-3 py-2"
           >
             <option value="">Semua Status</option>
-            <option value="true">Aktif</option>
-            <option value="false">Tidak Aktif</option>
+            <option value="active">Aktif</option>
+            <option value="inactive">Tidak Aktif</option>
           </select>
 
           <input
@@ -260,7 +262,7 @@ const UserManagementPanel = () => {
                 placeholder="Nama lengkap"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email <span className="text-red-500">*</span>
@@ -273,7 +275,7 @@ const UserManagementPanel = () => {
                 placeholder="email@example.com"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Telepon
@@ -286,7 +288,7 @@ const UserManagementPanel = () => {
                 placeholder="08xxxxxxxxxx"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Role <span className="text-red-500">*</span>
@@ -302,7 +304,7 @@ const UserManagementPanel = () => {
                 <option value="supervisor_sistem">Supervisor Sistem</option>
               </select>
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Department
@@ -315,7 +317,7 @@ const UserManagementPanel = () => {
                 placeholder="IT, Operations, etc."
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Employee ID
@@ -329,7 +331,7 @@ const UserManagementPanel = () => {
               />
             </div>
           </div>
-          
+
           <div className="flex space-x-3 mt-6">
             <button
               onClick={handleCreateUser}
@@ -429,16 +431,15 @@ const UserManagementPanel = () => {
                       {userData.department || '-'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        userData.is_active 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-red-100 text-red-800'
-                      }`}>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${userData.is_active
+                        ? 'bg-green-100 text-green-800'
+                        : 'bg-red-100 text-red-800'
+                        }`}>
                         {userData.is_active ? 'Aktif' : 'Tidak Aktif'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {userData.last_login_at 
+                      {userData.last_login_at
                         ? new Date(userData.last_login_at).toLocaleDateString('id-ID')
                         : 'Belum pernah login'
                       }
@@ -450,6 +451,50 @@ const UserManagementPanel = () => {
                           className="text-blue-600 hover:text-blue-900"
                         >
                           Edit Role
+                        </button>
+                        <button
+                          onClick={async () => {
+                            if (window.confirm(`Apakah Anda yakin ingin ${userData.is_active ? 'menonaktifkan' : 'mengaktifkan'} user ini?`)) {
+                              try {
+                                const response = await axiosInstance.patch(`/admin/users/${userData.id}/status`, {
+                                  is_active: !userData.is_active
+                                });
+                                if (response.data.success) {
+                                  await loadUsers();
+                                  alert('Status user berhasil diubah');
+                                } else {
+                                  alert('Gagal mengubah status user: ' + response.data.message);
+                                }
+                              } catch (error) {
+                                console.error('Error updating user status:', error);
+                                alert('Gagal mengubah status user: ' + (error.response?.data?.message || error.message));
+                              }
+                            }
+                          }}
+                          className={`${userData.is_active ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'}`}
+                        >
+                          {userData.is_active ? 'Deactivate' : 'Activate'}
+                        </button>
+                        <button
+                          onClick={async () => {
+                            if (window.confirm('Apakah Anda yakin ingin menghapus user ini? (User akan dinonaktifkan)')) {
+                              try {
+                                const response = await axiosInstance.delete(`/admin/users/${userData.id}`);
+                                if (response.data.success) {
+                                  await loadUsers();
+                                  alert('User berhasil dihapus (dinonaktifkan)');
+                                } else {
+                                  alert('Gagal menghapus user: ' + response.data.message);
+                                }
+                              } catch (error) {
+                                console.error('Error deleting user:', error);
+                                alert('Gagal menghapus user: ' + (error.response?.data?.message || error.message));
+                              }
+                            }
+                          }}
+                          className="text-red-600 hover:text-red-900"
+                        >
+                          Delete
                         </button>
                       </div>
                     </td>
@@ -471,7 +516,7 @@ const UserManagementPanel = () => {
                 <p className="text-sm text-gray-600">User: <strong>{editingUser.name}</strong></p>
                 <p className="text-sm text-gray-600">Current Role: <strong>{getRoleLabel(editingUser.role)}</strong></p>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   New Role
@@ -488,7 +533,7 @@ const UserManagementPanel = () => {
                   <option value="penyewa">Penyewa</option>
                 </select>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Reason (Optional)
@@ -502,7 +547,7 @@ const UserManagementPanel = () => {
                 />
               </div>
             </div>
-            
+
             <div className="flex space-x-3 mt-6">
               <button
                 onClick={() => handleRoleChange(editingUser.id, editingUser.newRole || editingUser.role, editingUser.reason)}

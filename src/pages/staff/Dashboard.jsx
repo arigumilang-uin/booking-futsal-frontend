@@ -5,8 +5,11 @@ import useAuth from "../../hooks/useAuth";
 import { getAllBookings, getBookingAnalyticsBasic } from "../../api";
 import { getAllFields } from "../../api/fieldAPI";
 import { getAllPayments } from "../../api/paymentAPI";
-// Supervisor imports removed - using dedicated dashboard
+// Minimalist dashboards for all staff roles
 import MinimalistSupervisorDashboard from "../../components/MinimalistSupervisorDashboard";
+import MinimalistManagerDashboard from "../../components/MinimalistManagerDashboard";
+import MinimalistKasirDashboard from "../../components/MinimalistKasirDashboard";
+import MinimalistOperatorDashboard from "../../components/MinimalistOperatorDashboard";
 import ErrorBoundary from "../../components/ErrorBoundary";
 
 const StaffDashboard = () => {
@@ -197,6 +200,33 @@ const StaffDashboard = () => {
     return (
       <ErrorBoundary>
         <MinimalistSupervisorDashboard />
+      </ErrorBoundary>
+    );
+  }
+
+  // Use minimalist dashboard for manager with error boundary
+  if (user?.role === 'manajer_futsal') {
+    return (
+      <ErrorBoundary>
+        <MinimalistManagerDashboard />
+      </ErrorBoundary>
+    );
+  }
+
+  // Use minimalist dashboard for kasir with error boundary
+  if (user?.role === 'staff_kasir') {
+    return (
+      <ErrorBoundary>
+        <MinimalistKasirDashboard />
+      </ErrorBoundary>
+    );
+  }
+
+  // Use minimalist dashboard for operator with error boundary
+  if (user?.role === 'operator_lapangan') {
+    return (
+      <ErrorBoundary>
+        <MinimalistOperatorDashboard />
       </ErrorBoundary>
     );
   }

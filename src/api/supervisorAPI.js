@@ -118,65 +118,13 @@ export const getSupervisorAuditLogs = async (params = {}) => {
   }
 };
 
-export const getAdminAuditLogs = async (params = {}) => {
+// Admin audit logs function (comprehensive access)
+export const getAuditLogs = async (params = {}) => {
   try {
     const response = await axiosInstance.get('/admin/audit-logs', { params });
     return response.data;
   } catch (error) {
-    console.error('❌ Get admin audit logs error:', error.response?.data || error.message);
-    throw error;
-  }
-};
-
-export const getAuditLogDetail = async (logId) => {
-  try {
-    const response = await axiosInstance.get(`/admin/audit-logs/${logId}`);
-    return response.data;
-  } catch (error) {
-    console.error('❌ Get audit log detail error:', error.response?.data || error.message);
-    throw error;
-  }
-};
-
-export const getAuditStatistics = async (params = {}) => {
-  try {
-    const response = await axiosInstance.get('/admin/audit-logs/statistics', { params });
-    return response.data;
-  } catch (error) {
-    console.error('❌ Get audit statistics error:', error.response?.data || error.message);
-    throw error;
-  }
-};
-
-export const getUserActivityLogs = async (userId, params = {}) => {
-  try {
-    const response = await axiosInstance.get(`/admin/audit-logs/user/${userId}`, { params });
-    return response.data;
-  } catch (error) {
-    console.error('❌ Get user activity logs error:', error.response?.data || error.message);
-    throw error;
-  }
-};
-
-export const getTableActivityLogs = async (tableName, params = {}) => {
-  try {
-    const response = await axiosInstance.get(`/admin/audit-logs/table/${tableName}`, { params });
-    return response.data;
-  } catch (error) {
-    console.error('❌ Get table activity logs error:', error.response?.data || error.message);
-    throw error;
-  }
-};
-
-export const exportAuditLogs = async (params = {}) => {
-  try {
-    const response = await axiosInstance.get('/admin/audit-logs/export', { 
-      params,
-      responseType: 'blob'
-    });
-    return response.data;
-  } catch (error) {
-    console.error('❌ Export audit logs error:', error.response?.data || error.message);
+    console.error('❌ Get audit logs error:', error.response?.data || error.message);
     throw error;
   }
 };
@@ -264,18 +212,6 @@ export const triggerSystemMaintenance = async (maintenanceData) => {
   }
 };
 
-export const cleanOldAuditLogs = async (daysToKeep = 90) => {
-  try {
-    const response = await axiosInstance.delete('/admin/audit-logs/cleanup', {
-      data: { days_to_keep: daysToKeep }
-    });
-    return response.data;
-  } catch (error) {
-    console.error('❌ Clean old audit logs error:', error.response?.data || error.message);
-    throw error;
-  }
-};
-
 // ===== ROLE MANAGEMENT =====
 
 export const getRoleManagementDashboard = async () => {
@@ -300,9 +236,11 @@ export const getAllUsersForRoleManagement = async (params = {}) => {
 
 export const changeUserRoleDirect = async (userId, newRole, reason = '') => {
   try {
-    const response = await axiosInstance.put(`/admin/role-management/users/${userId}/role`, {
+    const response = await axiosInstance.put('/admin/role-management/change-role', {
+      user_id: userId,
       new_role: newRole,
-      reason
+      reason: reason,
+      bypass_approval: true
     });
     return response.data;
   } catch (error) {
@@ -311,47 +249,134 @@ export const changeUserRoleDirect = async (userId, newRole, reason = '') => {
   }
 };
 
-// ===== HELPERS =====
 
-export const formatSystemUptime = (uptimeSeconds) => {
-  const days = Math.floor(uptimeSeconds / 86400);
-  const hours = Math.floor((uptimeSeconds % 86400) / 3600);
-  const minutes = Math.floor((uptimeSeconds % 3600) / 60);
-  
+
+// ===== ADDITIONAL AUDIT FUNCTIONS =====
+
+export const getAuditLogStatistics = async (params = {}) => {
+  try {
+    const response = await axiosInstance.get('/admin/audit-logs/statistics', { params });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Get audit log statistics error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const getAuditLogDetail = async (logId) => {
+  try {
+    const response = await axiosInstance.get(`/admin/audit-logs/${logId}`);
+    return response.data;
+  } catch (error) {
+    console.error('❌ Get audit log detail error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const getUserActivityLogs = async (userId, params = {}) => {
+  try {
+    const response = await axiosInstance.get(`/admin/audit-logs/user/${userId}`, { params });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Get user activity logs error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const getTableActivityLogs = async (tableName, params = {}) => {
+  try {
+    const response = await axiosInstance.get(`/admin/audit-logs/table/${tableName}`, { params });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Get table activity logs error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const exportAuditLogs = async (params = {}) => {
+  try {
+    const response = await axiosInstance.get('/admin/audit-logs/export', {
+      params,
+      responseType: 'blob'
+    });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Export audit logs error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const cleanOldAuditLogs = async (daysToKeep = 90) => {
+  try {
+    const response = await axiosInstance.delete('/admin/audit-logs/cleanup', {
+      data: { days_to_keep: daysToKeep }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Clean old audit logs error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// ===== SYSTEM UTILITIES =====
+
+export const formatSystemUptime = (seconds) => {
+  if (!seconds || typeof seconds !== 'number' || isNaN(seconds)) {
+    return 'N/A';
+  }
+
+  const totalSeconds = Math.floor(seconds);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+
   if (days > 0) {
-    return `${days} hari, ${hours} jam, ${minutes} menit`;
+    return `${days}d ${hours}h`;
   } else if (hours > 0) {
-    return `${hours} jam, ${minutes} menit`;
+    return `${hours}h ${minutes}m`;
   } else {
-    return `${minutes} menit`;
+    return `${minutes}m`;
   }
 };
 
-export const formatMemoryUsage = (memoryBytes) => {
-  const mb = memoryBytes / (1024 * 1024);
-  if (mb > 1024) {
-    return `${(mb / 1024).toFixed(2)} GB`;
+export const formatMemoryUsage = (bytes) => {
+  if (!bytes || typeof bytes !== 'number' || isNaN(bytes)) {
+    return 'N/A';
   }
-  return `${mb.toFixed(2)} MB`;
+
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  if (bytes === 0) return '0 Bytes';
+
+  const i = Math.floor(Math.log(bytes) / Math.log(1024));
+  return Math.round(bytes / Math.pow(1024, i) * 100) / 100 + ' ' + sizes[i];
 };
 
-export const getSystemHealthStatus = (healthData, serverInfo) => {
-  if (!healthData) return 'unknown';
+export const getSystemHealthStatus = (systemHealth, serverInfo) => {
+  if (!systemHealth || !serverInfo) return 'unknown';
 
-  // Use correct property names from backend response
-  const databaseStatus = healthData.status; // backend returns 'status' not 'database_status'
-  const memoryUsage = serverInfo?.memory_usage?.heapUsed || 0; // memory in bytes
-  const uptime = serverInfo?.uptime || 0; // uptime in seconds
+  // Check if system health has health_level from backend
+  if (systemHealth.health_level) {
+    return systemHealth.health_level;
+  }
 
-  // Convert memory to MB for comparison
-  const memoryMB = memoryUsage / (1024 * 1024);
+  const memoryUsage = serverInfo.memory_usage;
+  const uptime = serverInfo.uptime;
+  const responseTime = systemHealth.response_time_ms || 0;
 
-  if (databaseStatus === 'healthy' && memoryMB < 100 && uptime > 3600) {
-    return 'excellent';
-  } else if (databaseStatus === 'healthy' && memoryMB < 200) {
-    return 'good';
-  } else if (databaseStatus === 'healthy') {
-    return 'warning';
+  // Calculate memory usage percentage
+  const memoryPercent = memoryUsage ? (memoryUsage.heapUsed / memoryUsage.heapTotal) * 100 : 0;
+
+  // Determine health status based on multiple factors
+  if (systemHealth.status === 'healthy') {
+    if (responseTime < 100 && memoryPercent < 70 && uptime > 3600) {
+      return 'excellent';
+    } else if (responseTime < 500 && memoryPercent < 85) {
+      return 'good';
+    } else if (responseTime < 1000 && memoryPercent < 95) {
+      return 'warning';
+    } else {
+      return 'critical';
+    }
   } else {
     return 'critical';
   }
