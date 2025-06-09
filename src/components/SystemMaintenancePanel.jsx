@@ -2,7 +2,7 @@
 // OPTIMIZED VERSION - NO DUPLICATION WITH OVERVIEW TAB
 import { useState, useEffect, Suspense, lazy } from 'react';
 import useAuth from '../hooks/useAuth';
-import { 
+import {
   getDatabaseStats,
   getSystemHealth,
   triggerSystemMaintenance,
@@ -38,7 +38,7 @@ const SystemMaintenancePanel = () => {
   const loadSystemData = async () => {
     try {
       setLoading(true);
-      
+
       const [healthRes, dbStatsRes] = await Promise.allSettled([
         getSystemHealth(),
         getDatabaseStats()
@@ -47,7 +47,7 @@ const SystemMaintenancePanel = () => {
       if (healthRes.status === 'fulfilled' && healthRes.value.success) {
         setSystemHealth(healthRes.value.data);
       }
-      
+
       if (dbStatsRes.status === 'fulfilled' && dbStatsRes.value.success) {
         setDatabaseStats(dbStatsRes.value.data);
       }
@@ -103,9 +103,9 @@ const SystemMaintenancePanel = () => {
 
   const getHealthStatusColor = (status) => {
     switch (status) {
-      case 'excellent': return 'text-green-600 bg-green-100';
-      case 'good': return 'text-blue-600 bg-blue-100';
-      case 'warning': return 'text-yellow-600 bg-yellow-100';
+      case 'excellent': return 'text-gray-900 bg-gray-100';
+      case 'good': return 'text-gray-900 bg-gray-100';
+      case 'warning': return 'text-gray-900 bg-gray-100';
       case 'critical': return 'text-red-600 bg-red-100';
       default: return 'text-gray-600 bg-gray-100';
     }
@@ -140,7 +140,7 @@ const SystemMaintenancePanel = () => {
           {activeTab === 'maintenance' && (
             <button
               onClick={() => setShowMaintenanceForm(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+              className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
             >
               🛠️ Schedule Maintenance
             </button>
@@ -158,11 +158,10 @@ const SystemMaintenancePanel = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
-                  activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
+                className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === tab.id
+                    ? 'border-gray-800 text-gray-900'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
+                  }`}
               >
                 <span className="mr-2">{tab.icon}</span>
                 {tab.label}
@@ -176,7 +175,7 @@ const SystemMaintenancePanel = () => {
       {activeTab === 'monitoring' && (
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-6">📊 System Monitoring</h3>
-          
+
           {/* System Health Overview - DETAILED MONITORING (NOT IN OVERVIEW) */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <div className="bg-white border rounded-lg p-4">
@@ -184,17 +183,16 @@ const SystemMaintenancePanel = () => {
                 <div>
                   <p className="text-sm font-medium text-gray-600">System Status</p>
                   <div className="flex items-center mt-1">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      getHealthStatusColor(getSystemHealthStatus(systemHealth?.system_health, systemHealth?.server_info))
-                    }`}>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getHealthStatusColor(getSystemHealthStatus(systemHealth?.system_health, systemHealth?.server_info))
+                      }`}>
                       {getHealthStatusText(getSystemHealthStatus(systemHealth?.system_health, systemHealth?.server_info))}
                     </span>
                   </div>
                 </div>
                 <div className="text-2xl">
                   {getSystemHealthStatus(systemHealth?.system_health, systemHealth?.server_info) === 'excellent' ? '✅' :
-                   getSystemHealthStatus(systemHealth?.system_health, systemHealth?.server_info) === 'good' ? '🟢' :
-                   getSystemHealthStatus(systemHealth?.system_health, systemHealth?.server_info) === 'warning' ? '🟡' : '🔴'}
+                    getSystemHealthStatus(systemHealth?.system_health, systemHealth?.server_info) === 'good' ? '🟢' :
+                      getSystemHealthStatus(systemHealth?.system_health, systemHealth?.server_info) === 'warning' ? '🟡' : '🔴'}
                 </div>
               </div>
             </div>
@@ -318,20 +316,20 @@ const SystemMaintenancePanel = () => {
           {databaseStats && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               <div className="bg-blue-50 p-4 rounded-lg">
-                <p className="text-2xl font-bold text-blue-600">{databaseStats?.tables?.length || 0}</p>
-                <p className="text-sm text-blue-800">Total Tables</p>
+                <p className="text-2xl font-bold text-gray-900">{databaseStats?.tables?.length || 0}</p>
+                <p className="text-sm text-gray-900">Total Tables</p>
               </div>
               <div className="bg-green-50 p-4 rounded-lg">
-                <p className="text-2xl font-bold text-green-600">
+                <p className="text-2xl font-bold text-gray-900">
                   {databaseStats?.tables?.reduce((total, table) => total + parseInt(table.live_tuples || 0), 0) || 0}
                 </p>
-                <p className="text-sm text-green-800">Total Records</p>
+                <p className="text-sm text-gray-900">Total Records</p>
               </div>
               <div className="bg-purple-50 p-4 rounded-lg">
-                <p className="text-2xl font-bold text-purple-600">
+                <p className="text-2xl font-bold text-gray-900">
                   {databaseStats?.database_info?.database_size || 'N/A'}
                 </p>
-                <p className="text-sm text-purple-800">Database Size</p>
+                <p className="text-sm text-gray-900">Database Size</p>
               </div>
             </div>
           )}
@@ -373,11 +371,10 @@ const SystemMaintenancePanel = () => {
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Connection Status:</span>
-                  <span className={`font-medium ${
-                    systemHealth?.system_health?.status === 'healthy'
-                      ? 'text-green-600'
+                  <span className={`font-medium ${systemHealth?.system_health?.status === 'healthy'
+                      ? 'text-gray-900'
                       : 'text-red-600'
-                  }`}>
+                    }`}>
                     {systemHealth?.system_health?.status || 'Unknown'}
                   </span>
                 </div>
@@ -410,7 +407,7 @@ const SystemMaintenancePanel = () => {
       {activeTab === 'audit' && (
         <Suspense fallback={
           <div className="bg-white rounded-lg shadow p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800 mx-auto"></div>
             <p className="mt-2 text-gray-600">Memuat audit logs...</p>
           </div>
         }>
@@ -482,13 +479,13 @@ const SystemMaintenancePanel = () => {
             <div className="flex space-x-3 mt-6">
               <button
                 onClick={handleTriggerMaintenance}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
               >
                 Schedule
               </button>
               <button
                 onClick={() => setShowMaintenanceForm(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+                className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
               >
                 Cancel
               </button>

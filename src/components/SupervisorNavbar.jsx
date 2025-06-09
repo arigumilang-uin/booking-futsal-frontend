@@ -25,23 +25,23 @@ const SupervisorNavbar = () => {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 text-white shadow-2xl border-b-4 border-purple-500">
+    <nav className="bg-gradient-to-r from-slate-900 via-gray-900 to-slate-900 text-gray-900 shadow-2xl border-b-4 border-gray-800">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center h-20">
           {/* Left Side - Enhanced Brand & Dashboard Link */}
           <div className="flex items-center space-x-8">
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-400 via-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg ring-2 ring-white/20">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-400 via-gray-800 to-gray-800 rounded-2xl flex items-center justify-center shadow-lg ring-2 ring-white/20">
                 <span className="text-2xl font-bold">⚡</span>
               </div>
               <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-200 via-blue-200 to-purple-200 bg-clip-text text-transparent">
-                  Futsal Control Center
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-200 via-gray-200 to-gray-200 bg-clip-text text-transparent">
+                  Soccer Control Center
                 </h1>
                 <div className="flex items-center space-x-3 mt-1">
-                  <p className="text-xs text-purple-200 font-medium">Supervisor System</p>
-                  <div className="w-1 h-1 bg-purple-300 rounded-full"></div>
-                  <p className="text-xs text-purple-300">
+                  <p className="text-xs text-gray-200 font-medium">Supervisor System</p>
+                  <div className="w-1 h-1 bg-gray-800 rounded-full"></div>
+                  <p className="text-xs text-white">
                     {currentTime.toLocaleTimeString('id-ID', {
                       hour: '2-digit',
                       minute: '2-digit',
@@ -56,7 +56,7 @@ const SupervisorNavbar = () => {
             <div className="hidden md:flex items-center space-x-2 bg-white/10 rounded-xl p-1 backdrop-blur-sm">
               <button
                 onClick={() => navigate('/staff')}
-                className="px-6 py-3 rounded-lg bg-gradient-to-r from-white/20 to-white/10 text-white font-medium text-sm hover:from-white/30 hover:to-white/20 transition-all duration-200 flex items-center space-x-2 shadow-lg"
+                className="px-6 py-3 rounded-lg bg-gradient-to-r from-white/20 to-white/10 text-gray-900 font-medium text-sm hover:from-white/30 hover:to-white/20 transition-all duration-200 flex items-center space-x-2 shadow-lg"
               >
                 <span className="text-lg">🎯</span>
                 <span>Control Dashboard</span>
@@ -74,11 +74,11 @@ const SupervisorNavbar = () => {
             </div>
 
             {/* Enhanced System Status Indicator */}
-            <div className="hidden md:flex items-center space-x-3 bg-green-500/20 px-4 py-2 rounded-xl backdrop-blur-sm border border-green-400/30">
-              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse shadow-lg"></div>
+            <div className="hidden md:flex items-center space-x-3 bg-gray-800/20 px-4 py-2 rounded-xl backdrop-blur-sm border border-gray-800/30">
+              <div className="w-3 h-3 bg-gray-800 rounded-full animate-pulse shadow-lg"></div>
               <div>
-                <span className="text-xs text-green-200 font-medium">System Status</span>
-                <p className="text-xs text-green-100">All Systems Operational</p>
+                <span className="text-xs text-gray-200 font-medium">System Status</span>
+                <p className="text-xs text-gray-100">All Systems Operational</p>
               </div>
             </div>
 
@@ -88,19 +88,19 @@ const SupervisorNavbar = () => {
                 onClick={() => setShowUserMenu(!showUserMenu)}
                 className="flex items-center space-x-4 bg-white/10 hover:bg-white/20 rounded-xl px-5 py-3 transition-all duration-200 backdrop-blur-sm border border-white/20 shadow-lg"
               >
-                <div className="w-10 h-10 bg-gradient-to-br from-purple-400 via-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-white/30">
+                <div className="w-10 h-10 bg-gradient-to-br from-purple-400 via-gray-800 to-gray-800 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-white/30">
                   <span className="text-lg font-bold">👤</span>
                 </div>
                 <div className="hidden md:block text-left">
-                  <p className="text-sm font-bold text-white">{user?.name || "Supervisor"}</p>
+                  <p className="text-sm font-bold text-gray-900">{user?.name || "Supervisor"}</p>
                   <div className="flex items-center space-x-2 mt-1">
-                    <span className="text-xs text-purple-200 font-medium">System Administrator</span>
-                    <div className="w-1 h-1 bg-purple-300 rounded-full"></div>
-                    <span className="text-xs text-green-300 font-medium">Online</span>
+                    <span className="text-xs text-gray-200 font-medium">System Administrator</span>
+                    <div className="w-1 h-1 bg-gray-800 rounded-full"></div>
+                    <span className="text-xs text-gray-900 font-medium">Online</span>
                   </div>
                 </div>
                 <svg
-                  className={`w-5 h-5 transition-transform duration-200 text-purple-200 ${showUserMenu ? 'rotate-180' : ''}`}
+                  className={`w-5 h-5 transition-transform duration-200 text-gray-200 ${showUserMenu ? 'rotate-180' : ''}`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -115,17 +115,17 @@ const SupervisorNavbar = () => {
                   {/* User Info Header */}
                   <div className="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-purple-50 to-blue-50">
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                        <span className="text-lg font-bold text-white">👤</span>
+                      <div className="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-800 rounded-xl flex items-center justify-center shadow-lg">
+                        <span className="text-lg font-bold text-gray-900">👤</span>
                       </div>
                       <div>
                         <p className="text-sm font-bold text-gray-900">{user?.name}</p>
                         <p className="text-xs text-gray-600">{user?.email}</p>
                         <div className="flex items-center space-x-2 mt-1">
-                          <span className="text-xs text-purple-600 font-medium bg-purple-100 px-2 py-1 rounded-full">
+                          <span className="text-xs text-gray-900 font-medium bg-gray-100 px-2 py-1 rounded-full">
                             Supervisor Sistem
                           </span>
-                          <span className="text-xs text-green-600 font-medium bg-green-100 px-2 py-1 rounded-full">
+                          <span className="text-xs text-gray-900 font-medium bg-gray-100 px-2 py-1 rounded-full">
                             Online
                           </span>
                         </div>
@@ -142,7 +142,7 @@ const SupervisorNavbar = () => {
                       }}
                       className="w-full text-left px-6 py-3 text-sm text-gray-700 hover:bg-purple-50 flex items-center space-x-3 transition-colors duration-200"
                     >
-                      <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
                         <span>🎯</span>
                       </div>
                       <div>
@@ -158,7 +158,7 @@ const SupervisorNavbar = () => {
                       }}
                       className="w-full text-left px-6 py-3 text-sm text-gray-700 hover:bg-blue-50 flex items-center space-x-3 transition-colors duration-200"
                     >
-                      <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
                         <span>⚙️</span>
                       </div>
                       <div>
@@ -174,7 +174,7 @@ const SupervisorNavbar = () => {
                       }}
                       className="w-full text-left px-6 py-3 text-sm text-gray-700 hover:bg-indigo-50 flex items-center space-x-3 transition-colors duration-200"
                     >
-                      <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
+                      <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
                         <span>🔧</span>
                       </div>
                       <div>
@@ -210,7 +210,7 @@ const SupervisorNavbar = () => {
       </div>
 
       {/* Bottom Border Gradient */}
-      <div className="h-1 bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500"></div>
+      <div className="h-1 bg-gradient-to-r from-gray-800 via-gray-800 to-gray-800"></div>
     </nav>
   );
 };

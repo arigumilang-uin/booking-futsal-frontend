@@ -26,7 +26,7 @@ const FieldList = () => {
 
   const typeOptions = [
     { value: 'semua', label: 'Semua Jenis' },
-    { value: 'futsal', label: 'Futsal' },
+    { value: 'soccer', label: 'Soccer' },
     { value: 'mini_soccer', label: 'Mini Soccer' },
     { value: 'basketball', label: 'Basketball' }
   ];
@@ -144,17 +144,17 @@ const FieldList = () => {
   const getFieldImage = (field) => {
     // Placeholder image based on field type
     const imageMap = {
-      futsal: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=300&fit=crop',
+      soccer: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=300&fit=crop',
       mini_soccer: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=300&fit=crop',
       basketball: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=300&fit=crop'
     };
-    return imageMap[field.type] || imageMap.futsal;
+    return imageMap[field.type] || imageMap.soccer;
   };
 
   const getAvailabilityStatus = (field) => {
     // Mock availability - in real app this would come from API
     const statuses = ['Tersedia', 'Hampir Penuh', 'Penuh'];
-    const colors = ['text-green-600', 'text-yellow-600', 'text-red-600'];
+    const colors = ['text-gray-900', 'text-gray-900', 'text-red-600'];
     const randomIndex = Math.floor(Math.random() * statuses.length);
     return {
       status: statuses[randomIndex],
@@ -195,7 +195,7 @@ const FieldList = () => {
               placeholder="Nama lapangan atau lokasi..."
               value={filters.search}
               onChange={(e) => handleFilterChange('search', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -207,7 +207,7 @@ const FieldList = () => {
             <select
               value={filters.type}
               onChange={(e) => handleFilterChange('type', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               {typeOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -225,7 +225,7 @@ const FieldList = () => {
             <select
               value={filters.priceRange}
               onChange={(e) => handleFilterChange('priceRange', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               {priceRangeOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -243,7 +243,7 @@ const FieldList = () => {
             <select
               value={filters.location}
               onChange={(e) => handleFilterChange('location', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               {locationOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -258,7 +258,7 @@ const FieldList = () => {
         <div className="mt-4 flex justify-end">
           <button
             onClick={() => setFilters({ type: 'semua', priceRange: 'semua', search: '', location: 'semua' })}
-            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+            className="text-gray-900 hover:text-gray-900 text-sm font-medium"
           >
             Bersihkan Filter
           </button>
@@ -280,8 +280,8 @@ const FieldList = () => {
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="bg-blue-600 text-white px-2 py-1 rounded text-sm font-medium">
-                      {field.type?.toUpperCase() || 'FUTSAL'}
+                    <span className="bg-gray-800 text-gray-900 px-2 py-1 rounded text-sm font-medium">
+                      {field.type?.toUpperCase() || 'SOCCER'}
                     </span>
                   </div>
                   <div className="absolute top-4 right-4">
@@ -294,9 +294,9 @@ const FieldList = () => {
                 {/* Field Info */}
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-semibold text-gray-900">{field.name || 'Lapangan Futsal'}</h3>
+                    <h3 className="text-xl font-semibold text-gray-900">{field.name || 'Lapangan Soccer'}</h3>
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-blue-600">
+                      <p className="text-2xl font-bold text-gray-900">
                         {formatCurrency(field.price_per_hour || 100000)}
                       </p>
                       <p className="text-sm text-gray-500">per jam</p>
@@ -340,7 +340,7 @@ const FieldList = () => {
                     </button>
                     <button
                       onClick={() => handleBookField(field)}
-                      className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 text-sm font-medium"
+                      className="flex-1 bg-gray-800 text-gray-900 py-2 px-4 rounded-md hover:bg-gray-500 transition duration-200 text-sm font-medium"
                     >
                       Booking Sekarang
                     </button>
@@ -361,7 +361,7 @@ const FieldList = () => {
           </p>
           <button
             onClick={() => setFilters({ type: 'semua', priceRange: 'semua', search: '', location: 'semua' })}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-200"
+            className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-500 transition duration-200"
           >
             Reset Filter
           </button>
@@ -401,11 +401,11 @@ const FieldList = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Jenis:</span>
-                      <span className="font-medium">{selectedField.type?.toUpperCase() || 'FUTSAL'}</span>
+                      <span className="font-medium">{selectedField.type?.toUpperCase() || 'SOCCER'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Harga:</span>
-                      <span className="font-medium text-blue-600">
+                      <span className="font-medium text-gray-900">
                         {formatCurrency(selectedField.price_per_hour || 100000)}/jam
                       </span>
                     </div>
@@ -425,7 +425,7 @@ const FieldList = () => {
                   <div className="grid grid-cols-2 gap-2">
                     {(selectedField.facilities || ['AC', 'Toilet', 'Parkir', 'Sound System', 'Ruang Ganti', 'Kantin']).map((facility, index) => (
                       <div key={index} className="flex items-center">
-                        <svg className="w-4 h-4 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 text-gray-900 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                         </svg>
                         <span className="text-sm">{facility}</span>
@@ -474,7 +474,7 @@ const FieldList = () => {
                   closeDetailModal();
                   handleBookField(selectedField);
                 }}
-                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200"
+                className="px-6 py-2 bg-gray-800 text-gray-900 rounded-md hover:bg-gray-500 transition duration-200"
               >
                 Booking Sekarang
               </button>

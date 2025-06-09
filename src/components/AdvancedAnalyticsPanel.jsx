@@ -73,7 +73,7 @@ const AdvancedAnalyticsPanel = () => {
   };
 
   const getGrowthColor = (growth) => {
-    if (growth > 0) return 'text-green-600';
+    if (growth > 0) return 'text-gray-900';
     if (growth < 0) return 'text-red-600';
     return 'text-gray-600';
   };
@@ -121,7 +121,7 @@ const AdvancedAnalyticsPanel = () => {
             </div>
             <button
               onClick={loadAnalyticsData}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm"
+              className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500 text-sm"
             >
               🔄 Refresh
             </button>
@@ -141,7 +141,7 @@ const AdvancedAnalyticsPanel = () => {
                 onClick={() => setActiveMetric(metric.id)}
                 className={`py-2 px-1 border-b-2 font-medium text-sm ${
                   activeMetric === metric.id
-                    ? 'border-blue-500 text-blue-600'
+                    ? 'border-gray-800 text-gray-900'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
@@ -155,7 +155,7 @@ const AdvancedAnalyticsPanel = () => {
 
       {loading ? (
         <div className="bg-white rounded-lg shadow p-8 text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800 mx-auto"></div>
           <p className="mt-2 text-gray-600">Memuat data analytics...</p>
         </div>
       ) : (
@@ -168,8 +168,8 @@ const AdvancedAnalyticsPanel = () => {
                 <div className="bg-white rounded-lg shadow p-6">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                        <span className="text-blue-600 text-sm">💰</span>
+                      <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                        <span className="text-gray-900 text-sm">💰</span>
                       </div>
                     </div>
                     <div className="ml-4">
@@ -188,8 +188,8 @@ const AdvancedAnalyticsPanel = () => {
                 <div className="bg-white rounded-lg shadow p-6">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                        <span className="text-green-600 text-sm">📅</span>
+                      <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                        <span className="text-gray-900 text-sm">📅</span>
                       </div>
                     </div>
                     <div className="ml-4">
@@ -208,8 +208,8 @@ const AdvancedAnalyticsPanel = () => {
                 <div className="bg-white rounded-lg shadow p-6">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                        <span className="text-purple-600 text-sm">👥</span>
+                      <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                        <span className="text-gray-900 text-sm">👥</span>
                       </div>
                     </div>
                     <div className="ml-4">
@@ -228,8 +228,8 @@ const AdvancedAnalyticsPanel = () => {
                 <div className="bg-white rounded-lg shadow p-6">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
-                        <span className="text-yellow-600 text-sm">🏟️</span>
+                      <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                        <span className="text-gray-900 text-sm">🏟️</span>
                       </div>
                     </div>
                     <div className="ml-4">
@@ -286,7 +286,7 @@ const AdvancedAnalyticsPanel = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Active Users:</span>
-                      <span className="font-medium text-green-600">{formatNumber(analyticsData.system.system_analytics?.users?.active)}</span>
+                      <span className="font-medium text-gray-900">{formatNumber(analyticsData.system.system_analytics?.users?.active)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Inactive Users:</span>
@@ -358,7 +358,7 @@ const AdvancedAnalyticsPanel = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Active Fields:</span>
-                      <span className="font-medium text-green-600">{formatNumber(analyticsData.performance.raw_statistics?.fields?.active_fields)}</span>
+                      <span className="font-medium text-gray-900">{formatNumber(analyticsData.performance.raw_statistics?.fields?.active_fields)}</span>
                     </div>
                   </div>
                 </div>

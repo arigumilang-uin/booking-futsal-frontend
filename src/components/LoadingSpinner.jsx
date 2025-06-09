@@ -16,7 +16,7 @@ const LoadingSpinner = ({ size = 'md', text = 'Loading...', fullScreen = false }
 
   const spinner = (
     <div className="text-center">
-      <div className={`animate-spin rounded-full border-b-2 border-blue-600 mx-auto mb-4 ${getSizeClasses()}`}></div>
+      <div className={`animate-spin rounded-full border-b-2 border-gray-800 mx-auto mb-4 ${getSizeClasses()}`}></div>
       {text && <p className="text-gray-600">{text}</p>}
     </div>
   );

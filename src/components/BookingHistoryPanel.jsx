@@ -31,11 +31,11 @@ const BookingHistoryPanel = ({ bookings = [] }) => {
                 </div>
                 <div className="text-right">
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    booking.status === 'confirmed' ? 'bg-green-100 text-green-800' :
-                    booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                    booking.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                    booking.status === 'confirmed' ? 'bg-gray-100 text-gray-900' :
+                    booking.status === 'pending' ? 'bg-gray-100 text-gray-900' :
+                    booking.status === 'completed' ? 'bg-gray-100 text-gray-900' :
                     booking.status === 'cancelled' ? 'bg-red-100 text-red-800' :
-                    'bg-gray-100 text-gray-800'
+                    'bg-gray-100 text-gray-900'
                   }`}>
                     {booking.status}
                   </span>
@@ -50,7 +50,7 @@ const BookingHistoryPanel = ({ bookings = [] }) => {
           <div className="text-center pt-4">
             <button
               onClick={() => navigate('/customer/bookings')}
-              className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition duration-200 font-medium"
+              className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-500 transition duration-200 font-medium"
             >
               Lihat Semua Riwayat
             </button>
@@ -67,7 +67,7 @@ const BookingHistoryPanel = ({ bookings = [] }) => {
           </p>
           <button
             onClick={() => navigate('/customer/booking/new')}
-            className="bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 transition duration-200 font-medium"
+            className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-900 transition duration-200 font-medium"
           >
             Buat Booking Pertama
           </button>

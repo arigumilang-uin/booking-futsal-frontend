@@ -16,7 +16,7 @@ const AdvancedPaymentGateway = ({ booking, onPaymentSuccess, onPaymentError }) =
   const [paymentData, setPaymentData] = useState({
     amount: booking?.total_amount || 0,
     currency: 'IDR',
-    description: `Booking lapangan futsal - ${booking?.field_name}`,
+    description: `Booking lapangan soccer - ${booking?.field_name}`,
     customer_email: user?.email || '',
     customer_name: user?.name || '',
     customer_phone: user?.phone || '',
@@ -228,7 +228,7 @@ const AdvancedPaymentGateway = ({ booking, onPaymentSuccess, onPaymentError }) =
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="text-center mb-6">
           <div className="text-6xl mb-4">✅</div>
-          <h2 className="text-2xl font-bold text-green-600 mb-2">Pembayaran Berhasil!</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Pembayaran Berhasil!</h2>
           <p className="text-gray-600">Terima kasih atas pembayaran Anda</p>
         </div>
 
@@ -259,7 +259,7 @@ const AdvancedPaymentGateway = ({ booking, onPaymentSuccess, onPaymentError }) =
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Status:</span>
-              <span className="font-medium text-green-600">{receipt.status}</span>
+              <span className="font-medium text-gray-900">{receipt.status}</span>
             </div>
           </div>
         </div>
@@ -267,7 +267,7 @@ const AdvancedPaymentGateway = ({ booking, onPaymentSuccess, onPaymentError }) =
         <div className="flex space-x-3">
           <button
             onClick={() => window.print()}
-            className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700"
+            className="flex-1 bg-gray-800 text-gray-900 py-2 px-4 rounded-lg hover:bg-gray-500"
           >
             🖨️ Print Receipt
           </button>
@@ -279,7 +279,7 @@ const AdvancedPaymentGateway = ({ booking, onPaymentSuccess, onPaymentError }) =
               link.download = `receipt_${receipt.receipt_id}.json`;
               link.click();
             }}
-            className="flex-1 bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700"
+            className="flex-1 bg-gray-600 text-gray-900 py-2 px-4 rounded-lg hover:bg-gray-700"
           >
             💾 Download
           </button>
@@ -294,25 +294,25 @@ const AdvancedPaymentGateway = ({ booking, onPaymentSuccess, onPaymentError }) =
 
       {/* Payment Summary */}
       <div className="bg-blue-50 rounded-lg p-4 mb-6">
-        <h3 className="font-semibold text-blue-900 mb-2">Payment Summary</h3>
+        <h3 className="font-semibold text-gray-900 mb-2">Payment Summary</h3>
         <div className="space-y-1">
           <div className="flex justify-between">
-            <span className="text-blue-700">Booking:</span>
-            <span className="font-medium text-blue-900">{booking?.field_name}</span>
+            <span className="text-gray-500">Booking:</span>
+            <span className="font-medium text-gray-900">{booking?.field_name}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-blue-700">Date & Time:</span>
-            <span className="font-medium text-blue-900">
+            <span className="text-gray-500">Date & Time:</span>
+            <span className="font-medium text-gray-900">
               {booking?.date} - {booking?.time_slot}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-blue-700">Duration:</span>
-            <span className="font-medium text-blue-900">{booking?.duration} hour(s)</span>
+            <span className="text-gray-500">Duration:</span>
+            <span className="font-medium text-gray-900">{booking?.duration} hour(s)</span>
           </div>
           <div className="flex justify-between text-lg font-bold">
-            <span className="text-blue-700">Total Amount:</span>
-            <span className="text-blue-900">{formatCurrency(booking?.total_amount || 0)}</span>
+            <span className="text-gray-500">Total Amount:</span>
+            <span className="text-gray-900">{formatCurrency(booking?.total_amount || 0)}</span>
           </div>
         </div>
       </div>
@@ -336,7 +336,7 @@ const AdvancedPaymentGateway = ({ booking, onPaymentSuccess, onPaymentError }) =
               onClick={() => handleMethodChange(method.code)}
               className={`p-4 border rounded-lg text-left transition-colors ${
                 selectedMethod === method.code
-                  ? 'border-blue-500 bg-blue-50'
+                  ? 'border-gray-800 bg-blue-50'
                   : 'border-gray-200 hover:border-gray-300'
               }`}
             >
@@ -365,7 +365,7 @@ const AdvancedPaymentGateway = ({ booking, onPaymentSuccess, onPaymentError }) =
             type="email"
             value={paymentData.customer_email}
             onChange={(e) => handleInputChange('customer_email', e.target.value)}
-            className={`w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            className={`w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600 ${
               errors.customer_email ? 'border-red-500' : 'border-gray-300'
             }`}
           />
@@ -382,7 +382,7 @@ const AdvancedPaymentGateway = ({ booking, onPaymentSuccess, onPaymentError }) =
             type="text"
             value={paymentData.customer_name}
             onChange={(e) => handleInputChange('customer_name', e.target.value)}
-            className={`w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+            className={`w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600 ${
               errors.customer_name ? 'border-red-500' : 'border-gray-300'
             }`}
           />
@@ -398,7 +398,7 @@ const AdvancedPaymentGateway = ({ booking, onPaymentSuccess, onPaymentError }) =
       <button
         onClick={handlePayment}
         disabled={loading}
-        className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+        className="w-full bg-gray-800 text-gray-900 py-3 px-4 rounded-lg hover:bg-gray-500 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
       >
         {loading ? (
           <div className="flex items-center justify-center">

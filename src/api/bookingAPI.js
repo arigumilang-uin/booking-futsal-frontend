@@ -9,8 +9,16 @@ import axiosInstance from './axiosInstance';
 // ===== CUSTOMER BOOKING APIs (role: penyewa) =====
 
 export const createBooking = async (bookingData) => {
-  const response = await axiosInstance.post('/customer/bookings', bookingData);
-  return response.data;
+  try {
+    console.log('Creating booking with data:', bookingData);
+    const response = await axiosInstance.post('/customer/bookings', bookingData);
+    console.log('Booking response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Create booking API error:', error);
+    console.error('Error response:', error.response?.data);
+    throw error;
+  }
 };
 
 export const getCustomerBookings = async (params = {}) => {
@@ -298,6 +306,30 @@ export const getAdminBookings = async (params = {}) => {
     };
   } catch (error) {
     console.error('❌ Get admin bookings error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Get booking timeline (booking history + payment events)
+export const getBookingTimeline = async (bookingId) => {
+  try {
+    console.log(`📅 Getting booking timeline for booking ${bookingId}...`);
+    const response = await axiosInstance.get(`/admin/bookings/${bookingId}/timeline`);
+    return response.data;
+  } catch (error) {
+    console.error('❌ Get booking timeline error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Get booking history for specific booking
+export const getBookingHistory = async (bookingId) => {
+  try {
+    console.log(`📋 Getting booking history for booking ${bookingId}...`);
+    const response = await axiosInstance.get(`/admin/bookings/${bookingId}/history`);
+    return response.data;
+  } catch (error) {
+    console.error('❌ Get booking history error:', error.response?.data || error.message);
     throw error;
   }
 };

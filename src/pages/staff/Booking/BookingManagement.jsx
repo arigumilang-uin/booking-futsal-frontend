@@ -218,8 +218,8 @@ const BookingManagement = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
               </svg>
             </div>
@@ -232,8 +232,8 @@ const BookingManagement = () => {
 
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-yellow-100 rounded-lg">
-              <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
@@ -248,8 +248,8 @@ const BookingManagement = () => {
 
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
@@ -264,8 +264,8 @@ const BookingManagement = () => {
 
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
               </svg>
             </div>
@@ -293,7 +293,7 @@ const BookingManagement = () => {
               placeholder="Nama customer, lapangan, atau kode..."
               value={filters.search}
               onChange={(e) => handleFilterChange('search', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -305,7 +305,7 @@ const BookingManagement = () => {
             <select
               value={filters.status}
               onChange={(e) => handleFilterChange('status', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               {statusOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -324,7 +324,7 @@ const BookingManagement = () => {
               type="date"
               value={filters.dateFrom}
               onChange={(e) => handleFilterChange('dateFrom', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -337,7 +337,7 @@ const BookingManagement = () => {
               type="date"
               value={filters.dateTo}
               onChange={(e) => handleFilterChange('dateTo', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
         </div>
@@ -346,7 +346,7 @@ const BookingManagement = () => {
         <div className="mt-4 flex justify-end">
           <button
             onClick={() => setFilters({ status: 'semua', search: '', dateFrom: '', dateTo: '' })}
-            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+            className="text-gray-900 hover:text-gray-900 text-sm font-medium"
           >
             Bersihkan Filter
           </button>
@@ -409,7 +409,7 @@ const BookingManagement = () => {
                         {booking.field_name || 'Lapangan'}
                       </div>
                       <div className="text-sm text-gray-500">
-                        {booking.field_type || 'Futsal'}
+                        {booking.field_type || 'Soccer'}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -431,7 +431,7 @@ const BookingManagement = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                       <button
                         onClick={() => openDetailModal(booking)}
-                        className="text-blue-600 hover:text-blue-900"
+                        className="text-gray-900 hover:text-gray-900"
                       >
                         Detail
                       </button>
@@ -440,7 +440,7 @@ const BookingManagement = () => {
                           <button
                             onClick={() => handleConfirmBooking(booking.id)}
                             disabled={processing === booking.id}
-                            className="text-green-600 hover:text-green-900 disabled:opacity-50"
+                            className="text-gray-900 hover:text-gray-900 disabled:opacity-50"
                           >
                             {processing === booking.id ? 'Proses...' : 'Konfirmasi'}
                           </button>
@@ -521,7 +521,7 @@ const BookingManagement = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Total:</span>
-                      <span className="font-medium text-blue-600">
+                      <span className="font-medium text-gray-900">
                         {selectedBooking.total_amount ? formatCurrency(selectedBooking.total_amount) : 'N/A'}
                       </span>
                     </div>
@@ -553,7 +553,7 @@ const BookingManagement = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Jenis:</span>
-                      <span className="font-medium">{selectedBooking.field_type || 'Futsal'}</span>
+                      <span className="font-medium">{selectedBooking.field_type || 'Soccer'}</span>
                     </div>
                   </div>
                 </div>
@@ -578,7 +578,7 @@ const BookingManagement = () => {
                     onChange={(e) => setRejectReason(e.target.value)}
                     placeholder="Masukkan alasan penolakan..."
                     rows={3}
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                   />
                 </div>
               )}
@@ -600,7 +600,7 @@ const BookingManagement = () => {
                       closeDetailModal();
                     }}
                     disabled={processing === selectedBooking.id}
-                    className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-200 disabled:opacity-50"
+                    className="px-6 py-2 bg-gray-800 text-gray-900 rounded-md hover:bg-gray-500 transition duration-200 disabled:opacity-50"
                   >
                     Konfirmasi
                   </button>
@@ -614,7 +614,7 @@ const BookingManagement = () => {
                       }
                     }}
                     disabled={processing === selectedBooking.id || !rejectReason.trim()}
-                    className="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-200 disabled:opacity-50"
+                    className="px-6 py-2 bg-red-600 text-gray-900 rounded-md hover:bg-red-700 transition duration-200 disabled:opacity-50"
                   >
                     Tolak
                   </button>

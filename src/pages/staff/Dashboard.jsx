@@ -31,7 +31,22 @@ const StaffDashboard = () => {
   // Supervisor-specific state - REMOVED: Using dedicated dashboard
 
   useEffect(() => {
-    loadDashboardData();
+    // Skip data loading for roles that use dedicated dashboards
+    const rolesWithDedicatedDashboards = [
+      'supervisor_sistem',
+      'manajer_futsal',
+      'staff_kasir',
+      'operator_lapangan'
+    ];
+
+    // Only load data for roles that don't have dedicated dashboards
+    if (!rolesWithDedicatedDashboards.includes(user?.role)) {
+      loadDashboardData();
+    } else {
+      // For dedicated dashboards, just set loading to false
+      console.log(`🎯 Skipping data loading for ${user?.role} - using dedicated dashboard`);
+      setLoading(false);
+    }
   }, []);
 
   // Debug useEffect to monitor stats changes
@@ -188,7 +203,7 @@ const StaffDashboard = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-800 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading dashboard...</p>
         </div>
       </div>
@@ -240,13 +255,12 @@ const StaffDashboard = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className={`grid grid-cols-1 md:grid-cols-2 ${
-        user?.role === 'supervisor_sistem' ? 'lg:grid-cols-6' : 'lg:grid-cols-4'
-      } gap-6 mb-8`}>
+      <div className={`grid grid-cols-1 md:grid-cols-2 ${user?.role === 'supervisor_sistem' ? 'lg:grid-cols-6' : 'lg:grid-cols-4'
+        } gap-6 mb-8`}>
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
               </svg>
             </div>
@@ -259,8 +273,8 @@ const StaffDashboard = () => {
 
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-yellow-100 rounded-lg">
-              <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
@@ -273,8 +287,8 @@ const StaffDashboard = () => {
 
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
               </svg>
             </div>
@@ -288,8 +302,8 @@ const StaffDashboard = () => {
         {['staff_kasir', 'manajer_futsal', 'supervisor_sistem'].includes(user?.role) && (
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
-              <div className="p-2 bg-purple-100 rounded-lg">
-                <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="p-2 bg-gray-100 rounded-lg">
+                <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                 </svg>
               </div>
@@ -312,7 +326,7 @@ const StaffDashboard = () => {
           <div className="space-y-3">
             <button
               onClick={() => navigate("/staff/bookings")}
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-200 flex items-center justify-center"
+              className="w-full bg-gray-800 text-gray-900 py-3 px-4 rounded-lg hover:bg-gray-500 transition duration-200 flex items-center justify-center"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
@@ -374,12 +388,11 @@ const StaffDashboard = () => {
                       </p>
                       <p className="text-sm text-gray-600">{booking.date || 'TBD'} • {booking.time_slot || 'TBD'}</p>
                     </div>
-                    <span className={`px-2 py-1 text-xs rounded-full ${
-                      booking.status === 'confirmed' ? 'bg-green-100 text-green-800' :
-                      booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                      booking.status === 'rejected' ? 'bg-red-100 text-red-800' :
-                      'bg-gray-100 text-gray-800'
-                    }`}>
+                    <span className={`px-2 py-1 text-xs rounded-full ${booking.status === 'confirmed' ? 'bg-gray-100 text-gray-900' :
+                      booking.status === 'pending' ? 'bg-gray-100 text-gray-900' :
+                        booking.status === 'rejected' ? 'bg-red-100 text-red-800' :
+                          'bg-gray-100 text-gray-900'
+                      }`}>
                       {booking.status || 'pending'}
                     </span>
                   </div>
@@ -387,7 +400,7 @@ const StaffDashboard = () => {
               ))}
               <button
                 onClick={() => navigate("/staff/bookings")}
-                className="w-full text-blue-600 hover:text-blue-800 text-sm font-medium py-2"
+                className="w-full text-gray-900 hover:text-gray-900 text-sm font-medium py-2"
               >
                 Lihat Semua →
               </button>

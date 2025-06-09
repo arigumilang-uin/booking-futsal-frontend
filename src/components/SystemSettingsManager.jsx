@@ -153,7 +153,7 @@ const SystemSettingsManager = () => {
           </h2>
           <button
             onClick={() => setShowCreateForm(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
           >
             ➕ Tambah Setting
           </button>
@@ -173,20 +173,20 @@ const SystemSettingsManager = () => {
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-blue-50 p-4 rounded-lg">
-            <p className="text-2xl font-bold text-blue-600">{settings.length}</p>
-            <p className="text-sm text-blue-800">Total Settings</p>
+            <p className="text-2xl font-bold text-gray-900">{settings.length}</p>
+            <p className="text-sm text-gray-900">Total Settings</p>
           </div>
           <div className="bg-green-50 p-4 rounded-lg">
-            <p className="text-2xl font-bold text-green-600">
+            <p className="text-2xl font-bold text-gray-900">
               {settings.filter(s => s.is_public).length}
             </p>
-            <p className="text-sm text-green-800">Public Settings</p>
+            <p className="text-sm text-gray-900">Public Settings</p>
           </div>
           <div className="bg-purple-50 p-4 rounded-lg">
-            <p className="text-2xl font-bold text-purple-600">
+            <p className="text-2xl font-bold text-gray-900">
               {settings.filter(s => !s.is_public).length}
             </p>
-            <p className="text-sm text-purple-800">Private Settings</p>
+            <p className="text-sm text-gray-900">Private Settings</p>
           </div>
         </div>
       </div>
@@ -251,7 +251,7 @@ const SystemSettingsManager = () => {
           <div className="flex space-x-3 mt-4">
             <button
               onClick={handleCreateSetting}
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+              className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
             >
               Simpan
             </button>
@@ -260,7 +260,7 @@ const SystemSettingsManager = () => {
                 setShowCreateForm(false);
                 setNewSetting({ key: '', value: '', description: '', is_public: false });
               }}
-              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+              className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
             >
               Batal
             </button>
@@ -278,7 +278,7 @@ const SystemSettingsManager = () => {
 
         {loading ? (
           <div className="p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800 mx-auto"></div>
             <p className="mt-2 text-gray-600">Memuat pengaturan...</p>
           </div>
         ) : filteredSettings.length === 0 ? (
@@ -302,8 +302,8 @@ const SystemSettingsManager = () => {
                         <h4 className="font-medium text-gray-900">{setting.key}</h4>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                           setting.is_public 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-gray-100 text-gray-800'
+                            ? 'bg-gray-100 text-gray-900' 
+                            : 'bg-gray-100 text-gray-900'
                         }`}>
                           {setting.is_public ? 'Public' : 'Private'}
                         </span>
@@ -328,13 +328,13 @@ const SystemSettingsManager = () => {
                     <div className="flex space-x-2 ml-4">
                       <button
                         onClick={() => setEditingSetting(setting.key)}
-                        className="text-blue-600 hover:text-blue-800 text-sm"
+                        className="text-gray-900 hover:text-gray-900 text-sm"
                       >
                         Edit
                       </button>
                       <button
                         onClick={() => handleResetToDefault(setting.key)}
-                        className="text-yellow-600 hover:text-yellow-800 text-sm"
+                        className="text-gray-900 hover:text-gray-900 text-sm"
                       >
                         Reset
                       </button>
@@ -432,13 +432,13 @@ const EditSettingForm = ({ setting, onSave, onCancel }) => {
       <div className="flex space-x-3">
         <button
           onClick={handleSave}
-          className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+          className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
         >
           Simpan
         </button>
         <button
           onClick={onCancel}
-          className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+          className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
         >
           Batal
         </button>

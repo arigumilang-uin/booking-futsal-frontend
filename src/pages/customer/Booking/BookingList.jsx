@@ -154,7 +154,7 @@ const BookingList = () => {
           </div>
           <button
             onClick={() => navigate('/bookings/new')}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-200 flex items-center"
+            className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-500 transition duration-200 flex items-center"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -178,7 +178,7 @@ const BookingList = () => {
               placeholder="Nama lapangan atau kode booking..."
               value={filters.search}
               onChange={(e) => handleFilterChange('search', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -190,7 +190,7 @@ const BookingList = () => {
             <select
               value={filters.status}
               onChange={(e) => handleFilterChange('status', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               {statusOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -209,7 +209,7 @@ const BookingList = () => {
               type="date"
               value={filters.dateFrom}
               onChange={(e) => handleFilterChange('dateFrom', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -222,7 +222,7 @@ const BookingList = () => {
               type="date"
               value={filters.dateTo}
               onChange={(e) => handleFilterChange('dateTo', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
         </div>
@@ -231,7 +231,7 @@ const BookingList = () => {
         <div className="mt-4 flex justify-end">
           <button
             onClick={() => setFilters({ status: 'semua', search: '', dateFrom: '', dateTo: '' })}
-            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+            className="text-gray-900 hover:text-gray-900 text-sm font-medium"
           >
             Bersihkan Filter
           </button>
@@ -283,7 +283,7 @@ const BookingList = () => {
                         {booking.field_name || 'Lapangan'}
                       </div>
                       <div className="text-sm text-gray-500">
-                        {booking.field_type || 'Futsal'}
+                        {booking.field_type || 'Soccer'}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -305,7 +305,7 @@ const BookingList = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                       <button
                         onClick={() => navigate(`/bookings/${booking.id}`)}
-                        className="text-blue-600 hover:text-blue-900"
+                        className="text-gray-900 hover:text-gray-900"
                       >
                         Detail
                       </button>
@@ -338,7 +338,7 @@ const BookingList = () => {
             </p>
             <button
               onClick={() => navigate('/bookings/new')}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-200"
+              className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-500 transition duration-200"
             >
               Buat Booking Pertama
             </button>
@@ -352,23 +352,23 @@ const BookingList = () => {
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Ringkasan</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="text-center">
-              <p className="text-2xl font-bold text-blue-600">{filteredBookings.length}</p>
+              <p className="text-2xl font-bold text-gray-900">{filteredBookings.length}</p>
               <p className="text-sm text-gray-600">Total Booking</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-yellow-600">
+              <p className="text-2xl font-bold text-gray-900">
                 {filteredBookings.filter(b => b.status === 'pending').length}
               </p>
               <p className="text-sm text-gray-600">Menunggu Konfirmasi</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-green-600">
+              <p className="text-2xl font-bold text-gray-900">
                 {filteredBookings.filter(b => b.status === 'confirmed').length}
               </p>
               <p className="text-sm text-gray-600">Dikonfirmasi</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-purple-600">
+              <p className="text-2xl font-bold text-gray-900">
                 {formatCurrency(filteredBookings.reduce((sum, b) => sum + (b.total_amount || 0), 0))}
               </p>
               <p className="text-sm text-gray-600">Total Nilai</p>

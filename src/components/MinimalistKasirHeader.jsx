@@ -24,7 +24,7 @@ const MinimalistKasirHeader = () => {
   };
 
   return (
-    <header className="bg-gradient-to-r from-orange-900 via-orange-800 to-orange-900 text-white shadow-2xl border-b-4 border-orange-500">
+    <header className="bg-gradient-to-r from-orange-900 via-orange-800 to-orange-900 text-gray-900 shadow-2xl border-b-4 border-orange-500">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center h-20">
           {/* Left Side - Brand & Title */}
@@ -32,21 +32,21 @@ const MinimalistKasirHeader = () => {
             <div className="w-12 h-12 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg ring-2 ring-white/20">
               <span className="text-2xl font-bold">💰</span>
             </div>
-            
+
             {/* Title & Subtitle */}
             <div>
               <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-200 via-white to-orange-200 bg-clip-text text-transparent">
-                Kasir Payment Center
+                Panam Soccer Field Payment Center
               </h1>
               <div className="flex items-center space-x-3 mt-1">
-                <span className="text-sm text-orange-200 font-medium">Payment & Transaction</span>
+                <span className="text-sm text-orange-200 font-medium">Payment & Transaction Management</span>
                 <div className="w-1 h-1 bg-orange-300 rounded-full"></div>
                 <span className="text-sm text-orange-300">
-                  {currentTime.toLocaleDateString('id-ID', { 
+                  {currentTime.toLocaleDateString('id-ID', {
                     weekday: 'long',
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                   })}
                 </span>
               </div>
@@ -63,11 +63,11 @@ const MinimalistKasirHeader = () => {
             </div>
 
             {/* Payment Status Indicator */}
-            <div className="hidden md:flex items-center space-x-3 bg-green-500/20 px-4 py-2 rounded-xl backdrop-blur-sm border border-green-400/30">
-              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse shadow-lg"></div>
+            <div className="hidden md:flex items-center space-x-3 bg-gray-800/20 px-4 py-2 rounded-xl backdrop-blur-sm border border-gray-800/30">
+              <div className="w-3 h-3 bg-gray-800 rounded-full animate-pulse shadow-lg"></div>
               <div>
-                <span className="text-xs text-green-200 font-medium">Payment Status</span>
-                <p className="text-xs text-green-100">Ready to Process</p>
+                <span className="text-xs text-gray-200 font-medium">Payment Status</span>
+                <p className="text-xs text-gray-100">Ready to Process</p>
               </div>
             </div>
 
@@ -81,7 +81,7 @@ const MinimalistKasirHeader = () => {
                   <span className="text-lg font-bold">💰</span>
                 </div>
                 <div className="hidden md:block text-left">
-                  <p className="text-sm font-bold text-white">{user?.name || "Kasir"}</p>
+                  <p className="text-sm font-bold text-gray-900">{user?.name || "Kasir"}</p>
                   <div className="flex items-center space-x-2 mt-1">
                     <span className="text-xs text-orange-200 font-medium">Staff Kasir</span>
                     <div className="w-1 h-1 bg-orange-300 rounded-full"></div>
@@ -90,7 +90,7 @@ const MinimalistKasirHeader = () => {
                     </span>
                   </div>
                 </div>
-                <svg className="w-4 h-4 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-gray-900/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
               </button>
@@ -99,7 +99,7 @@ const MinimalistKasirHeader = () => {
               {showUserMenu && (
                 <div className="absolute right-0 mt-3 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 overflow-hidden">
                   {/* User Info Header */}
-                  <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-6 text-white">
+                  <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-6 text-gray-900">
                     <div className="flex items-center space-x-4">
                       <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
                         <span className="text-2xl">💰</span>
@@ -111,7 +111,7 @@ const MinimalistKasirHeader = () => {
                           <span className="text-xs text-orange-200 font-medium bg-orange-400/30 px-2 py-1 rounded-full">
                             Staff Kasir
                           </span>
-                          <span className="text-xs text-green-200 font-medium bg-green-400/30 px-2 py-1 rounded-full">
+                          <span className="text-xs text-gray-200 font-medium bg-gray-800/30 px-2 py-1 rounded-full">
                             Online
                           </span>
                         </div>
@@ -142,9 +142,9 @@ const MinimalistKasirHeader = () => {
                         navigate('/staff/payments');
                         setShowUserMenu(false);
                       }}
-                      className="w-full text-left px-6 py-3 text-sm text-gray-700 hover:bg-green-50 flex items-center space-x-3 transition-colors duration-200"
+                      className="w-full text-left px-6 py-3 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3 transition-colors duration-200"
                     >
-                      <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                      <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
                         <span>💳</span>
                       </div>
                       <div>
@@ -160,7 +160,7 @@ const MinimalistKasirHeader = () => {
                       }}
                       className="w-full text-left px-6 py-3 text-sm text-gray-700 hover:bg-blue-50 flex items-center space-x-3 transition-colors duration-200"
                     >
-                      <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
                         <span>📅</span>
                       </div>
                       <div>

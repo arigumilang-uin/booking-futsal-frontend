@@ -58,6 +58,46 @@ export {
   generatePaymentReport
 } from './paymentAPI';
 
+// Kasir APIs
+export {
+  getKasirDashboard,
+  getAllPaymentsForKasir,
+  getPaymentDetailForKasir,
+  processManualPayment,
+  confirmPayment,
+  getPendingPayments,
+  getAllBookingsForKasir,
+  getBookingDetailForKasir,
+  getPaymentStatsForKasir,
+  getDailyCashReport,
+  getPaymentMethods,
+  getPaymentStatusColor,
+  getPaymentMethodLabel,
+  // formatCurrency - removed duplicate, use from analyticsAPI
+  validatePaymentAmount,
+  validateReferenceNumber
+} from './kasirAPI';
+
+// Operator APIs
+export {
+  getOperatorDashboard,
+  getOperatorStatistics,
+  getAssignedFields,
+  updateFieldStatus as updateFieldStatusOperator,
+  getFieldBookings,
+  getAllBookingsForOperator,
+  getBookingDetailForOperator,
+  confirmBooking as confirmBookingOperator,
+  completeBooking,
+  getTodaySchedule,
+  getScheduleByDate,
+  getBookingActions,
+  getFieldStatusColor,
+  getBookingStatusColor,
+  formatOperatorTime,
+  formatOperatorDate
+} from './operatorAPI';
+
 // User APIs
 export {
   // Profile APIs

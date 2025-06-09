@@ -51,9 +51,9 @@ const StaffNavbar = () => {
   const navigation = getRoleNavigation(user?.role);
 
   return (
-    <nav className="bg-blue-800 text-white px-6 py-4 flex justify-between items-center">
+    <nav className="bg-gray-800 text-gray-900 px-6 py-4 flex justify-between items-center">
       <div className="flex items-center gap-6">
-        <Link to="/staff" className="font-bold text-xl">Futsal Pekanbaru - Staff</Link>
+        <Link to="/staff" className="font-bold text-xl">Soccer Pekanbaru - Staff</Link>
         
         {navigation.map((nav, index) => (
           <Link key={index} to={nav.path} className="hover:underline">

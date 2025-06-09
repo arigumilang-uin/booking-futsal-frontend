@@ -119,8 +119,8 @@ class EnhancedErrorBoundary extends React.Component {
 
               {/* Retry Information */}
               {this.state.retryCount > 0 && (
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
-                  <p className="text-sm text-yellow-800">
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-4">
+                  <p className="text-sm text-gray-900">
                     Retry attempts: {this.state.retryCount}
                   </p>
                 </div>
@@ -131,7 +131,7 @@ class EnhancedErrorBoundary extends React.Component {
                 <button
                   onClick={this.handleRetry}
                   disabled={this.state.isRetrying || this.state.retryCount >= 3}
-                  className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="w-full bg-gray-800 text-gray-900 py-2 px-4 rounded-lg hover:bg-gray-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   {this.state.isRetrying ? (
                     <div className="flex items-center justify-center">
@@ -146,13 +146,13 @@ class EnhancedErrorBoundary extends React.Component {
                 <div className="flex space-x-3">
                   <button
                     onClick={this.handleReload}
-                    className="flex-1 bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"
+                    className="flex-1 bg-gray-600 text-gray-900 py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"
                   >
                     🔄 Reload Page
                   </button>
                   <button
                     onClick={this.handleGoHome}
-                    className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors"
+                    className="flex-1 bg-gray-800 text-gray-900 py-2 px-4 rounded-lg hover:bg-gray-500 transition-colors"
                   >
                     🏠 Go Home
                   </button>

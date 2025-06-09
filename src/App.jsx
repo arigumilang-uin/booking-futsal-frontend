@@ -35,7 +35,7 @@ import UserManagement from "./pages/staff/User/UserManagement";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-  console.log('🚀 Booking Futsal App is starting...');
+  console.log('🚀 Booking Soccer App is starting...');
 
   // Initialize performance monitoring
   // if (typeof window !== 'undefined') {

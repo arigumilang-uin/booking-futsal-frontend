@@ -142,9 +142,9 @@ const EnhancedAnalyticsDashboard = () => {
 
   const StatCard = ({ title, value, change, icon, color = 'blue' }) => {
     const colorClasses = {
-      blue: 'bg-blue-50 text-blue-600 border-blue-200',
-      green: 'bg-green-50 text-green-600 border-green-200',
-      purple: 'bg-purple-50 text-purple-600 border-purple-200',
+      blue: 'bg-blue-50 text-gray-900 border-gray-200',
+      green: 'bg-green-50 text-gray-900 border-gray-200',
+      purple: 'bg-purple-50 text-gray-900 border-gray-200',
       orange: 'bg-orange-50 text-orange-600 border-orange-200',
       red: 'bg-red-50 text-red-600 border-red-200'
     };
@@ -157,7 +157,7 @@ const EnhancedAnalyticsDashboard = () => {
             <p className="text-2xl font-bold text-gray-900 mt-1">{value}</p>
             {change !== undefined && (
               <p className={`text-sm mt-1 ${
-                change >= 0 ? 'text-green-600' : 'text-red-600'
+                change >= 0 ? 'text-gray-900' : 'text-red-600'
               }`}>
                 {change >= 0 ? '↗' : '↘'} {Math.abs(change).toFixed(1)}%
               </p>
@@ -180,7 +180,7 @@ const EnhancedAnalyticsDashboard = () => {
           <button
             onClick={() => handleExport('excel')}
             disabled={loading}
-            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
+            className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500 disabled:opacity-50"
           >
             📊 Export Excel
           </button>
@@ -194,7 +194,7 @@ const EnhancedAnalyticsDashboard = () => {
           <button
             onClick={loadAnalytics}
             disabled={loading}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-500 disabled:opacity-50"
           >
             {loading ? 'Loading...' : '🔄 Refresh'}
           </button>
@@ -210,7 +210,7 @@ const EnhancedAnalyticsDashboard = () => {
               type="date"
               value={dateRange.start_date}
               onChange={(e) => handleDateRangeChange('start_date', e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
           <div>
@@ -219,13 +219,13 @@ const EnhancedAnalyticsDashboard = () => {
               type="date"
               value={dateRange.end_date}
               onChange={(e) => handleDateRangeChange('end_date', e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
           <div className="flex items-end">
             <button
               onClick={loadAnalytics}
-              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+              className="bg-gray-800 text-gray-900 px-4 py-2 rounded-md hover:bg-gray-500"
             >
               Apply Filter
             </button>
@@ -248,7 +248,7 @@ const EnhancedAnalyticsDashboard = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
+                    ? 'border-gray-800 text-gray-900'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >

@@ -94,20 +94,20 @@ const NotificationsManagementPanel = () => {
 
   const getTypeColor = (type) => {
     switch (type) {
-      case 'success': return 'bg-green-100 text-green-800';
-      case 'warning': return 'bg-yellow-100 text-yellow-800';
+      case 'success': return 'bg-gray-100 text-gray-900';
+      case 'warning': return 'bg-gray-100 text-gray-900';
       case 'error': return 'bg-red-100 text-red-800';
-      case 'info': return 'bg-blue-100 text-blue-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'info': return 'bg-gray-100 text-gray-900';
+      default: return 'bg-gray-100 text-gray-900';
     }
   };
 
   const getPriorityColor = (priority) => {
     switch (priority) {
       case 'high': return 'bg-red-100 text-red-800';
-      case 'normal': return 'bg-blue-100 text-blue-800';
-      case 'low': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'normal': return 'bg-gray-100 text-gray-900';
+      case 'low': return 'bg-gray-100 text-gray-900';
+      default: return 'bg-gray-100 text-gray-900';
     }
   };
 
@@ -129,7 +129,7 @@ const NotificationsManagementPanel = () => {
           </h2>
           <button
             onClick={() => setShowCreateForm(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
           >
             ➕ Buat Notifikasi
           </button>
@@ -170,7 +170,7 @@ const NotificationsManagementPanel = () => {
 
           <button
             onClick={loadNotifications}
-            className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+            className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
           >
             🔄 Refresh
           </button>
@@ -277,13 +277,13 @@ const NotificationsManagementPanel = () => {
           <div className="flex space-x-3 mt-6">
             <button
               onClick={handleCreateNotification}
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+              className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
             >
               Simpan
             </button>
             <button
               onClick={() => setShowCreateForm(false)}
-              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+              className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
             >
               Batal
             </button>
@@ -301,7 +301,7 @@ const NotificationsManagementPanel = () => {
 
         {loading ? (
           <div className="p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800 mx-auto"></div>
             <p className="mt-2 text-gray-600">Memuat notifikasi...</p>
           </div>
         ) : notifications.length === 0 ? (
@@ -333,7 +333,7 @@ const NotificationsManagementPanel = () => {
                     </div>
                   </div>
                   <div className="flex space-x-2">
-                    <button className="text-blue-600 hover:text-blue-900 text-sm">
+                    <button className="text-gray-900 hover:text-gray-900 text-sm">
                       Edit
                     </button>
                     <button className="text-red-600 hover:text-red-900 text-sm">

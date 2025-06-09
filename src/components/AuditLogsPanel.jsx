@@ -83,14 +83,14 @@ const AuditLogsPanel = () => {
 
   const getActionColor = (action) => {
     const colors = {
-      'CREATE': 'bg-green-100 text-green-800',
-      'UPDATE': 'bg-blue-100 text-blue-800',
+      'CREATE': 'bg-gray-100 text-gray-900',
+      'UPDATE': 'bg-gray-100 text-gray-900',
       'DELETE': 'bg-red-100 text-red-800',
-      'LOGIN': 'bg-purple-100 text-purple-800',
-      'LOGOUT': 'bg-gray-100 text-gray-800',
-      'VIEW': 'bg-yellow-100 text-yellow-800'
+      'LOGIN': 'bg-gray-100 text-gray-900',
+      'LOGOUT': 'bg-gray-100 text-gray-900',
+      'VIEW': 'bg-gray-100 text-gray-900'
     };
-    return colors[action] || 'bg-gray-100 text-gray-800';
+    return colors[action] || 'bg-gray-100 text-gray-900';
   };
 
   const formatDate = (dateString) => {
@@ -116,7 +116,7 @@ const AuditLogsPanel = () => {
             loadStatistics();
           }}
           disabled={loading}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500 disabled:opacity-50"
         >
           {loading ? 'Refreshing...' : 'Refresh'}
         </button>
@@ -124,17 +124,17 @@ const AuditLogsPanel = () => {
 
       {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white p-4 rounded-lg shadow border-l-4 border-l-blue-500">
+        <div className="bg-white p-4 rounded-lg shadow border-l-4 border-l-gray-800">
           <div className="text-2xl font-bold text-gray-900">{statistics.total_logs || 0}</div>
-          <div className="text-sm text-blue-600">Total Logs</div>
+          <div className="text-sm text-gray-900">Total Logs</div>
         </div>
-        <div className="bg-white p-4 rounded-lg shadow border-l-4 border-l-green-500">
+        <div className="bg-white p-4 rounded-lg shadow border-l-4 border-l-gray-800">
           <div className="text-2xl font-bold text-gray-900">{statistics.today_logs || 0}</div>
-          <div className="text-sm text-green-600">Logs Hari Ini</div>
+          <div className="text-sm text-gray-900">Logs Hari Ini</div>
         </div>
-        <div className="bg-white p-4 rounded-lg shadow border-l-4 border-l-purple-500">
+        <div className="bg-white p-4 rounded-lg shadow border-l-4 border-l-gray-800">
           <div className="text-2xl font-bold text-gray-900">{statistics.unique_users || 0}</div>
-          <div className="text-sm text-purple-600">Pengguna Aktif</div>
+          <div className="text-sm text-gray-900">Pengguna Aktif</div>
         </div>
         <div className="bg-white p-4 rounded-lg shadow border-l-4 border-l-red-500">
           <div className="text-2xl font-bold text-gray-900">{statistics.critical_actions || 0}</div>
@@ -151,7 +151,7 @@ const AuditLogsPanel = () => {
             <select
               value={filters.action}
               onChange={(e) => handleFilterChange('action', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               <option value="">Semua Aksi</option>
               <option value="CREATE">Create</option>
@@ -169,7 +169,7 @@ const AuditLogsPanel = () => {
               value={filters.user_id}
               onChange={(e) => handleFilterChange('user_id', e.target.value)}
               placeholder="Filter by user ID"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
           <div>
@@ -178,7 +178,7 @@ const AuditLogsPanel = () => {
               type="date"
               value={filters.date_from}
               onChange={(e) => handleFilterChange('date_from', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
           <div>
@@ -187,7 +187,7 @@ const AuditLogsPanel = () => {
               type="date"
               value={filters.date_to}
               onChange={(e) => handleFilterChange('date_to', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
           <div>
@@ -195,7 +195,7 @@ const AuditLogsPanel = () => {
             <select
               value={filters.limit}
               onChange={(e) => handleFilterChange('limit', parseInt(e.target.value))}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               <option value={10}>10</option>
               <option value={20}>20</option>
@@ -216,7 +216,7 @@ const AuditLogsPanel = () => {
 
         {loading ? (
           <div className="p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800 mx-auto"></div>
             <p className="text-gray-500 mt-2">Loading audit logs...</p>
           </div>
         ) : logs.length > 0 ? (
@@ -303,7 +303,7 @@ const AuditLogsPanel = () => {
                     key={page}
                     onClick={() => handlePageChange(page)}
                     className={`px-3 py-1 border rounded-md text-sm ${pagination.current === page
-                      ? 'bg-blue-600 text-white border-blue-600'
+                      ? 'bg-gray-800 text-gray-900 border-gray-800'
                       : 'border-gray-300 hover:bg-gray-50'
                       }`}
                   >

@@ -186,7 +186,7 @@ const BookingForm = () => {
           )}
 
           {success && (
-            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+            <div className="bg-gray-100 border border-green-400 text-gray-500 px-4 py-3 rounded mb-6">
               {success}
             </div>
           )}
@@ -202,7 +202,7 @@ const BookingForm = () => {
                 value={formData.fieldId}
                 onChange={handleInputChange}
                 required
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                 disabled={loading}
               >
                 <option value="">Pilih lapangan...</option>
@@ -226,7 +226,7 @@ const BookingForm = () => {
                 onChange={handleInputChange}
                 min={new Date().toISOString().split('T')[0]}
                 required
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
               />
             </div>
 
@@ -240,7 +240,7 @@ const BookingForm = () => {
                 value={formData.timeSlot}
                 onChange={handleInputChange}
                 required
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                 disabled={!formData.fieldId || !formData.date || checkingAvailability}
               >
                 <option value="">
@@ -255,9 +255,9 @@ const BookingForm = () => {
               {!formData.fieldId || !formData.date ? (
                 <p className="text-sm text-gray-500 mt-1">Pilih lapangan dan tanggal terlebih dahulu</p>
               ) : checkingAvailability ? (
-                <p className="text-sm text-blue-500 mt-1">🔄 Mengecek ketersediaan waktu...</p>
+                <p className="text-sm text-gray-900 mt-1">🔄 Mengecek ketersediaan waktu...</p>
               ) : (
-                <p className="text-sm text-green-500 mt-1">✅ {availableSlots.length} slot waktu tersedia</p>
+                <p className="text-sm text-gray-900 mt-1">✅ {availableSlots.length} slot waktu tersedia</p>
               )}
             </div>
 
@@ -270,7 +270,7 @@ const BookingForm = () => {
                 name="duration"
                 value={formData.duration}
                 onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
               >
                 <option value={1}>1 jam</option>
                 <option value={2}>2 jam</option>
@@ -290,15 +290,15 @@ const BookingForm = () => {
                 onChange={handleInputChange}
                 rows={3}
                 placeholder="Tambahkan catatan khusus untuk booking ini..."
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
               />
             </div>
 
             {/* Booking Summary */}
             {selectedFieldData && formData.timeSlot && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <h3 className="font-medium text-blue-900 mb-2">Ringkasan Booking</h3>
-                <div className="space-y-1 text-sm text-blue-800">
+              <div className="bg-blue-50 border border-gray-200 rounded-lg p-4">
+                <h3 className="font-medium text-gray-900 mb-2">Ringkasan Booking</h3>
+                <div className="space-y-1 text-sm text-gray-900">
                   <p><strong>Lapangan:</strong> {selectedFieldData.name}</p>
                   <p><strong>Tanggal:</strong> {formData.date}</p>
                   <p><strong>Waktu:</strong> {formData.timeSlot}</p>
@@ -321,7 +321,7 @@ const BookingForm = () => {
               <button
                 type="submit"
                 disabled={submitting || !formData.fieldId || !formData.date || !formData.timeSlot}
-                className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 bg-gray-800 text-gray-900 py-2 px-4 rounded-md hover:bg-gray-500 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitting ? 'Memproses...' : 'Buat Booking'}
               </button>

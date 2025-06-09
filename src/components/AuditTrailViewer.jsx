@@ -101,10 +101,10 @@ const AuditTrailViewer = () => {
 
   const getActionColor = (action) => {
     switch (action) {
-      case 'CREATE': return 'text-green-600 bg-green-100';
-      case 'UPDATE': return 'text-blue-600 bg-blue-100';
+      case 'CREATE': return 'text-gray-900 bg-gray-100';
+      case 'UPDATE': return 'text-gray-900 bg-gray-100';
       case 'DELETE': return 'text-red-600 bg-red-100';
-      case 'LOGIN': return 'text-purple-600 bg-purple-100';
+      case 'LOGIN': return 'text-gray-900 bg-gray-100';
       case 'LOGOUT': return 'text-gray-600 bg-gray-100';
       default: return 'text-gray-600 bg-gray-100';
     }
@@ -146,7 +146,7 @@ const AuditTrailViewer = () => {
           </h2>
           <button
             onClick={handleExport}
-            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+            className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
           >
             📊 Export CSV
           </button>
@@ -156,20 +156,20 @@ const AuditTrailViewer = () => {
         {statistics && (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div className="bg-blue-50 p-4 rounded-lg">
-              <h3 className="text-sm font-medium text-blue-800">Total Actions</h3>
-              <p className="text-2xl font-semibold text-blue-900">
+              <h3 className="text-sm font-medium text-gray-900">Total Actions</h3>
+              <p className="text-2xl font-semibold text-gray-900">
                 {statistics.total_actions || 0}
               </p>
             </div>
             <div className="bg-green-50 p-4 rounded-lg">
-              <h3 className="text-sm font-medium text-green-800">Creates</h3>
-              <p className="text-2xl font-semibold text-green-900">
+              <h3 className="text-sm font-medium text-gray-900">Creates</h3>
+              <p className="text-2xl font-semibold text-gray-900">
                 {statistics.by_action?.CREATE || 0}
               </p>
             </div>
-            <div className="bg-yellow-50 p-4 rounded-lg">
-              <h3 className="text-sm font-medium text-yellow-800">Updates</h3>
-              <p className="text-2xl font-semibold text-yellow-900">
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <h3 className="text-sm font-medium text-gray-900">Updates</h3>
+              <p className="text-2xl font-semibold text-gray-900">
                 {statistics.by_action?.UPDATE || 0}
               </p>
             </div>
@@ -235,7 +235,7 @@ const AuditTrailViewer = () => {
 
           <button
             onClick={handleApplyFilters}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
           >
             Filter
           </button>
@@ -252,7 +252,7 @@ const AuditTrailViewer = () => {
 
         {loading ? (
           <div className="p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800 mx-auto"></div>
             <p className="mt-2 text-gray-600">Memuat audit logs...</p>
           </div>
         ) : auditLogs.length === 0 ? (
@@ -308,7 +308,7 @@ const AuditTrailViewer = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <button
                         onClick={() => handleViewDetail(log.id)}
-                        className="text-blue-600 hover:text-blue-900"
+                        className="text-gray-900 hover:text-gray-900"
                       >
                         Detail
                       </button>

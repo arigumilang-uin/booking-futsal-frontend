@@ -100,22 +100,22 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-hidden border-t-4 border-t-green-500">
-        {/* Futsal Header */}
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-hidden border-t-4 border-t-gray-800">
+        {/* Soccer Header */}
+        <div className="bg-gradient-to-r from-gray-800 to-gray-800 text-gray-900 p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
                 <span className="text-lg">⚽</span>
               </div>
               <div>
-                <h2 className="text-lg font-bold text-white">Pengaturan Akun Manajer</h2>
-                <p className="text-green-100 text-sm">Kelola profil dan keamanan akun</p>
+                <h2 className="text-lg font-bold text-gray-900">Pengaturan Akun Manajer</h2>
+                <p className="text-gray-100 text-sm">Kelola profil dan keamanan akun</p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="text-white hover:text-green-200 p-1 rounded-lg hover:bg-white/10 transition-colors duration-200"
+              className="text-gray-900 hover:text-gray-200 p-1 rounded-lg hover:bg-white/10 transition-colors duration-200"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -124,8 +124,8 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Futsal Tabs */}
-        <div className="border-b border-green-200 bg-green-50">
+        {/* Soccer Tabs */}
+        <div className="border-b border-gray-200 bg-green-50">
           <nav className="flex px-4">
             {[
               { id: 'profile', label: 'Data Manajer', icon: '👤' },
@@ -136,8 +136,8 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`py-3 px-4 border-b-2 font-medium text-sm transition-colors duration-200 ${
                   activeTab === tab.id
-                    ? 'border-green-500 text-green-700 bg-white'
-                    : 'border-transparent text-gray-600 hover:text-green-700 hover:border-green-300'
+                    ? 'border-gray-800 text-gray-500 bg-white'
+                    : 'border-transparent text-gray-600 hover:text-gray-500 hover:border-gray-800'
                 }`}
               >
                 <span className="mr-2">{tab.icon}</span>
@@ -153,7 +153,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
           {message.text && (
             <div className={`mb-4 p-3 rounded-lg ${
               message.type === 'success'
-                ? 'bg-green-50 text-green-800 border border-green-200'
+                ? 'bg-green-50 text-gray-900 border border-gray-200'
                 : 'bg-red-50 text-red-800 border border-red-200'
             }`}>
               <div className="flex items-center space-x-2">
@@ -174,7 +174,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                   type="text"
                   value={profileData.name}
                   onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-600 focus:border-transparent"
                   required
                 />
               </div>
@@ -187,7 +187,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                   type="email"
                   value={profileData.email}
                   onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-600 focus:border-transparent"
                   required
                 />
               </div>
@@ -200,7 +200,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                   type="tel"
                   value={profileData.phone}
                   onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-600 focus:border-transparent"
                   placeholder="08xxxxxxxxxx"
                 />
               </div>
@@ -208,7 +208,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-all duration-200 shadow-sm"
+                className="w-full bg-gradient-to-r from-gray-800 to-gray-800 hover:from-gray-800 hover:to-gray-500 text-gray-900 py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-all duration-200 shadow-sm"
               >
                 {loading ? '⚽ Menyimpan...' : '🏆 Simpan Perubahan'}
               </button>
@@ -226,7 +226,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                   type="password"
                   value={passwordData.current_password}
                   onChange={(e) => setPasswordData({ ...passwordData, current_password: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-600 focus:border-transparent"
                   required
                 />
               </div>
@@ -239,7 +239,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                   type="password"
                   value={passwordData.new_password}
                   onChange={(e) => setPasswordData({ ...passwordData, new_password: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-600 focus:border-transparent"
                   minLength="6"
                   required
                 />
@@ -254,7 +254,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
                   type="password"
                   value={passwordData.confirm_password}
                   onChange={(e) => setPasswordData({ ...passwordData, confirm_password: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-600 focus:border-transparent"
                   required
                 />
               </div>
@@ -262,7 +262,7 @@ const ProfileSettingsModal = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-all duration-200 shadow-sm"
+                className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-gray-900 py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-all duration-200 shadow-sm"
               >
                 {loading ? '🔒 Mengubah...' : '🛡️ Perbarui Password'}
               </button>

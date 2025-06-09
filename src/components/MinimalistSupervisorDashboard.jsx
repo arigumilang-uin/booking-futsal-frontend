@@ -97,16 +97,16 @@ const MinimalistSupervisorDashboard = () => {
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-slate-50 flex items-center justify-center">
         <div className="text-center">
           <div className="relative">
-            <div className="animate-spin rounded-full h-20 w-20 border-4 border-purple-200 border-t-purple-600 mx-auto mb-8 shadow-xl"></div>
-            <div className="absolute inset-0 rounded-full bg-purple-100 opacity-30 animate-pulse"></div>
+            <div className="animate-spin rounded-full h-20 w-20 border-4 border-gray-200 border-t-gray-800 mx-auto mb-8 shadow-xl"></div>
+            <div className="absolute inset-0 rounded-full bg-gray-100 opacity-30 animate-pulse"></div>
           </div>
           <div className="space-y-3">
-            <h2 className="text-2xl font-bold text-purple-800">Loading Control Center</h2>
-            <p className="text-purple-600 font-medium">Preparing your supervisor dashboard...</p>
+            <h2 className="text-2xl font-bold text-gray-900">Loading Control Center</h2>
+            <p className="text-gray-900 font-medium">Preparing your supervisor dashboard...</p>
             <div className="flex justify-center space-x-1 mt-4">
-              <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
-              <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-              <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              <div className="w-2 h-2 bg-gray-800 rounded-full animate-bounce"></div>
+              <div className="w-2 h-2 bg-gray-800 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+              <div className="w-2 h-2 bg-gray-800 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
             </div>
           </div>
         </div>
@@ -125,60 +125,60 @@ const MinimalistSupervisorDashboard = () => {
       backgroundSize: '100% 100%, 100% 100%, 30px 30px, 30px 30px'
     }}>
       {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-purple-200 rounded-full opacity-10 animate-pulse"></div>
-      <div className="absolute bottom-20 right-10 w-24 h-24 bg-purple-300 rounded-full opacity-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-20 left-10 w-32 h-32 bg-gray-200 rounded-full opacity-10 animate-pulse"></div>
+      <div className="absolute bottom-20 right-10 w-24 h-24 bg-gray-800 rounded-full opacity-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
       <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-purple-400 rounded-full opacity-10 animate-pulse" style={{ animationDelay: '2s' }}></div>
-      {/* Futsal Supervisor Header */}
+      {/* Soccer Supervisor Header */}
       <MinimalistSupervisorHeader />
 
       <div className="max-w-7xl mx-auto p-6 space-y-6">
-        {/* Refresh Button - Futsal Style */}
+        {/* Refresh Button - Soccer Style */}
         <div className="flex justify-end">
           <button
             onClick={loadDashboardData}
-            className="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-6 py-3 rounded-lg flex items-center space-x-2 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="bg-gradient-to-r from-gray-800 to-gray-800 hover:from-gray-800 hover:to-gray-500 text-white px-6 py-3 rounded-lg flex items-center space-x-2 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             <span>🔄</span>
             <span className="font-medium">Muat Ulang Dashboard</span>
           </button>
         </div>
 
-        {/* Futsal Stats Grid */}
+        {/* Soccer Stats Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-green-500 hover:shadow-md transition-all duration-200 hover:border-l-green-600">
+          <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-gray-800 hover:shadow-md transition-all duration-200 hover:border-l-gray-800">
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-2xl font-bold text-gray-900">{overview?.total_users || 0}</div>
-                <div className="text-sm font-medium text-green-600 mt-1">Total Pengguna</div>
+                <div className="text-sm font-medium text-gray-900 mt-1">Total Pengguna</div>
                 <div className="text-xs text-gray-500 mt-1">Semua role sistem</div>
               </div>
-              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
                 <span className="text-lg">👥</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-blue-500 hover:shadow-md transition-all duration-200 hover:border-l-blue-600">
+          <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-gray-800 hover:shadow-md transition-all duration-200 hover:border-l-gray-800">
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-2xl font-bold text-gray-900">{overview?.total_fields || 0}</div>
-                <div className="text-sm font-medium text-blue-600 mt-1">Total Lapangan</div>
+                <div className="text-sm font-medium text-gray-900 mt-1">Total Lapangan</div>
                 <div className="text-xs text-gray-500 mt-1">{overview?.active_fields || 0} siap main</div>
               </div>
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
                 <span className="text-lg">🏟️</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-emerald-500 hover:shadow-md transition-all duration-200 hover:border-l-emerald-600">
+          <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-gray-800 hover:shadow-md transition-all duration-200 hover:border-l-gray-800">
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-2xl font-bold text-gray-900">{overview?.active_fields || 0}</div>
-                <div className="text-sm font-medium text-emerald-600 mt-1">Lapangan Aktif</div>
+                <div className="text-sm font-medium text-gray-800 mt-1">Lapangan Aktif</div>
                 <div className="text-xs text-gray-500 mt-1">Siap pertandingan</div>
               </div>
-              <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
                 <span className="text-lg">🥅</span>
               </div>
             </div>
@@ -197,39 +197,39 @@ const MinimalistSupervisorDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-purple-500 hover:shadow-md transition-all duration-200 hover:border-l-purple-600">
+          <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-gray-800 hover:shadow-md transition-all duration-200 hover:border-l-gray-800">
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-2xl font-bold text-gray-900">
                   {serverInfo?.uptime ? formatUptime(serverInfo.uptime) : 'N/A'}
                 </div>
-                <div className="text-sm font-medium text-purple-600 mt-1">Waktu Operasi</div>
+                <div className="text-sm font-medium text-gray-900 mt-1">Waktu Operasi</div>
                 <div className="text-xs text-gray-500 mt-1">Sistem berjalan</div>
               </div>
-              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
                 <span className="text-lg">⏱️</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-indigo-500 hover:shadow-md transition-all duration-200 hover:border-l-indigo-600">
+          <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-gray-800 hover:shadow-md transition-all duration-200 hover:border-l-gray-800">
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-2xl font-bold text-gray-900">
                   {serverInfo?.memory_usage?.heapUsed ? formatMemory(serverInfo.memory_usage.heapUsed) : 'N/A'}
                 </div>
-                <div className="text-sm font-medium text-indigo-600 mt-1">Performa</div>
+                <div className="text-sm font-medium text-gray-900 mt-1">Performa</div>
                 <div className="text-xs text-gray-500 mt-1">Penggunaan memori</div>
               </div>
-              <div className="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
                 <span className="text-lg">📊</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Futsal Navigation Tabs */}
-        <div className="bg-white rounded-lg shadow-sm border border-green-200 p-1">
+        {/* Soccer Navigation Tabs */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-1">
           <nav className="flex space-x-1">
             {[
               { id: 'overview', label: 'Ringkasan', icon: '🏆' },
@@ -242,8 +242,8 @@ const MinimalistSupervisorDashboard = () => {
                 key={tab.id}
                 onClick={() => setActiveView(tab.id)}
                 className={`flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all duration-200 flex items-center justify-center space-x-2 ${activeView === tab.id
-                  ? 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-sm'
-                  : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+                  ? 'bg-gradient-to-r from-gray-800 to-gray-800 text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-green-50'
                   }`}
               >
                 <span>{tab.icon}</span>
@@ -261,40 +261,40 @@ const MinimalistSupervisorDashboard = () => {
 
               {/* Key Business Metrics - NO DUPLICATION */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white">
+                <div className="bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg p-6 text-gray-900">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-blue-100 text-sm">Total Pengguna</p>
+                      <p className="text-gray-100 text-sm">Total Pengguna</p>
                       <p className="text-3xl font-bold">{overview?.total_users || 0}</p>
-                      <p className="text-blue-100 text-xs mt-1">Terdaftar di sistem</p>
+                      <p className="text-gray-100 text-xs mt-1">Terdaftar di sistem</p>
                     </div>
                     <div className="text-4xl opacity-80">👥</div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-6 text-white">
+                <div className="bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg p-6 text-gray-900">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-green-100 text-sm">Total Lapangan</p>
+                      <p className="text-gray-100 text-sm">Total Lapangan</p>
                       <p className="text-3xl font-bold">{overview?.total_fields || 0}</p>
-                      <p className="text-green-100 text-xs mt-1">{overview?.active_fields || 0} aktif</p>
+                      <p className="text-gray-100 text-xs mt-1">{overview?.active_fields || 0} aktif</p>
                     </div>
                     <div className="text-4xl opacity-80">🏟️</div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg p-6 text-white">
+                <div className="bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg p-6 text-gray-900">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-purple-100 text-sm">Total Booking</p>
+                      <p className="text-gray-100 text-sm">Total Booking</p>
                       <p className="text-3xl font-bold">{overview?.total_bookings || 0}</p>
-                      <p className="text-purple-100 text-xs mt-1">Bulan ini</p>
+                      <p className="text-gray-100 text-xs mt-1">Bulan ini</p>
                     </div>
                     <div className="text-4xl opacity-80">📅</div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-6 text-white">
+                <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-6 text-gray-900">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-orange-100 text-sm">Status Sistem</p>
@@ -312,11 +312,11 @@ const MinimalistSupervisorDashboard = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <button
                   onClick={() => setActiveView('users')}
-                  className="bg-white border-2 border-blue-200 rounded-lg p-6 text-left hover:border-blue-400 hover:shadow-md transition-all group"
+                  className="bg-white border-2 border-gray-200 rounded-lg p-6 text-left hover:border-blue-400 hover:shadow-md transition-all group"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="text-3xl group-hover:scale-110 transition-transform">👥</div>
-                    <div className="text-blue-600 group-hover:text-blue-800">→</div>
+                    <div className="text-gray-900 group-hover:text-gray-900">→</div>
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-1">Kelola Pengguna</h4>
                   <p className="text-sm text-gray-600">Manajemen user dan role</p>
@@ -324,11 +324,11 @@ const MinimalistSupervisorDashboard = () => {
 
                 <button
                   onClick={() => setActiveView('fields')}
-                  className="bg-white border-2 border-green-200 rounded-lg p-6 text-left hover:border-green-400 hover:shadow-md transition-all group"
+                  className="bg-white border-2 border-gray-200 rounded-lg p-6 text-left hover:border-green-400 hover:shadow-md transition-all group"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="text-3xl group-hover:scale-110 transition-transform">🏟️</div>
-                    <div className="text-green-600 group-hover:text-green-800">→</div>
+                    <div className="text-gray-900 group-hover:text-gray-900">→</div>
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-1">Kelola Lapangan</h4>
                   <p className="text-sm text-gray-600">Status dan maintenance</p>
@@ -336,11 +336,11 @@ const MinimalistSupervisorDashboard = () => {
 
                 <button
                   onClick={() => setActiveView('system')}
-                  className="bg-white border-2 border-purple-200 rounded-lg p-6 text-left hover:border-purple-400 hover:shadow-md transition-all group"
+                  className="bg-white border-2 border-gray-200 rounded-lg p-6 text-left hover:border-purple-400 hover:shadow-md transition-all group"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="text-3xl group-hover:scale-110 transition-transform">⚙️</div>
-                    <div className="text-purple-600 group-hover:text-purple-800">→</div>
+                    <div className="text-gray-900 group-hover:text-gray-900">→</div>
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-1">Sistem & Audit</h4>
                   <p className="text-sm text-gray-600">Monitoring dan logs</p>
@@ -364,7 +364,7 @@ const MinimalistSupervisorDashboard = () => {
           {activeView === 'users' && (
             <Suspense fallback={
               <div className="p-6 flex items-center justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-800"></div>
               </div>
             }>
               <UserManagementPanel />
@@ -374,7 +374,7 @@ const MinimalistSupervisorDashboard = () => {
           {activeView === 'fields' && (
             <Suspense fallback={
               <div className="p-6 flex items-center justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-green-600"></div>
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-800"></div>
               </div>
             }>
               <FieldManagementPanel />
@@ -384,7 +384,7 @@ const MinimalistSupervisorDashboard = () => {
           {activeView === 'system' && (
             <Suspense fallback={
               <div className="p-6 flex items-center justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-600"></div>
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-800"></div>
               </div>
             }>
               <SystemMaintenancePanel />

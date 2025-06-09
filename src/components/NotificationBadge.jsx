@@ -50,7 +50,7 @@ const NotificationBadge = () => {
     <>
       <button
         onClick={handleNotificationClick}
-        className="relative p-2 text-gray-600 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-300 rounded-lg transition-all duration-200 group"
+        className="relative p-2 text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600 rounded-lg transition-all duration-200 group"
         title="Notifikasi Sistem"
       >
         {/* Clean Bell Icon */}
@@ -71,7 +71,7 @@ const NotificationBadge = () => {
 
         {/* Clean Badge */}
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium shadow-sm">
+          <span className="absolute -top-1 -right-1 bg-orange-500 text-gray-900 text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium shadow-sm">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}

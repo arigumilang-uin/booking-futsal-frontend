@@ -217,8 +217,8 @@ const PaymentVerification = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-yellow-100 rounded-lg">
-              <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
@@ -233,8 +233,8 @@ const PaymentVerification = () => {
 
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-green-100 rounded-lg">
-              <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
@@ -265,8 +265,8 @@ const PaymentVerification = () => {
 
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="p-2 bg-gray-100 rounded-lg">
+              <svg className="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
               </svg>
             </div>
@@ -294,7 +294,7 @@ const PaymentVerification = () => {
               placeholder="Nama customer, kode booking..."
               value={filters.search}
               onChange={(e) => handleFilterChange('search', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -306,7 +306,7 @@ const PaymentVerification = () => {
             <select
               value={filters.status}
               onChange={(e) => handleFilterChange('status', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               {statusOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -325,7 +325,7 @@ const PaymentVerification = () => {
               type="date"
               value={filters.dateFrom}
               onChange={(e) => handleFilterChange('dateFrom', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -338,7 +338,7 @@ const PaymentVerification = () => {
               type="date"
               value={filters.dateTo}
               onChange={(e) => handleFilterChange('dateTo', e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
         </div>
@@ -347,7 +347,7 @@ const PaymentVerification = () => {
         <div className="mt-4 flex justify-end">
           <button
             onClick={() => setFilters({ status: 'pending', search: '', dateFrom: '', dateTo: '' })}
-            className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+            className="text-gray-900 hover:text-gray-900 text-sm font-medium"
           >
             Bersihkan Filter
           </button>
@@ -435,7 +435,7 @@ const PaymentVerification = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                       <button
                         onClick={() => openDetailModal(payment)}
-                        className="text-blue-600 hover:text-blue-900"
+                        className="text-gray-900 hover:text-gray-900"
                       >
                         Detail
                       </button>
@@ -444,7 +444,7 @@ const PaymentVerification = () => {
                           <button
                             onClick={() => handleVerifyPayment(payment.id)}
                             disabled={processing === payment.id}
-                            className="text-green-600 hover:text-green-900 disabled:opacity-50"
+                            className="text-gray-900 hover:text-gray-900 disabled:opacity-50"
                           >
                             {processing === payment.id ? 'Proses...' : 'Verifikasi'}
                           </button>
@@ -520,7 +520,7 @@ const PaymentVerification = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Jumlah:</span>
-                      <span className="font-medium text-blue-600">
+                      <span className="font-medium text-gray-900">
                         {formatCurrency(selectedPayment.amount || 0)}
                       </span>
                     </div>
@@ -575,7 +575,7 @@ const PaymentVerification = () => {
                     onChange={(e) => setRejectReason(e.target.value)}
                     placeholder="Masukkan alasan penolakan..."
                     rows={3}
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                   />
                 </div>
               )}
@@ -597,7 +597,7 @@ const PaymentVerification = () => {
                       closeDetailModal();
                     }}
                     disabled={processing === selectedPayment.id}
-                    className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-200 disabled:opacity-50"
+                    className="px-6 py-2 bg-gray-800 text-gray-900 rounded-md hover:bg-gray-500 transition duration-200 disabled:opacity-50"
                   >
                     Verifikasi
                   </button>
@@ -611,7 +611,7 @@ const PaymentVerification = () => {
                       }
                     }}
                     disabled={processing === selectedPayment.id || !rejectReason.trim()}
-                    className="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-200 disabled:opacity-50"
+                    className="px-6 py-2 bg-red-600 text-gray-900 rounded-md hover:bg-red-700 transition duration-200 disabled:opacity-50"
                   >
                     Tolak
                   </button>
