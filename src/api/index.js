@@ -58,6 +58,26 @@ export {
   generatePaymentReport
 } from './paymentAPI';
 
+// Kasir APIs
+export {
+  getKasirDashboard,
+  getAllPaymentsForKasir,
+  getPaymentDetailForKasir,
+  processManualPayment,
+  confirmPayment,
+  getPendingPayments,
+  getAllBookingsForKasir,
+  getBookingDetailForKasir,
+  getPaymentStatsForKasir,
+  getDailyCashReport,
+  getPaymentMethods,
+  getPaymentStatusColor,
+  getPaymentMethodLabel,
+  // formatCurrency - removed duplicate, use from analyticsAPI
+  validatePaymentAmount,
+  validateReferenceNumber
+} from './kasirAPI';
+
 // User APIs
 export {
   // Profile APIs

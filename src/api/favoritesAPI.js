@@ -40,7 +40,8 @@ export const removeFromFavorites = async (fieldId) => {
 
 export const toggleFavorite = async (fieldId) => {
   try {
-    const response = await axiosInstance.post(`/customer/favorites/${fieldId}/toggle`);
+    // Backend uses PUT method for toggle
+    const response = await axiosInstance.put(`/customer/favorites/${fieldId}/toggle`);
     return response.data;
   } catch (error) {
     console.error('❌ Toggle favorite error:', error.response?.data || error.message);

@@ -31,7 +31,22 @@ const StaffDashboard = () => {
   // Supervisor-specific state - REMOVED: Using dedicated dashboard
 
   useEffect(() => {
-    loadDashboardData();
+    // Skip data loading for roles that use dedicated dashboards
+    const rolesWithDedicatedDashboards = [
+      'supervisor_sistem',
+      'manajer_futsal',
+      'staff_kasir',
+      'operator_lapangan'
+    ];
+
+    // Only load data for roles that don't have dedicated dashboards
+    if (!rolesWithDedicatedDashboards.includes(user?.role)) {
+      loadDashboardData();
+    } else {
+      // For dedicated dashboards, just set loading to false
+      console.log(`🎯 Skipping data loading for ${user?.role} - using dedicated dashboard`);
+      setLoading(false);
+    }
   }, []);
 
   // Debug useEffect to monitor stats changes
@@ -240,9 +255,8 @@ const StaffDashboard = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className={`grid grid-cols-1 md:grid-cols-2 ${
-        user?.role === 'supervisor_sistem' ? 'lg:grid-cols-6' : 'lg:grid-cols-4'
-      } gap-6 mb-8`}>
+      <div className={`grid grid-cols-1 md:grid-cols-2 ${user?.role === 'supervisor_sistem' ? 'lg:grid-cols-6' : 'lg:grid-cols-4'
+        } gap-6 mb-8`}>
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
             <div className="p-2 bg-blue-100 rounded-lg">
@@ -374,12 +388,11 @@ const StaffDashboard = () => {
                       </p>
                       <p className="text-sm text-gray-600">{booking.date || 'TBD'} • {booking.time_slot || 'TBD'}</p>
                     </div>
-                    <span className={`px-2 py-1 text-xs rounded-full ${
-                      booking.status === 'confirmed' ? 'bg-green-100 text-green-800' :
+                    <span className={`px-2 py-1 text-xs rounded-full ${booking.status === 'confirmed' ? 'bg-green-100 text-green-800' :
                       booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                      booking.status === 'rejected' ? 'bg-red-100 text-red-800' :
-                      'bg-gray-100 text-gray-800'
-                    }`}>
+                        booking.status === 'rejected' ? 'bg-red-100 text-red-800' :
+                          'bg-gray-100 text-gray-800'
+                      }`}>
                       {booking.status || 'pending'}
                     </span>
                   </div>
