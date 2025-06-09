@@ -112,3 +112,68 @@ export const getUserAnalytics = async (params = {}) => {
     throw error;
   }
 };
+
+// ===== USER STATUS MANAGEMENT APIs =====
+
+export const activateUser = async (id) => {
+  try {
+    const response = await axiosInstance.patch(`/admin/users/${id}/status`, {
+      is_active: true
+    });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Activate user error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const deactivateUser = async (id) => {
+  try {
+    const response = await axiosInstance.patch(`/admin/users/${id}/status`, {
+      is_active: false
+    });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Deactivate user error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const updateUserStatus = async (id, isActive) => {
+  try {
+    const response = await axiosInstance.patch(`/admin/users/${id}/status`, {
+      is_active: isActive
+    });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Update user status error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// ===== ROLE MANAGEMENT APIs =====
+
+export const changeUserRole = async (userId, newRole, reason = '') => {
+  try {
+    const response = await axiosInstance.put('/admin/role-management/change-role', {
+      user_id: userId,
+      new_role: newRole,
+      reason: reason,
+      bypass_approval: true // Supervisor can bypass approval
+    });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Change user role error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const getRoleManagementDashboard = async () => {
+  try {
+    const response = await axiosInstance.get('/admin/role-management/dashboard');
+    return response.data;
+  } catch (error) {
+    console.error('❌ Get role management dashboard error:', error.response?.data || error.message);
+    throw error;
+  }
+};

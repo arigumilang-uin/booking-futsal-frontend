@@ -2,9 +2,9 @@
 import { useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import {
-  getAdminAuditLogs,
+  getAuditLogs,
   getAuditLogDetail,
-  getAuditStatistics,
+  getAuditLogStatistics,
   exportAuditLogs
 } from '../api';
 
@@ -36,7 +36,7 @@ const AuditTrailViewer = () => {
         Object.entries(filters).filter(([_, value]) => value !== '')
       );
 
-      const response = await getAdminAuditLogs(params);
+      const response = await getAuditLogs(params);
       if (response.success) {
         setAuditLogs(response.data?.logs || []);
       }
@@ -49,7 +49,7 @@ const AuditTrailViewer = () => {
 
   const loadStatistics = async () => {
     try {
-      const response = await getAuditStatistics();
+      const response = await getAuditLogStatistics();
       if (response.success) {
         setStatistics(response.data?.statistics);
       }
@@ -151,7 +151,7 @@ const AuditTrailViewer = () => {
             📊 Export CSV
           </button>
         </div>
-        
+
         {/* Statistics */}
         {statistics && (
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -365,7 +365,7 @@ const AuditTrailViewer = () => {
                   ✕
                 </button>
               </div>
-              
+
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700">ID</label>

@@ -248,3 +248,17 @@ export const getDateRangeOptions = () => {
     { value: 'custom', label: 'Kustom' }
   ];
 };
+
+// ===== ENHANCED ANALYTICS =====
+
+export const getAdvancedAnalytics = async (params = {}) => {
+  try {
+    const response = await axiosInstance.get('/admin/analytics/advanced', { params });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Get advanced analytics error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Duplicate functions removed - already exist above

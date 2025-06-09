@@ -88,3 +88,68 @@ export const generatePaymentReport = async (params = {}) => {
     throw error;
   }
 };
+
+// ===== ADVANCED PAYMENT GATEWAY =====
+
+export const getPaymentMethods = async () => {
+  try {
+    const response = await axiosInstance.get('/customer/payment-methods');
+    return response.data;
+  } catch (error) {
+    console.error('❌ Get payment methods error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const validatePaymentData = async (paymentData) => {
+  try {
+    const response = await axiosInstance.post('/customer/payments/validate', paymentData);
+    return response.data;
+  } catch (error) {
+    console.error('❌ Validate payment data error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const processPayment = async (paymentData) => {
+  try {
+    const response = await axiosInstance.post('/customer/payments/process', paymentData);
+    return response.data;
+  } catch (error) {
+    console.error('❌ Process payment error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const generatePaymentReceipt = async (paymentId) => {
+  try {
+    const response = await axiosInstance.get(`/customer/payments/${paymentId}/receipt`);
+    return response.data;
+  } catch (error) {
+    console.error('❌ Generate payment receipt error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const downloadPaymentReceipt = async (paymentId, format = 'pdf') => {
+  try {
+    const response = await axiosInstance.get(`/customer/payments/${paymentId}/receipt/download`, {
+      params: { format },
+      responseType: 'blob'
+    });
+    return response.data;
+  } catch (error) {
+    console.error('❌ Download payment receipt error:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const getPaymentGatewayStatus = async () => {
+  try {
+    const response = await axiosInstance.get('/customer/payment-gateway/status');
+    return response.data;
+  } catch (error) {
+    console.error('❌ Get payment gateway status error:', error.response?.data || error.message);
+    throw error;
+  }
+};
