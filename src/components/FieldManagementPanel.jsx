@@ -223,9 +223,12 @@ const FieldManagementPanel = () => {
           </h2>
           <button
             onClick={() => setShowCreateForm(true)}
-            className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
+            className="bg-gradient-to-r from-gray-800 to-gray-900 text-white px-6 py-3 rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center space-x-2 font-medium"
           >
-            ➕ Tambah Lapangan
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span>Tambah Lapangan</span>
           </button>
         </div>
 

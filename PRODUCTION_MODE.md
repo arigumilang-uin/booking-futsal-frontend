@@ -16,7 +16,7 @@ npm run dev          # Development mode (localhost:5173)
 ```bash
 npm run prod         # Production mode (localhost:3000)
 npm run build:prod   # Build for production deployment
-npm run deploy       # Prepare for GitHub push and Vercel auto-deployment
+npm run deploy       # Automatic: build + git add + commit + push + Vercel deploy
 npm run test:api     # Test production API endpoints
 ```
 
@@ -63,15 +63,24 @@ npm run prod
 
 ## 🚀 Deployment Workflow
 
-### GitHub + Vercel Auto-Deployment
+### Automatic Deployment (One Command)
 ```bash
-# 1. Prepare for deployment
+# Automatic: build + git add + commit + push + Vercel deploy
 npm run deploy
+
+# Wait 2-3 minutes for Vercel deployment, then test
+npm run test:api
+```
+
+### Manual Deployment (If Needed)
+```bash
+# 1. Build for production
+npm run build:prod
 
 # 2. Commit and push to GitHub
 git add .
-git commit -m "Fix production API configuration"
-git push origin main
+git commit -m "update"
+git push origin master
 
 # 3. Vercel auto-deploys from GitHub
 # Wait 2-3 minutes for deployment

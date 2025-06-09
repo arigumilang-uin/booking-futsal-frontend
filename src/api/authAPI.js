@@ -15,10 +15,8 @@ export const loginUser = async (credentials) => {
       // Store token from response data
       if (response.data.data?.token) {
         localStorage.setItem('auth_token', response.data.data.token);
-        console.log('🔑 Token stored from response data');
       } else if (response.data.token) {
         localStorage.setItem('auth_token', response.data.token);
-        console.log('🔑 Token stored from response body');
       }
 
       // Return normalized response
@@ -45,10 +43,8 @@ export const registerUser = async (userData) => {
       // Store token from response data
       if (response.data.data?.token) {
         localStorage.setItem('auth_token', response.data.data.token);
-        console.log('🔑 Token stored from registration response data');
       } else if (response.data.token) {
         localStorage.setItem('auth_token', response.data.token);
-        console.log('🔑 Token stored from registration response body');
       }
 
       // Return normalized response
@@ -73,7 +69,6 @@ export const logoutUser = async () => {
     // Clear stored token on successful logout
     if (response.data.success) {
       localStorage.removeItem('auth_token');
-      console.log('🔓 Token cleared from localStorage');
     }
 
     return response.data;
@@ -121,7 +116,6 @@ export const refreshToken = async () => {
     // Update stored token if provided
     if (response.data.success && response.data.data?.token) {
       localStorage.setItem('auth_token', response.data.data.token);
-      console.log('🔄 Token refreshed and stored');
     }
 
     return response.data;
