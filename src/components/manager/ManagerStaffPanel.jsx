@@ -199,9 +199,9 @@ const ManagerStaffPanel = () => {
 
   const getRoleColor = (role) => {
     switch (role) {
-      case 'staff_kasir': return 'bg-blue-100 text-blue-800';
-      case 'operator_lapangan': return 'bg-green-100 text-green-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'staff_kasir': return 'bg-gray-100 text-gray-900';
+      case 'operator_lapangan': return 'bg-gray-100 text-gray-900';
+      default: return 'bg-gray-100 text-gray-900';
     }
   };
 
@@ -226,7 +226,7 @@ const ManagerStaffPanel = () => {
         </div>
         <button
           onClick={loadStaff}
-          className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-200 flex items-center space-x-2"
+          className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-500 transition duration-200 flex items-center space-x-2"
         >
           <span>🔄</span>
           <span>Refresh</span>
@@ -241,7 +241,7 @@ const ManagerStaffPanel = () => {
               <p className="text-gray-600 font-semibold mb-1">Total Staff</p>
               <p className="text-3xl font-bold text-gray-900">{staff.length}</p>
             </div>
-            <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center">
+            <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center">
               <span className="text-2xl">👥</span>
             </div>
           </div>
@@ -251,11 +251,11 @@ const ManagerStaffPanel = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 font-semibold mb-1">Staff Kasir</p>
-              <p className="text-3xl font-bold text-blue-900">
+              <p className="text-3xl font-bold text-gray-900">
                 {staff.filter(s => s.role === 'staff_kasir').length}
               </p>
             </div>
-            <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center">
+            <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center">
               <span className="text-2xl">💰</span>
             </div>
           </div>
@@ -265,11 +265,11 @@ const ManagerStaffPanel = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 font-semibold mb-1">Operator Lapangan</p>
-              <p className="text-3xl font-bold text-green-900">
+              <p className="text-3xl font-bold text-gray-900">
                 {staff.filter(s => s.role === 'operator_lapangan').length}
               </p>
             </div>
-            <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center">
+            <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center">
               <span className="text-2xl">🏟️</span>
             </div>
           </div>
@@ -287,7 +287,7 @@ const ManagerStaffPanel = () => {
               placeholder="Nama atau email..."
               value={filters.search}
               onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -296,7 +296,7 @@ const ManagerStaffPanel = () => {
             <select
               value={filters.role}
               onChange={(e) => setFilters(prev => ({ ...prev, role: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               {managedRoles.map(option => (
                 <option key={option.value} value={option.value}>
@@ -311,7 +311,7 @@ const ManagerStaffPanel = () => {
             <select
               value={filters.status}
               onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               {statusOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -325,7 +325,7 @@ const ManagerStaffPanel = () => {
         <div className="mt-4 flex justify-end">
           <button
             onClick={() => setFilters({ role: 'all', status: 'all', search: '' })}
-            className="text-green-600 hover:text-green-800 text-sm font-medium"
+            className="text-gray-900 hover:text-gray-900 text-sm font-medium"
           >
             Reset Filter
           </button>
@@ -361,7 +361,7 @@ const ManagerStaffPanel = () => {
                   <tr key={staffMember.id} className="hover:bg-gray-50 transition-colors duration-200">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-bold">
+                        <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-gray-800 rounded-full flex items-center justify-center text-gray-900 font-bold">
                           {staffMember.name?.charAt(0).toUpperCase() || 'S'}
                         </div>
                         <div className="ml-4">
@@ -379,7 +379,7 @@ const ManagerStaffPanel = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${staffMember.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                      <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${staffMember.is_active ? 'bg-gray-100 text-gray-900' : 'bg-red-100 text-red-800'
                         }`}>
                         {staffMember.is_active ? 'Aktif' : 'Tidak Aktif'}
                       </span>
@@ -395,7 +395,7 @@ const ManagerStaffPanel = () => {
                         <select
                           value={staffMember.role}
                           onChange={(e) => handleRoleUpdate(staffMember.id, e.target.value)}
-                          className="text-xs border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-green-500"
+                          className="text-xs border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-gray-600"
                         >
                           <option value="staff_kasir">Staff Kasir</option>
                           <option value="operator_lapangan">Operator Lapangan</option>
@@ -404,7 +404,7 @@ const ManagerStaffPanel = () => {
                           onClick={() => handleStatusUpdate(staffMember.id, !staffMember.is_active)}
                           className={`px-3 py-1 rounded text-xs font-medium transition duration-200 ${staffMember.is_active
                             ? 'bg-red-100 text-red-800 hover:bg-red-200'
-                            : 'bg-green-100 text-green-800 hover:bg-green-200'
+                            : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                             }`}
                         >
                           {staffMember.is_active ? 'Nonaktifkan' : 'Aktifkan'}

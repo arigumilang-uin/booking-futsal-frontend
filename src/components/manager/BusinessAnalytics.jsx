@@ -63,52 +63,52 @@ const BusinessAnalytics = () => {
 
   const renderOverview = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl border border-green-200">
+      <div className="bg-gradient-to-br from-green-50 to-gray-100 p-6 rounded-2xl border border-gray-200">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-green-600 font-semibold mb-1">Total Pendapatan</p>
-            <p className="text-3xl font-bold text-green-900">
+            <p className="text-gray-900 font-semibold mb-1">Total Pendapatan</p>
+            <p className="text-3xl font-bold text-gray-900">
               {formatCurrency(analytics?.revenue?.total || 0)}
             </p>
-            <p className="text-sm text-green-600 mt-1">
+            <p className="text-sm text-gray-900 mt-1">
               +{analytics?.revenue?.growth || 0}% dari periode sebelumnya
             </p>
           </div>
-          <div className="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center">
+          <div className="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center">
             <span className="text-2xl text-white">💰</span>
           </div>
         </div>
       </div>
 
-      <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl border border-blue-200">
+      <div className="bg-gradient-to-br from-blue-50 to-gray-100 p-6 rounded-2xl border border-gray-200">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-blue-600 font-semibold mb-1">Total Booking</p>
-            <p className="text-3xl font-bold text-blue-900">
+            <p className="text-white font-semibold mb-1">Total Booking</p>
+            <p className="text-3xl font-bold text-gray-900">
               {analytics?.bookings?.total || 0}
             </p>
-            <p className="text-sm text-blue-600 mt-1">
+            <p className="text-sm text-gray-900 mt-1">
               {analytics?.bookings?.confirmed || 0} dikonfirmasi
             </p>
           </div>
-          <div className="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center">
+          <div className="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center">
             <span className="text-2xl text-white">📅</span>
           </div>
         </div>
       </div>
 
-      <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-2xl border border-purple-200">
+      <div className="bg-gradient-to-br from-purple-50 to-gray-100 p-6 rounded-2xl border border-gray-200">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-purple-600 font-semibold mb-1">Customer Aktif</p>
-            <p className="text-3xl font-bold text-purple-900">
+            <p className="text-white font-semibold mb-1">Customer Aktif</p>
+            <p className="text-3xl font-bold text-gray-900">
               {analytics?.customers?.active || 0}
             </p>
-            <p className="text-sm text-purple-600 mt-1">
+            <p className="text-sm text-gray-900 mt-1">
               {analytics?.customers?.new || 0} customer baru
             </p>
           </div>
-          <div className="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center">
+          <div className="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center">
             <span className="text-2xl text-white">👥</span>
           </div>
         </div>
@@ -149,7 +149,7 @@ const BusinessAnalytics = () => {
             {analytics?.revenue?.by_field?.map((field, index) => (
               <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <span className="font-medium">{field.name}</span>
-                <span className="text-green-600 font-bold">{formatCurrency(field.revenue)}</span>
+                <span className="text-gray-900 font-bold">{formatCurrency(field.revenue)}</span>
               </div>
             )) || <p className="text-gray-500">Data tidak tersedia</p>}
           </div>
@@ -161,7 +161,7 @@ const BusinessAnalytics = () => {
             {analytics?.revenue?.by_payment_method?.map((method, index) => (
               <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <span className="font-medium">{method.method}</span>
-                <span className="text-blue-600 font-bold">{formatCurrency(method.amount)}</span>
+                <span className="text-gray-900 font-bold">{formatCurrency(method.amount)}</span>
               </div>
             )) || <p className="text-gray-500">Data tidak tersedia</p>}
           </div>
@@ -178,19 +178,19 @@ const BusinessAnalytics = () => {
           <div className="space-y-3">
             <div className="flex justify-between items-center">
               <span className="text-gray-600">Pending</span>
-              <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
+              <span className="bg-gray-100 text-gray-900 px-3 py-1 rounded-full text-sm font-medium">
                 {analytics?.bookings?.pending || 0}
               </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-600">Dikonfirmasi</span>
-              <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+              <span className="bg-gray-100 text-gray-900 px-3 py-1 rounded-full text-sm font-medium">
                 {analytics?.bookings?.confirmed || 0}
               </span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-600">Selesai</span>
-              <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+              <span className="bg-gray-100 text-gray-900 px-3 py-1 rounded-full text-sm font-medium">
                 {analytics?.bookings?.completed || 0}
               </span>
             </div>
@@ -257,7 +257,7 @@ const BusinessAnalytics = () => {
           <select
             value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value)}
-            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
           >
             {periods.map(period => (
               <option key={period.value} value={period.value}>
@@ -268,7 +268,7 @@ const BusinessAnalytics = () => {
 
           <button
             onClick={loadAnalytics}
-            className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition duration-200"
+            className="bg-gray-800 text-gray-900 px-6 py-2 rounded-lg hover:bg-gray-500 transition duration-200"
           >
             Refresh
           </button>
@@ -282,8 +282,8 @@ const BusinessAnalytics = () => {
             key={metric.value}
             onClick={() => setSelectedMetric(metric.value)}
             className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${selectedMetric === metric.value
-                ? 'bg-green-600 text-white shadow-lg'
-                : 'bg-white text-gray-600 hover:bg-green-50 hover:text-green-600 border border-gray-200'
+                ? 'bg-gray-800 text-gray-900 shadow-lg'
+                : 'bg-white text-gray-600 hover:bg-green-50 hover:text-gray-900 border border-gray-200'
               }`}
           >
             <span>{metric.icon}</span>

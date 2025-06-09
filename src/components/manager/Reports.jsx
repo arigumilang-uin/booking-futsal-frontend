@@ -91,7 +91,7 @@ const Reports = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-white p-6 rounded-2xl shadow-lg border">
           <div className="text-center">
-            <div className="text-3xl font-bold text-blue-600 mb-2">
+            <div className="text-3xl font-bold text-gray-900 mb-2">
               {reportData?.total_bookings || 0}
             </div>
             <div className="text-sm font-medium text-gray-600">Total Booking</div>
@@ -99,7 +99,7 @@ const Reports = () => {
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-lg border">
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">
+            <div className="text-3xl font-bold text-gray-900 mb-2">
               {reportData?.confirmed_bookings || 0}
             </div>
             <div className="text-sm font-medium text-gray-600">Dikonfirmasi</div>
@@ -107,7 +107,7 @@ const Reports = () => {
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-lg border">
           <div className="text-center">
-            <div className="text-3xl font-bold text-yellow-600 mb-2">
+            <div className="text-3xl font-bold text-gray-900 mb-2">
               {reportData?.pending_bookings || 0}
             </div>
             <div className="text-sm font-medium text-gray-600">Pending</div>
@@ -157,8 +157,8 @@ const Reports = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                      booking.status === 'confirmed' ? 'bg-green-100 text-green-800' :
-                      booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                      booking.status === 'confirmed' ? 'bg-gray-100 text-gray-900' :
+                      booking.status === 'pending' ? 'bg-gray-100 text-gray-900' :
                       'bg-red-100 text-red-800'
                     }`}>
                       {booking.status}
@@ -187,7 +187,7 @@ const Reports = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-2xl shadow-lg border">
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">
+            <div className="text-3xl font-bold text-gray-900 mb-2">
               {formatCurrency(reportData?.total_revenue || 0)}
             </div>
             <div className="text-sm font-medium text-gray-600">Total Pendapatan</div>
@@ -195,7 +195,7 @@ const Reports = () => {
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-lg border">
           <div className="text-center">
-            <div className="text-3xl font-bold text-blue-600 mb-2">
+            <div className="text-3xl font-bold text-gray-900 mb-2">
               {formatCurrency(reportData?.average_per_booking || 0)}
             </div>
             <div className="text-sm font-medium text-gray-600">Rata-rata per Booking</div>
@@ -203,7 +203,7 @@ const Reports = () => {
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-lg border">
           <div className="text-center">
-            <div className="text-3xl font-bold text-purple-600 mb-2">
+            <div className="text-3xl font-bold text-gray-900 mb-2">
               {reportData?.growth_percentage || 0}%
             </div>
             <div className="text-sm font-medium text-gray-600">Pertumbuhan</div>
@@ -218,7 +218,7 @@ const Reports = () => {
             {reportData?.revenue_by_field?.map((field, index) => (
               <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                 <span className="font-medium">{field.field_name}</span>
-                <span className="text-green-600 font-bold">{formatCurrency(field.revenue)}</span>
+                <span className="text-gray-900 font-bold">{formatCurrency(field.revenue)}</span>
               </div>
             )) || <p className="text-gray-500">Data tidak tersedia</p>}
           </div>
@@ -239,7 +239,7 @@ const Reports = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-2xl shadow-lg border">
           <div className="text-center">
-            <div className="text-3xl font-bold text-purple-600 mb-2">
+            <div className="text-3xl font-bold text-gray-900 mb-2">
               {reportData?.average_utilization || 0}%
             </div>
             <div className="text-sm font-medium text-gray-600">Rata-rata Utilisasi</div>
@@ -247,7 +247,7 @@ const Reports = () => {
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-lg border">
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">
+            <div className="text-3xl font-bold text-gray-900 mb-2">
               {reportData?.most_popular_field?.name || 'N/A'}
             </div>
             <div className="text-sm font-medium text-gray-600">Lapangan Terpopuler</div>
@@ -274,7 +274,7 @@ const Reports = () => {
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div 
-                  className="bg-purple-600 h-2 rounded-full" 
+                  className="bg-gray-800 h-2 rounded-full" 
                   style={{ width: `${field.utilization_rate}%` }}
                 ></div>
               </div>
@@ -302,7 +302,7 @@ const Reports = () => {
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-lg border">
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">
+            <div className="text-3xl font-bold text-gray-900 mb-2">
               {reportData?.active_staff || 0}
             </div>
             <div className="text-sm font-medium text-gray-600">Staff Aktif</div>
@@ -310,7 +310,7 @@ const Reports = () => {
         </div>
         <div className="bg-white p-6 rounded-2xl shadow-lg border">
           <div className="text-center">
-            <div className="text-3xl font-bold text-blue-600 mb-2">
+            <div className="text-3xl font-bold text-gray-900 mb-2">
               {reportData?.average_performance || 0}%
             </div>
             <div className="text-sm font-medium text-gray-600">Rata-rata Performa</div>
@@ -348,7 +348,7 @@ const Reports = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                      staff.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                      staff.status === 'active' ? 'bg-gray-100 text-gray-900' : 'bg-gray-100 text-gray-900'
                     }`}>
                       {staff.status}
                     </span>
@@ -405,14 +405,14 @@ const Reports = () => {
         <div className="flex space-x-4">
           <button
             onClick={exportReport}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-200 flex items-center space-x-2"
+            className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-500 transition duration-200 flex items-center space-x-2"
           >
             <span>📊</span>
             <span>Export</span>
           </button>
           <button
             onClick={loadReport}
-            className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-200 flex items-center space-x-2"
+            className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-500 transition duration-200 flex items-center space-x-2"
           >
             <span>🔄</span>
             <span>Refresh</span>
@@ -430,7 +430,7 @@ const Reports = () => {
               type="date"
               value={dateRange.from}
               onChange={(e) => setDateRange(prev => ({ ...prev, from: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
           <div>
@@ -439,7 +439,7 @@ const Reports = () => {
               type="date"
               value={dateRange.to}
               onChange={(e) => setDateRange(prev => ({ ...prev, to: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
         </div>
@@ -453,7 +453,7 @@ const Reports = () => {
             onClick={() => setActiveReport(report.id)}
             className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
               activeReport === report.id
-                ? `bg-${report.color}-600 text-white shadow-lg`
+                ? `bg-${report.color}-600 text-gray-900 shadow-lg`
                 : `bg-white text-gray-600 hover:bg-${report.color}-50 hover:text-${report.color}-600 border border-gray-200`
             }`}
           >

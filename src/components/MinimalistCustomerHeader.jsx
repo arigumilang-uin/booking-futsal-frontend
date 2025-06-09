@@ -45,7 +45,7 @@ const MinimalistCustomerHeader = () => {
 
   return (
     <>
-      <header className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 shadow-2xl border-b-4 border-emerald-300">
+      <header className="bg-gradient-to-r from-gray-800 via-teal-600 to-gray-900 shadow-2xl border-b-4 border-gray-300">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between px-6 py-4">
             {/* Left Side - Branding & Time */}
@@ -55,16 +55,16 @@ const MinimalistCustomerHeader = () => {
                   <span className="text-2xl">⚽</span>
                 </div>
                 <div>
-                  <h1 className="text-2xl font-black text-white">FutsalPro</h1>
-                  <p className="text-emerald-100 text-sm font-medium">Customer Portal</p>
+                  <h1 className="text-2xl font-black text-gray-900">Panam Soccer Field</h1>
+                  <p className="text-gray-100 text-sm font-medium">Customer Portal</p>
                 </div>
               </div>
 
               {/* Real-time Clock */}
-              <div className="hidden lg:flex items-center space-x-4 bg-emerald-500/30 px-4 py-2 rounded-xl border border-emerald-400/50 backdrop-blur-sm">
+              <div className="hidden lg:flex items-center space-x-4 bg-gray-800/30 px-4 py-2 rounded-xl border border-gray-400/50 backdrop-blur-sm">
                 <div className="text-center">
-                  <div className="text-white font-bold text-lg">{formatTime(currentTime)}</div>
-                  <div className="text-emerald-100 text-xs">{formatDate(currentTime)}</div>
+                  <div className="text-gray-900 font-bold text-lg">{formatTime(currentTime)}</div>
+                  <div className="text-gray-100 text-xs">{formatDate(currentTime)}</div>
                 </div>
               </div>
             </div>
@@ -72,9 +72,9 @@ const MinimalistCustomerHeader = () => {
             {/* Right Side - Customer Actions */}
             <div className="flex items-center space-x-4">
               {/* Customer Status */}
-              <div className="hidden md:flex items-center space-x-2 bg-emerald-50 px-3 py-2 rounded-lg border border-emerald-200">
-                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                <span className="text-sm text-emerald-700 font-medium">Customer Aktif</span>
+              <div className="hidden md:flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
+                <div className="w-2 h-2 bg-gray-800 rounded-full animate-pulse"></div>
+                <span className="text-sm text-white font-medium">Customer Aktif</span>
               </div>
 
               {/* Notifications */}
@@ -84,9 +84,9 @@ const MinimalistCustomerHeader = () => {
               <div className="relative">
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center space-x-3 bg-emerald-500/20 hover:bg-emerald-500/30 px-4 py-2 rounded-xl border border-emerald-400/50 transition-all duration-200 backdrop-blur-sm"
+                  className="flex items-center space-x-3 bg-gray-800/20 hover:bg-gray-700/30 px-4 py-2 rounded-xl border border-gray-400/50 transition-all duration-200 backdrop-blur-sm"
                 >
-                  <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-800 rounded-xl flex items-center justify-center shadow-lg">
                     <span className="text-white font-bold text-lg">
                       {user?.name?.charAt(0)?.toUpperCase() || 'C'}
                     </span>
@@ -95,11 +95,11 @@ const MinimalistCustomerHeader = () => {
                     <div className="text-white font-semibold text-sm">
                       {user?.name || 'Customer'}
                     </div>
-                    <div className="text-emerald-100 text-xs">
+                    <div className="text-gray-100 text-xs">
                       {user?.email || 'customer@example.com'}
                     </div>
                   </div>
-                  <svg className="w-4 h-4 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
@@ -108,21 +108,21 @@ const MinimalistCustomerHeader = () => {
                 {showUserMenu && (
                   <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 overflow-hidden">
                     {/* User Info Header */}
-                    <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-6">
+                    <div className="bg-gradient-to-r from-gray-800 to-teal-600 p-6">
                       <div className="flex items-center space-x-4">
                         <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                          <span className="text-emerald-600 font-bold text-2xl">
+                          <span className="text-gray-800 font-bold text-2xl">
                             {user?.name?.charAt(0)?.toUpperCase() || 'C'}
                           </span>
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-white font-bold text-lg">
+                          <h3 className="text-gray-900 font-bold text-lg">
                             {user?.name || 'Customer'}
                           </h3>
-                          <p className="text-emerald-100 text-sm">
+                          <p className="text-gray-100 text-sm">
                             {user?.email || 'customer@example.com'}
                           </p>
-                          <span className="text-xs text-emerald-200 bg-emerald-400/30 px-2 py-1 rounded-full border border-emerald-300">
+                          <span className="text-xs text-gray-200 bg-gray-400/30 px-2 py-1 rounded-full border border-gray-300">
                             Customer
                           </span>
                         </div>
@@ -136,9 +136,9 @@ const MinimalistCustomerHeader = () => {
                           window.location.reload();
                           setShowUserMenu(false);
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 flex items-center space-x-3"
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
                       >
-                        <span className="text-emerald-500">🔄</span>
+                        <span className="text-gray-900">🔄</span>
                         <span>Muat Ulang Dashboard</span>
                       </button>
 
@@ -147,9 +147,9 @@ const MinimalistCustomerHeader = () => {
                           setShowProfileModal(true);
                           setShowUserMenu(false);
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 flex items-center space-x-3"
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
                       >
-                        <span className="text-emerald-500">⚙️</span>
+                        <span className="text-gray-900">⚙️</span>
                         <span>Pengaturan Akun</span>
                       </button>
                     </div>
@@ -161,9 +161,9 @@ const MinimalistCustomerHeader = () => {
                           navigate('/customer/booking/new');
                           setShowUserMenu(false);
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 flex items-center space-x-3"
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
                       >
-                        <span className="text-emerald-500">📅</span>
+                        <span className="text-gray-900">📅</span>
                         <span>Booking Baru</span>
                       </button>
 
@@ -172,9 +172,9 @@ const MinimalistCustomerHeader = () => {
                           navigate('/customer/bookings');
                           setShowUserMenu(false);
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 flex items-center space-x-3"
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
                       >
-                        <span className="text-emerald-500">📋</span>
+                        <span className="text-gray-900">📋</span>
                         <span>Riwayat Booking</span>
                       </button>
 
@@ -183,9 +183,9 @@ const MinimalistCustomerHeader = () => {
                           navigate('/customer/fields');
                           setShowUserMenu(false);
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 flex items-center space-x-3"
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
                       >
-                        <span className="text-emerald-500">🏟️</span>
+                        <span className="text-gray-900">🏟️</span>
                         <span>Lihat Lapangan</span>
                       </button>
                     </div>
@@ -207,7 +207,7 @@ const MinimalistCustomerHeader = () => {
                 )}
               </div>
 
-              <div className="text-xs text-emerald-600 bg-emerald-100 px-3 py-1 rounded-lg border border-emerald-200">
+              <div className="text-xs text-gray-800 bg-gray-100 px-3 py-1 rounded-lg border border-gray-200">
                 🟢 Live • Customer Portal
               </div>
             </div>

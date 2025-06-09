@@ -89,7 +89,10 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200"
+              style={{ '--tw-ring-color': '#1F2937' }}
+              onFocus={(e) => e.target.style.boxShadow = '0 0 0 2px #1F2937'}
+              onBlur={(e) => e.target.style.boxShadow = 'none'}
               placeholder="Masukkan email Anda"
             />
           </div>
@@ -104,7 +107,10 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="current-password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200"
+              style={{ '--tw-ring-color': '#1F2937' }}
+              onFocus={(e) => e.target.style.boxShadow = '0 0 0 2px #1F2937'}
+              onBlur={(e) => e.target.style.boxShadow = 'none'}
               placeholder="Masukkan password Anda"
             />
           </div>
@@ -113,7 +119,8 @@ const Login = () => {
             <button
               type="button"
               onClick={() => setShowForgotPassword(true)}
-              className="text-sm text-green-600 hover:text-green-800 font-medium"
+              className="text-sm font-medium hover:opacity-80 transition-opacity duration-200"
+              style={{ color: '#1F2937' }}
             >
               Lupa Password?
             </button>
@@ -122,7 +129,17 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
+            className="w-full text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
+            style={{
+              background: `linear-gradient(135deg, #1F2937 0%, #374151 100%)`,
+              boxShadow: '0 4px 14px 0 rgba(31, 41, 55, 0.39)'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = `linear-gradient(135deg, #374151 0%, #4B5563 100%)`;
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = `linear-gradient(135deg, #1F2937 0%, #374151 100%)`;
+            }}
           >
             {loading ? (
               <div className="flex items-center justify-center space-x-2">
@@ -145,7 +162,7 @@ const Login = () => {
           </div>
 
           {forgotPasswordMessage && (
-            <div className="bg-blue-50 border border-blue-200 text-blue-700 p-4 rounded-lg text-sm">
+            <div className="bg-blue-50 border border-gray-200 text-gray-800 p-4 rounded-lg text-sm">
               <div className="flex items-center space-x-2">
                 <span>ℹ️</span>
                 <span>{forgotPasswordMessage}</span>
@@ -163,7 +180,7 @@ const Login = () => {
                 value={forgotPasswordEmail}
                 onChange={(e) => setForgotPasswordEmail(e.target.value)}
                 required
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all duration-200"
                 placeholder="Masukkan email Anda"
               />
             </div>
@@ -172,7 +189,7 @@ const Login = () => {
               <button
                 type="submit"
                 disabled={forgotPasswordLoading}
-                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-r from-gray-800 to-gray-700 hover:from-gray-700 hover:to-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {forgotPasswordLoading ? (
                   <div className="flex items-center justify-center space-x-2">

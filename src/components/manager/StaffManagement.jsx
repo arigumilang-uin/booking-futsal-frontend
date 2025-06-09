@@ -154,28 +154,28 @@ const StaffManagement = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'active':
-        return 'bg-green-100 text-green-800';
+        return 'bg-gray-100 text-gray-900';
       case 'inactive':
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-100 text-gray-900';
       case 'suspended':
         return 'bg-red-100 text-red-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-100 text-gray-900';
     }
   };
 
   const getRoleColor = (role) => {
     switch (role) {
       case 'manajer_futsal':
-        return 'bg-purple-100 text-purple-800';
+        return 'bg-gray-100 text-gray-900';
       case 'staff_kasir':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-gray-100 text-gray-900';
       case 'operator_lapangan':
-        return 'bg-green-100 text-green-800';
+        return 'bg-gray-100 text-gray-900';
       case 'penyewa':
         return 'bg-orange-100 text-orange-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-100 text-gray-900';
     }
   };
 
@@ -200,7 +200,7 @@ const StaffManagement = () => {
         </div>
         <button
           onClick={loadUsers}
-          className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-200 flex items-center space-x-2"
+          className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-500 transition duration-200 flex items-center space-x-2"
         >
           <span>🔄</span>
           <span>Refresh</span>
@@ -215,7 +215,7 @@ const StaffManagement = () => {
               <p className="text-gray-600 font-semibold mb-1">Total Pengguna</p>
               <p className="text-3xl font-bold text-gray-900">{users.length}</p>
             </div>
-            <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center">
+            <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center">
               <span className="text-2xl">👥</span>
             </div>
           </div>
@@ -225,11 +225,11 @@ const StaffManagement = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 font-semibold mb-1">Staff Aktif</p>
-              <p className="text-3xl font-bold text-green-900">
+              <p className="text-3xl font-bold text-gray-900">
                 {users.filter(u => u.status === 'active' && ['staff_kasir', 'operator_lapangan', 'manajer_futsal'].includes(u.role)).length}
               </p>
             </div>
-            <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center">
+            <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center">
               <span className="text-2xl">✅</span>
             </div>
           </div>
@@ -275,7 +275,7 @@ const StaffManagement = () => {
               placeholder="Nama, email, atau ID..."
               value={filters.search}
               onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -284,7 +284,7 @@ const StaffManagement = () => {
             <select
               value={filters.role}
               onChange={(e) => setFilters(prev => ({ ...prev, role: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               {roleOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -299,7 +299,7 @@ const StaffManagement = () => {
             <select
               value={filters.status}
               onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               {statusOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -313,7 +313,7 @@ const StaffManagement = () => {
         <div className="mt-4 flex justify-end">
           <button
             onClick={() => setFilters({ role: 'all', status: 'all', search: '' })}
-            className="text-green-600 hover:text-green-800 text-sm font-medium"
+            className="text-gray-900 hover:text-gray-900 text-sm font-medium"
           >
             Reset Filter
           </button>
@@ -349,7 +349,7 @@ const StaffManagement = () => {
                   <tr key={user.id} className="hover:bg-gray-50 transition-colors duration-200">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-bold">
+                        <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-gray-800 rounded-full flex items-center justify-center text-gray-900 font-bold">
                           {user.name?.charAt(0).toUpperCase() || 'U'}
                         </div>
                         <div className="ml-4">
@@ -378,13 +378,13 @@ const StaffManagement = () => {
                       <div className="flex space-x-2">
                         <button
                           onClick={() => openModal(user, 'role')}
-                          className="bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition duration-200"
+                          className="bg-gray-800 text-gray-900 px-3 py-1 rounded-lg hover:bg-gray-500 transition duration-200"
                         >
                           Ubah Role
                         </button>
                         <button
                           onClick={() => openModal(user, 'status')}
-                          className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition duration-200"
+                          className="bg-gray-800 text-gray-900 px-3 py-1 rounded-lg hover:bg-gray-500 transition duration-200"
                         >
                           Ubah Status
                         </button>
@@ -433,7 +433,7 @@ const StaffManagement = () => {
                   <select
                     id="newRole"
                     defaultValue={selectedUser.role}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                   >
                     {roleOptions.filter(opt => opt.value !== 'all').map(option => (
                       <option key={option.value} value={option.value}>
@@ -451,7 +451,7 @@ const StaffManagement = () => {
                   <select
                     id="newStatus"
                     defaultValue={selectedUser.status}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                   >
                     {statusOptions.filter(opt => opt.value !== 'all').map(option => (
                       <option key={option.value} value={option.value}>
@@ -483,7 +483,7 @@ const StaffManagement = () => {
                   }
                 }}
                 disabled={processing === selectedUser.id}
-                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 disabled:opacity-50"
+                className="px-6 py-2 bg-gray-800 text-gray-900 rounded-lg hover:bg-gray-500 transition duration-200 disabled:opacity-50"
               >
                 {processing === selectedUser.id ? 'Memproses...' : 'Simpan Perubahan'}
               </button>

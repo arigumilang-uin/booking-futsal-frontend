@@ -76,14 +76,14 @@ const FavoriteFields = ({ showAvailability = false }) => {
     } else if (availableSlots <= totalSlots * 0.3) {
       return { text: `${availableSlots} slot tersisa`, color: 'text-orange-600 bg-orange-100' };
     } else {
-      return { text: `${availableSlots} slot tersedia`, color: 'text-green-600 bg-green-100' };
+      return { text: `${availableSlots} slot tersedia`, color: 'text-gray-900 bg-gray-100' };
     }
   };
 
   if (loading) {
     return (
       <div className="p-6 text-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800 mx-auto"></div>
         <p className="mt-2 text-gray-600">Memuat lapangan favorit...</p>
       </div>
     );
@@ -103,7 +103,7 @@ const FavoriteFields = ({ showAvailability = false }) => {
         </p>
         <button
           onClick={() => navigate('/fields')}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
         >
           Jelajahi Lapangan
         </button>
@@ -115,7 +115,7 @@ const FavoriteFields = ({ showAvailability = false }) => {
     <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-white">
           Lapangan Favorit ({favorites.length})
         </h2>
         
@@ -190,7 +190,7 @@ const FavoriteFields = ({ showAvailability = false }) => {
               {/* Rating */}
               {favorite.field_rating && (
                 <div className="flex items-center mb-2">
-                  <div className="flex text-yellow-400">
+                  <div className="flex text-gray-900">
                     {[...Array(5)].map((_, i) => (
                       <svg
                         key={i}
@@ -211,7 +211,7 @@ const FavoriteFields = ({ showAvailability = false }) => {
 
               {/* Price */}
               <div className="mb-3">
-                <span className="text-lg font-semibold text-blue-600">
+                <span className="text-lg font-semibold text-gray-900">
                   {formatCurrency(favorite.field_price)}
                 </span>
                 <span className="text-sm text-gray-600">/jam</span>
@@ -221,7 +221,7 @@ const FavoriteFields = ({ showAvailability = false }) => {
               <div className="flex space-x-2">
                 <button
                   onClick={() => handleQuickBooking(favorite.field_id)}
-                  className="flex-1 bg-blue-600 text-white py-2 px-3 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+                  className="flex-1 bg-gray-800 text-gray-900 py-2 px-3 rounded-lg text-sm font-medium hover:bg-gray-500 transition-colors"
                 >
                   Booking Cepat
                 </button>

@@ -119,11 +119,11 @@ const ManagerBookingPanel = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      case 'confirmed': return 'bg-green-100 text-green-800';
-      case 'completed': return 'bg-blue-100 text-blue-800';
+      case 'pending': return 'bg-gray-100 text-gray-900';
+      case 'confirmed': return 'bg-gray-100 text-gray-900';
+      case 'completed': return 'bg-gray-100 text-gray-900';
       case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-gray-100 text-gray-900';
     }
   };
 
@@ -158,7 +158,7 @@ const ManagerBookingPanel = () => {
         </div>
         <button
           onClick={loadBookings}
-          className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-200 flex items-center space-x-2"
+          className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-500 transition duration-200 flex items-center space-x-2"
         >
           <span>🔄</span>
           <span>Refresh</span>
@@ -173,21 +173,21 @@ const ManagerBookingPanel = () => {
             <div className="text-sm font-medium text-gray-600">Total Booking</div>
           </div>
         </div>
-        <div className="bg-white p-4 rounded-xl border-2 border-yellow-200">
+        <div className="bg-white p-4 rounded-xl border-2 border-gray-200">
           <div className="text-center">
-            <div className="text-2xl font-bold text-yellow-600">{statusCounts.pending || 0}</div>
+            <div className="text-2xl font-bold text-gray-900">{statusCounts.pending || 0}</div>
             <div className="text-sm font-medium text-gray-600">Pending</div>
           </div>
         </div>
-        <div className="bg-white p-4 rounded-xl border-2 border-green-200">
+        <div className="bg-white p-4 rounded-xl border-2 border-gray-200">
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">{statusCounts.confirmed || 0}</div>
+            <div className="text-2xl font-bold text-gray-900">{statusCounts.confirmed || 0}</div>
             <div className="text-sm font-medium text-gray-600">Dikonfirmasi</div>
           </div>
         </div>
-        <div className="bg-white p-4 rounded-xl border-2 border-blue-200">
+        <div className="bg-white p-4 rounded-xl border-2 border-gray-200">
           <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">{statusCounts.completed || 0}</div>
+            <div className="text-2xl font-bold text-gray-900">{statusCounts.completed || 0}</div>
             <div className="text-sm font-medium text-gray-600">Selesai</div>
           </div>
         </div>
@@ -202,7 +202,7 @@ const ManagerBookingPanel = () => {
             <select
               value={filters.status}
               onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               {statusOptions.map(option => (
                 <option key={option.value} value={option.value}>
@@ -219,7 +219,7 @@ const ManagerBookingPanel = () => {
               placeholder="Nama customer atau kode..."
               value={filters.search}
               onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -229,7 +229,7 @@ const ManagerBookingPanel = () => {
               type="date"
               value={filters.dateFrom}
               onChange={(e) => setFilters(prev => ({ ...prev, dateFrom: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -239,7 +239,7 @@ const ManagerBookingPanel = () => {
               type="date"
               value={filters.dateTo}
               onChange={(e) => setFilters(prev => ({ ...prev, dateTo: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
         </div>
@@ -350,14 +350,14 @@ const ManagerBookingPanel = () => {
                             <button
                               onClick={() => openModal(booking, 'confirm')}
                               disabled={processing === booking.id}
-                              className="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 transition duration-200 disabled:opacity-50 text-xs"
+                              className="bg-gray-800 text-gray-900 px-3 py-1 rounded-lg hover:bg-gray-500 transition duration-200 disabled:opacity-50 text-xs"
                             >
                               Konfirmasi
                             </button>
                             <button
                               onClick={() => openModal(booking, 'reject')}
                               disabled={processing === booking.id}
-                              className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition duration-200 disabled:opacity-50 text-xs"
+                              className="bg-red-600 text-gray-900 px-3 py-1 rounded-lg hover:bg-red-700 transition duration-200 disabled:opacity-50 text-xs"
                             >
                               Tolak
                             </button>
@@ -365,7 +365,7 @@ const ManagerBookingPanel = () => {
                         )}
                         <button
                           onClick={() => openModal(booking, 'view')}
-                          className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition duration-200 text-xs"
+                          className="bg-gray-800 text-gray-900 px-3 py-1 rounded-lg hover:bg-gray-500 transition duration-200 text-xs"
                         >
                           Detail
                         </button>
@@ -374,7 +374,7 @@ const ManagerBookingPanel = () => {
                             setSelectedBooking(booking);
                             setShowTimelineModal(true);
                           }}
-                          className="bg-purple-600 text-white px-3 py-1 rounded-lg hover:bg-purple-700 transition duration-200 text-xs"
+                          className="bg-gray-800 text-gray-900 px-3 py-1 rounded-lg hover:bg-gray-500 transition duration-200 text-xs"
                         >
                           📊 Timeline
                         </button>
@@ -384,7 +384,7 @@ const ManagerBookingPanel = () => {
                               setSelectedPaymentId(booking.payment_id);
                               setShowPaymentLogsModal(true);
                             }}
-                            className="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 transition duration-200 text-xs"
+                            className="bg-gray-800 text-gray-900 px-3 py-1 rounded-lg hover:bg-gray-500 transition duration-200 text-xs"
                           >
                             💳 Payment
                           </button>
@@ -438,20 +438,20 @@ const ManagerBookingPanel = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Total:</span>
-                      <span className="font-medium text-green-600">{formatCurrency(selectedBooking.total_amount)}</span>
+                      <span className="font-medium text-gray-900">{formatCurrency(selectedBooking.total_amount)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Status Booking:</span>
-                      <span className={`font-medium ${selectedBooking.status === 'confirmed' ? 'text-green-600' :
-                        selectedBooking.status === 'pending' ? 'text-yellow-600' :
-                          selectedBooking.status === 'completed' ? 'text-blue-600' : 'text-red-600'}`}>
+                      <span className={`font-medium ${selectedBooking.status === 'confirmed' ? 'text-gray-900' :
+                        selectedBooking.status === 'pending' ? 'text-gray-900' :
+                          selectedBooking.status === 'completed' ? 'text-gray-900' : 'text-red-600'}`}>
                         {selectedBooking.status}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Status Payment:</span>
-                      <span className={`font-medium ${selectedBooking.payment_status === 'paid' ? 'text-green-600' :
-                        selectedBooking.payment_status === 'pending' ? 'text-yellow-600' : 'text-red-600'}`}>
+                      <span className={`font-medium ${selectedBooking.payment_status === 'paid' ? 'text-gray-900' :
+                        selectedBooking.payment_status === 'pending' ? 'text-gray-900' : 'text-red-600'}`}>
                         {selectedBooking.payment_status || 'pending'}
                       </span>
                     </div>
@@ -479,20 +479,20 @@ const ManagerBookingPanel = () => {
 
               {/* Status & Confirmation Info */}
               {(selectedBooking.status === 'confirmed' || selectedBooking.status === 'completed') && (
-                <div className="mb-6 p-4 bg-green-50 rounded-lg border border-green-200">
-                  <h4 className="font-semibold text-green-900 mb-3">Info Konfirmasi</h4>
+                <div className="mb-6 p-4 bg-green-50 rounded-lg border border-gray-200">
+                  <h4 className="font-semibold text-gray-900 mb-3">Info Konfirmasi</h4>
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     {(selectedBooking.confirmed_by || selectedBooking.status === 'confirmed') && (
                       <>
                         <div className="flex justify-between">
-                          <span className="text-green-700">Dikonfirmasi oleh:</span>
-                          <span className="font-medium text-green-900">
+                          <span className="text-gray-500">Dikonfirmasi oleh:</span>
+                          <span className="font-medium text-gray-900">
                             {selectedBooking.confirmed_by_name || selectedBooking.confirmed_by || 'Staff'}
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-green-700">Tanggal konfirmasi:</span>
-                          <span className="font-medium text-green-900">
+                          <span className="text-gray-500">Tanggal konfirmasi:</span>
+                          <span className="font-medium text-gray-900">
                             {selectedBooking.confirmed_at ? formatDate(selectedBooking.confirmed_at) : 'Dikonfirmasi'}
                           </span>
                         </div>
@@ -501,12 +501,12 @@ const ManagerBookingPanel = () => {
                     {selectedBooking.completed_by && (
                       <>
                         <div className="flex justify-between">
-                          <span className="text-green-700">Diselesaikan oleh:</span>
-                          <span className="font-medium text-green-900">{selectedBooking.completed_by_name || 'Staff'}</span>
+                          <span className="text-gray-500">Diselesaikan oleh:</span>
+                          <span className="font-medium text-gray-900">{selectedBooking.completed_by_name || 'Staff'}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-green-700">Tanggal selesai:</span>
-                          <span className="font-medium text-green-900">
+                          <span className="text-gray-500">Tanggal selesai:</span>
+                          <span className="font-medium text-gray-900">
                             {selectedBooking.completed_at ? formatDate(selectedBooking.completed_at) : 'N/A'}
                           </span>
                         </div>
@@ -528,7 +528,7 @@ const ManagerBookingPanel = () => {
                   onChange={(e) => setReason(e.target.value)}
                   placeholder={actionType === 'confirm' ? 'Tambahkan catatan...' : 'Masukkan alasan penolakan...'}
                   rows={3}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                   required={actionType === 'reject'}
                 />
               </div>
@@ -546,7 +546,7 @@ const ManagerBookingPanel = () => {
               <button
                 onClick={() => handleStatusUpdate(selectedBooking.id, 'confirmed', reason)}
                 disabled={processing === selectedBooking.id}
-                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 disabled:opacity-50"
+                className="px-6 py-2 bg-gray-800 text-gray-900 rounded-lg hover:bg-gray-500 transition duration-200 disabled:opacity-50"
               >
                 {processing === selectedBooking.id ? 'Memproses...' : 'Konfirmasi Booking'}
               </button>
@@ -555,7 +555,7 @@ const ManagerBookingPanel = () => {
               <button
                 onClick={() => handleStatusUpdate(selectedBooking.id, 'rejected', reason)}
                 disabled={processing === selectedBooking.id || !reason.trim()}
-                className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200 disabled:opacity-50"
+                className="px-6 py-2 bg-red-600 text-gray-900 rounded-lg hover:bg-red-700 transition duration-200 disabled:opacity-50"
               >
                 {processing === selectedBooking.id ? 'Memproses...' : 'Tolak Booking'}
               </button>

@@ -79,7 +79,7 @@ const CustomerFieldsPanel = () => {
 
   const getFieldTypeLabel = (type) => {
     const types = {
-      'futsal': 'Futsal',
+      'soccer': 'Soccer',
       'mini_soccer': 'Mini Soccer',
       'basketball': 'Basket',
       'badminton': 'Badminton'
@@ -92,8 +92,8 @@ const CustomerFieldsPanel = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <MapPin className="w-6 h-6 text-white" />
+          <div className="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-800 rounded-2xl flex items-center justify-center shadow-lg">
+            <MapPin className="w-6 h-6 text-gray-900" />
           </div>
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Ketersediaan Lapangan</h2>
@@ -103,7 +103,7 @@ const CustomerFieldsPanel = () => {
 
         <button
           onClick={fetchData}
-          className="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
+          className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-900 transition-colors"
         >
           🔄 Refresh
         </button>
@@ -119,17 +119,17 @@ const CustomerFieldsPanel = () => {
               placeholder="Cari lapangan atau lokasi..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
             />
           </div>
 
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
           >
             <option value="all">Semua Jenis Lapangan</option>
-            <option value="futsal">Futsal</option>
+            <option value="soccer">Soccer</option>
             <option value="mini_soccer">Mini Soccer</option>
             <option value="basketball">Basket</option>
             <option value="badminton">Badminton</option>
@@ -148,7 +148,7 @@ const CustomerFieldsPanel = () => {
 
       {loading ? (
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-800 mx-auto mb-4"></div>
           <p className="text-gray-600 text-lg">Memuat data lapangan...</p>
         </div>
       ) : (
@@ -156,10 +156,10 @@ const CustomerFieldsPanel = () => {
           {filteredFields.map((field) => (
             <div
               key={field.id}
-              className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl hover:border-emerald-200 transition-all duration-300 hover:-translate-y-1"
+              className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl hover:border-gray-200 transition-all duration-300 hover:-translate-y-1"
             >
               {/* Field Image */}
-              <div className="relative h-48 bg-gradient-to-br from-emerald-100 to-emerald-200">
+              <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200">
                 {field.image_url ? (
                   <img
                     src={field.image_url}
@@ -169,8 +169,8 @@ const CustomerFieldsPanel = () => {
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
                     <div className="text-center">
-                      <MapPin className="w-16 h-16 text-emerald-600 mx-auto mb-2" />
-                      <p className="text-emerald-700 font-medium">Foto Lapangan</p>
+                      <MapPin className="w-16 h-16 text-gray-800 mx-auto mb-2" />
+                      <p className="text-gray-900 font-medium">Foto Lapangan</p>
                     </div>
                   </div>
                 )}
@@ -179,7 +179,7 @@ const CustomerFieldsPanel = () => {
                 <button
                   onClick={() => handleToggleFavorite(field.id)}
                   className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${favorites.includes(field.id)
-                    ? 'bg-red-500 text-white shadow-lg'
+                    ? 'bg-red-500 text-gray-900 shadow-lg'
                     : 'bg-white/80 text-gray-600 hover:bg-white'
                     }`}
                 >
@@ -188,7 +188,7 @@ const CustomerFieldsPanel = () => {
 
                 {/* Field Type Badge */}
                 <div className="absolute top-4 left-4">
-                  <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-gray-800 text-gray-900 px-3 py-1 rounded-full text-sm font-medium">
                     {getFieldTypeLabel(field.type)}
                   </span>
                 </div>
@@ -197,9 +197,9 @@ const CustomerFieldsPanel = () => {
               {/* Field Info */}
               <div className="p-6">
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-xl font-bold text-gray-900">{field.name}</h3>
+                  <h3 className="text-xl font-bold text-white">{field.name}</h3>
                   <div className="flex items-center space-x-1">
-                    <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                    <Star className="w-4 h-4 text-gray-900 fill-current" />
                     <span className="text-sm text-gray-600">4.5</span>
                   </div>
                 </div>
@@ -207,18 +207,18 @@ const CustomerFieldsPanel = () => {
                 <div className="space-y-3">
                   {field.location && (
                     <div className="flex items-center space-x-2 text-gray-600">
-                      <MapPin className="w-4 h-4 text-emerald-600" />
+                      <MapPin className="w-4 h-4 text-gray-800" />
                       <span className="text-sm">{field.location}</span>
                     </div>
                   )}
 
                   <div className="flex items-center space-x-2 text-gray-600">
-                    <Users className="w-4 h-4 text-emerald-600" />
+                    <Users className="w-4 h-4 text-gray-800" />
                     <span className="text-sm">Kapasitas: {field.capacity || 22} orang</span>
                   </div>
 
                   <div className="flex items-center space-x-2 text-gray-600">
-                    <Clock className="w-4 h-4 text-emerald-600" />
+                    <Clock className="w-4 h-4 text-gray-800" />
                     <span className="text-sm">
                       {field.operating_hours?.start || '09:00'} - {field.operating_hours?.end || '24:00'}
                     </span>
@@ -229,13 +229,13 @@ const CustomerFieldsPanel = () => {
                 <div className="mt-4 pt-4 border-t border-gray-100">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-2xl font-bold text-emerald-600">
+                      <p className="text-2xl font-bold text-gray-800">
                         {formatPrice(field.price)}
                       </p>
                       <p className="text-sm text-gray-500">per jam</p>
                     </div>
 
-                    <button className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+                    <button className="bg-gradient-to-r from-gray-800 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-gray-900 px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
                       <div className="flex items-center space-x-2">
                         <Calendar className="w-4 h-4" />
                         <span>Booking</span>
@@ -252,7 +252,7 @@ const CustomerFieldsPanel = () => {
                       {field.facilities.slice(0, 3).map((facility, index) => (
                         <span
                           key={index}
-                          className="bg-emerald-50 text-emerald-700 px-2 py-1 rounded-md text-xs"
+                          className="bg-gray-50 text-gray-900 px-2 py-1 rounded-md text-xs"
                         >
                           {facility}
                         </span>

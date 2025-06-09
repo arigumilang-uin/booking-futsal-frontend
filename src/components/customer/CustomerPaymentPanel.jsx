@@ -92,11 +92,11 @@ const CustomerPaymentPanel = () => {
 
   const getPaymentStatusColor = (status) => {
     switch (status) {
-      case 'paid': return 'bg-green-100 text-green-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
+      case 'paid': return 'bg-gray-100 text-gray-900';
+      case 'pending': return 'bg-gray-100 text-gray-900';
       case 'failed': return 'bg-red-100 text-red-800';
-      case 'cancelled': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'cancelled': return 'bg-gray-100 text-gray-900';
+      default: return 'bg-gray-100 text-gray-900';
     }
   };
 
@@ -124,7 +124,7 @@ const CustomerPaymentPanel = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <RefreshCw className="w-8 h-8 animate-spin text-blue-500" />
+        <RefreshCw className="w-8 h-8 animate-spin text-gray-900" />
         <span className="ml-2 text-gray-600">Memuat data pembayaran...</span>
       </div>
     );
@@ -134,15 +134,15 @@ const CustomerPaymentPanel = () => {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center">
-          <CreditCard className="w-8 h-8 text-blue-500 mr-3" />
+          <CreditCard className="w-8 h-8 text-gray-900 mr-3" />
           <div>
             <h2 className="text-2xl font-bold text-gray-900">Pembayaran Saya</h2>
-            <p className="text-gray-600">Kelola pembayaran booking lapangan futsal</p>
+            <p className="text-gray-600">Kelola pembayaran booking lapangan soccer</p>
           </div>
         </div>
         <button
           onClick={loadPayments}
-          className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+          className="flex items-center px-4 py-2 bg-gray-800 text-gray-900 rounded-lg hover:bg-gray-700 transition-colors"
         >
           <RefreshCw className="w-4 h-4 mr-2" />
           Refresh
@@ -162,38 +162,38 @@ const CustomerPaymentPanel = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
         <div className="bg-blue-50 p-6 rounded-lg">
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mr-4">
+            <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4">
               <DollarSign className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="text-sm font-medium text-blue-800">Total Pembayaran</h3>
-              <p className="text-2xl font-bold text-blue-900">{payments.length}</p>
+              <h3 className="text-sm font-medium text-white">Total Pembayaran</h3>
+              <p className="text-2xl font-bold text-gray-900">{payments.length}</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-green-50 p-6 rounded-lg">
+        <div className="bg-gray-50 p-6 rounded-lg">
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mr-4">
+            <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4">
               <CheckCircle className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="text-sm font-medium text-green-800">Berhasil</h3>
-              <p className="text-2xl font-bold text-green-900">
+              <h3 className="text-sm font-medium text-white">Berhasil</h3>
+              <p className="text-2xl font-bold text-gray-900">
                 {payments.filter(p => p.status === 'paid').length}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-yellow-50 p-6 rounded-lg">
+        <div className="bg-gray-50 p-6 rounded-lg">
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center mr-4">
+            <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4">
               <Clock className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="text-sm font-medium text-yellow-800">Pending</h3>
-              <p className="text-2xl font-bold text-yellow-900">
+              <h3 className="text-sm font-medium text-white">Pending</h3>
+              <p className="text-2xl font-bold text-gray-900">
                 {payments.filter(p => p.status === 'pending').length}
               </p>
             </div>
@@ -202,12 +202,12 @@ const CustomerPaymentPanel = () => {
 
         <div className="bg-purple-50 p-6 rounded-lg">
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mr-4">
+            <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center mr-4">
               <FileText className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="text-sm font-medium text-purple-800">Total Nilai</h3>
-              <p className="text-lg font-bold text-purple-900">
+              <h3 className="text-sm font-medium text-white">Total Nilai</h3>
+              <p className="text-lg font-bold text-gray-900">
                 {formatCurrency(payments.reduce((sum, p) => sum + (p.amount || 0), 0))}
               </p>
             </div>
@@ -273,7 +273,7 @@ const CustomerPaymentPanel = () => {
                       <div className="flex space-x-2">
                         <button
                           onClick={() => setSelectedPayment(payment)}
-                          className="text-blue-600 hover:text-blue-800"
+                          className="text-gray-900 hover:text-gray-900"
                           title="Lihat Detail"
                         >
                           <Eye className="w-4 h-4" />
@@ -284,7 +284,7 @@ const CustomerPaymentPanel = () => {
                               setSelectedPayment(payment);
                               setShowProofModal(true);
                             }}
-                            className="text-green-600 hover:text-green-800"
+                            className="text-gray-900 hover:text-gray-900"
                             title="Upload Bukti Pembayaran"
                           >
                             <Upload className="w-4 h-4" />
@@ -392,7 +392,7 @@ const PaymentProofModal = ({ payment, onClose, onUpload, uploading }) => {
           <button
             onClick={handleUpload}
             disabled={!selectedFile || uploading}
-            className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 px-4 py-2 bg-gray-800 text-gray-900 rounded-lg hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {uploading ? 'Uploading...' : 'Upload'}
           </button>
@@ -439,9 +439,9 @@ const PaymentDetailModal = ({ payment, onClose }) => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700">Status</label>
-            <span className={`inline-flex items-center px-2 py-1 text-xs font-medium rounded-full ${payment.status === 'paid' ? 'bg-green-100 text-green-800' :
-                payment.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                  'bg-red-100 text-red-800'
+            <span className={`inline-flex items-center px-2 py-1 text-xs font-medium rounded-full ${payment.status === 'paid' ? 'bg-gray-100 text-gray-900' :
+              payment.status === 'pending' ? 'bg-gray-100 text-gray-900' :
+                'bg-red-100 text-red-800'
               }`}>
               {payment.status}
             </span>
@@ -467,7 +467,7 @@ const PaymentDetailModal = ({ payment, onClose }) => {
         <div className="mt-6">
           <button
             onClick={onClose}
-            className="w-full px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+            className="w-full px-4 py-2 bg-gray-500 text-gray-900 rounded-lg hover:bg-gray-600"
           >
             Tutup
           </button>

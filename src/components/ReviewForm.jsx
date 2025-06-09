@@ -169,8 +169,8 @@ const ReviewForm = ({
               onClick={() => handleRatingClick(star)}
               className={`w-8 h-8 ${
                 star <= formData.rating
-                  ? 'text-yellow-400'
-                  : 'text-gray-300 hover:text-yellow-400'
+                  ? 'text-gray-900'
+                  : 'text-gray-300 hover:text-gray-900'
               } transition-colors`}
             >
               <svg fill="currentColor" viewBox="0 0 24 24">
@@ -201,7 +201,7 @@ const ReviewForm = ({
           value={formData.review}
           onChange={(e) => setFormData(prev => ({ ...prev, review: e.target.value }))}
           placeholder="Ceritakan pengalaman Anda menggunakan lapangan ini..."
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
           required
           minLength={10}
         />
@@ -231,7 +231,7 @@ const ReviewForm = ({
                   <button
                     type="button"
                     onClick={() => removeImage(index, true)}
-                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
+                    className="absolute -top-2 -right-2 bg-red-500 text-gray-900 rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
                   >
                     ×
                   </button>
@@ -256,7 +256,7 @@ const ReviewForm = ({
                   <button
                     type="button"
                     onClick={() => removeImage(index, false)}
-                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
+                    className="absolute -top-2 -right-2 bg-red-500 text-gray-900 rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600"
                   >
                     ×
                   </button>
@@ -300,7 +300,7 @@ const ReviewForm = ({
           type="checkbox"
           checked={formData.is_anonymous}
           onChange={(e) => setFormData(prev => ({ ...prev, is_anonymous: e.target.checked }))}
-          className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+          className="h-4 w-4 text-gray-900 focus:ring-gray-600 border-gray-300 rounded"
         />
         <label htmlFor="anonymous" className="ml-2 text-sm text-gray-700">
           Posting sebagai anonim
@@ -319,7 +319,7 @@ const ReviewForm = ({
         <button
           type="submit"
           disabled={loading || formData.rating === 0}
-          className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="flex-1 bg-gray-800 text-gray-900 py-2 px-4 rounded-lg font-medium hover:bg-gray-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           {loading ? 'Menyimpan...' : existingReview ? 'Update Review' : 'Kirim Review'}
         </button>

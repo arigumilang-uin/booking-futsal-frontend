@@ -3,10 +3,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
   const isDevelopment = mode === 'development';
+  const isProduction = mode === 'production';
 
-  return {
+  const config = {
     plugins: [
       react(),
       tailwindcss()
@@ -77,4 +78,43 @@ export default defineConfig(({ mode }) => {
       host: 'localhost'
     }
   };
+
+  // Production-specific configuration
+  if (command === 'serve' && isProduction) {
+    config.server = {
+      host: '0.0.0.0',
+      port: 3000,
+      cors: {
+        origin: [
+          'https://booking-futsal-frontend.vercel.app',
+          'https://booking-futsal-production.up.railway.app',
+          'http://localhost:3000'
+        ],
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Cookie']
+      },
+      // Production proxy configuration
+      proxy: {
+        '/api': {
+          target: 'https://booking-futsal-production.up.railway.app',
+          changeOrigin: true,
+          secure: true,
+          rewrite: (path) => path,
+          configure: (proxy) => {
+            proxy.on('proxyReq', (proxyReq) => {
+              proxyReq.setHeader('Origin', 'https://booking-futsal-frontend.vercel.app');
+              proxyReq.setHeader('Access-Control-Allow-Credentials', 'true');
+            });
+            proxy.on('proxyRes', (proxyRes) => {
+              proxyRes.headers['Access-Control-Allow-Origin'] = 'https://booking-futsal-frontend.vercel.app';
+              proxyRes.headers['Access-Control-Allow-Credentials'] = 'true';
+            });
+          },
+        }
+      }
+    };
+  }
+
+  return config;
 });

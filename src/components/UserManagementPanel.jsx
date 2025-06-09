@@ -132,12 +132,12 @@ const UserManagementPanel = () => {
 
   const getRoleColor = (role) => {
     switch (role) {
-      case 'supervisor_sistem': return 'bg-purple-100 text-purple-800';
-      case 'manajer_futsal': return 'bg-blue-100 text-blue-800';
-      case 'operator_lapangan': return 'bg-green-100 text-green-800';
-      case 'staff_kasir': return 'bg-yellow-100 text-yellow-800';
-      case 'penyewa': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'supervisor_sistem': return 'bg-gray-100 text-gray-900';
+      case 'manajer_futsal': return 'bg-gray-100 text-gray-900';
+      case 'operator_lapangan': return 'bg-gray-100 text-gray-900';
+      case 'staff_kasir': return 'bg-gray-100 text-gray-900';
+      case 'penyewa': return 'bg-gray-100 text-gray-900';
+      default: return 'bg-gray-100 text-gray-900';
     }
   };
 
@@ -170,7 +170,7 @@ const UserManagementPanel = () => {
           </h2>
           <button
             onClick={() => setShowCreateForm(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
           >
             ➕ Tambah Staff
           </button>
@@ -180,24 +180,24 @@ const UserManagementPanel = () => {
         {roleStats && (
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
             <div className="bg-purple-50 p-4 rounded-lg">
-              <p className="text-2xl font-bold text-purple-600">{roleStats.supervisor_count || 0}</p>
-              <p className="text-sm text-purple-800">Supervisor</p>
+              <p className="text-2xl font-bold text-gray-900">{roleStats.supervisor_count || 0}</p>
+              <p className="text-sm text-gray-900">Supervisor</p>
             </div>
             <div className="bg-blue-50 p-4 rounded-lg">
-              <p className="text-2xl font-bold text-blue-600">{roleStats.manager_count || 0}</p>
-              <p className="text-sm text-blue-800">Manager</p>
+              <p className="text-2xl font-bold text-gray-900">{roleStats.manager_count || 0}</p>
+              <p className="text-sm text-gray-900">Manager</p>
             </div>
             <div className="bg-green-50 p-4 rounded-lg">
-              <p className="text-2xl font-bold text-green-600">{roleStats.operator_count || 0}</p>
-              <p className="text-sm text-green-800">Operator</p>
+              <p className="text-2xl font-bold text-gray-900">{roleStats.operator_count || 0}</p>
+              <p className="text-sm text-gray-900">Operator</p>
             </div>
-            <div className="bg-yellow-50 p-4 rounded-lg">
-              <p className="text-2xl font-bold text-yellow-600">{roleStats.kasir_count || 0}</p>
-              <p className="text-sm text-yellow-800">Kasir</p>
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <p className="text-2xl font-bold text-gray-900">{roleStats.kasir_count || 0}</p>
+              <p className="text-sm text-gray-900">Kasir</p>
             </div>
             <div className="bg-gray-50 p-4 rounded-lg">
               <p className="text-2xl font-bold text-gray-600">{roleStats.customer_count || 0}</p>
-              <p className="text-sm text-gray-800">Penyewa</p>
+              <p className="text-sm text-gray-900">Penyewa</p>
             </div>
           </div>
         )}
@@ -335,7 +335,7 @@ const UserManagementPanel = () => {
           <div className="flex space-x-3 mt-6">
             <button
               onClick={handleCreateUser}
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+              className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
             >
               Simpan
             </button>
@@ -351,7 +351,7 @@ const UserManagementPanel = () => {
                   employee_id: ''
                 });
               }}
-              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+              className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
             >
               Batal
             </button>
@@ -369,7 +369,7 @@ const UserManagementPanel = () => {
 
         {loading ? (
           <div className="p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800 mx-auto"></div>
             <p className="mt-2 text-gray-600">Memuat pengguna...</p>
           </div>
         ) : users.length === 0 ? (
@@ -432,7 +432,7 @@ const UserManagementPanel = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${userData.is_active
-                        ? 'bg-green-100 text-green-800'
+                        ? 'bg-gray-100 text-gray-900'
                         : 'bg-red-100 text-red-800'
                         }`}>
                         {userData.is_active ? 'Aktif' : 'Tidak Aktif'}
@@ -448,7 +448,7 @@ const UserManagementPanel = () => {
                       <div className="flex space-x-2">
                         <button
                           onClick={() => setEditingUser(userData)}
-                          className="text-blue-600 hover:text-blue-900"
+                          className="text-gray-900 hover:text-gray-900"
                         >
                           Edit Role
                         </button>
@@ -471,7 +471,7 @@ const UserManagementPanel = () => {
                               }
                             }
                           }}
-                          className={`${userData.is_active ? 'text-red-600 hover:text-red-900' : 'text-green-600 hover:text-green-900'}`}
+                          className={`${userData.is_active ? 'text-red-600 hover:text-red-900' : 'text-gray-900 hover:text-gray-900'}`}
                         >
                           {userData.is_active ? 'Deactivate' : 'Activate'}
                         </button>
@@ -551,13 +551,13 @@ const UserManagementPanel = () => {
             <div className="flex space-x-3 mt-6">
               <button
                 onClick={() => handleRoleChange(editingUser.id, editingUser.newRole || editingUser.role, editingUser.reason)}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
               >
                 Ubah Role
               </button>
               <button
                 onClick={() => setEditingUser(null)}
-                className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+                className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
               >
                 Batal
               </button>

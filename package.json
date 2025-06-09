@@ -5,17 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite --mode development",
-    "dev:prod": "cross-env NODE_ENV=production vite --mode production",
+    "prod": "cross-env NODE_ENV=production vite --mode production --host 0.0.0.0 --port 3000",
+    "start": "node scripts/start-info.js",
     "build": "vite build",
-    "build:dev": "vite build --mode development",
+    "build:prod": "cross-env NODE_ENV=production vite build --mode production",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "preview": "vite preview",
-    "start": "vite preview --port $PORT",
-    "setup": "node scripts/dev-setup.js",
-    "test:dev": "echo 'Open browser console and run: testDevelopmentEnvironment()'",
-    "clean": "rm -rf dist node_modules/.vite",
-    "health": "curl -f http://localhost:5173 || echo 'Frontend not running'"
+    "preview": "vite preview --port $PORT",
+    "clean": "rm -rf dist node_modules/.vite"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.7",

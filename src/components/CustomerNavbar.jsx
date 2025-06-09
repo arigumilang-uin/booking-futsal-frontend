@@ -14,9 +14,9 @@ const CustomerNavbar = () => {
   };
 
   return (
-    <nav className="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
+    <nav className="bg-gray-800 text-gray-900 px-6 py-4 flex justify-between items-center">
       <div className="flex items-center gap-6">
-        <Link to="/" className="font-bold text-xl">Futsal Pekanbaru</Link>
+        <Link to="/" className="font-bold text-xl">Soccer Pekanbaru</Link>
         
         <Link to="/" className="hover:underline">Dashboard</Link>
         <Link to="/bookings" className="hover:underline">Booking Saya</Link>

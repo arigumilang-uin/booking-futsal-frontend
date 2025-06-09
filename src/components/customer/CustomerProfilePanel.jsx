@@ -103,7 +103,7 @@ const CustomerProfilePanel = () => {
     return (
       <div className="p-6">
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-800 mx-auto mb-4"></div>
           <p className="text-gray-600 text-lg">Memuat profil...</p>
         </div>
       </div>
@@ -115,8 +115,8 @@ const CustomerProfilePanel = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <User className="w-6 h-6 text-white" />
+          <div className="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-800 rounded-2xl flex items-center justify-center shadow-lg">
+            <User className="w-6 h-6 text-gray-900" />
           </div>
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Profil Saya</h2>
@@ -127,7 +127,7 @@ const CustomerProfilePanel = () => {
         {!editing && (
           <button
             onClick={() => setEditing(true)}
-            className="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors flex items-center space-x-2"
+            className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-900 transition-colors flex items-center space-x-2"
           >
             <Edit3 className="w-4 h-4" />
             <span>Edit Profil</span>
@@ -137,10 +137,10 @@ const CustomerProfilePanel = () => {
 
       {/* Success/Error Messages */}
       {success && (
-        <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+        <div className="bg-green-50 border border-gray-200 rounded-xl p-4">
           <div className="flex items-center">
-            <div className="w-5 h-5 text-green-600 mr-2">✅</div>
-            <span className="text-green-800">{success}</span>
+            <div className="w-5 h-5 text-white mr-2">✅</div>
+            <span className="text-white">{success}</span>
           </div>
         </div>
       )}
@@ -157,23 +157,23 @@ const CustomerProfilePanel = () => {
       {/* Profile Card */}
       <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
         {/* Profile Header */}
-        <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 p-8">
+        <div className="bg-gradient-to-r from-gray-800 to-gray-800 p-8">
           <div className="flex items-center space-x-6">
             <div className="w-24 h-24 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-              <span className="text-emerald-600 font-bold text-3xl">
+              <span className="text-gray-800 font-bold text-3xl">
                 {(profile?.name || user?.name || 'C').charAt(0).toUpperCase()}
               </span>
             </div>
             <div className="flex-1">
-              <h3 className="text-white font-bold text-2xl">
+              <h3 className="text-gray-900 font-bold text-2xl">
                 {profile?.name || user?.name || 'Customer'}
               </h3>
-              <p className="text-emerald-100 text-lg">
+              <p className="text-gray-100 text-lg">
                 {profile?.email || user?.email || 'customer@example.com'}
               </p>
               <div className="flex items-center space-x-2 mt-2">
-                <Shield className="w-4 h-4 text-emerald-200" />
-                <span className="text-emerald-200 text-sm">Customer Account</span>
+                <Shield className="w-4 h-4 text-gray-200" />
+                <span className="text-gray-200 text-sm">Customer Account</span>
               </div>
             </div>
           </div>
@@ -189,7 +189,7 @@ const CustomerProfilePanel = () => {
               <div className="space-y-4">
                 <div>
                   <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-2">
-                    <User className="w-4 h-4 text-emerald-600" />
+                    <User className="w-4 h-4 text-gray-800" />
                     <span>Nama Lengkap</span>
                   </label>
                   {editing ? (
@@ -198,7 +198,7 @@ const CustomerProfilePanel = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
                       placeholder="Masukkan nama lengkap"
                     />
                   ) : (
@@ -210,7 +210,7 @@ const CustomerProfilePanel = () => {
 
                 <div>
                   <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-2">
-                    <Mail className="w-4 h-4 text-emerald-600" />
+                    <Mail className="w-4 h-4 text-gray-800" />
                     <span>Email</span>
                   </label>
                   {editing ? (
@@ -219,7 +219,7 @@ const CustomerProfilePanel = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
                       placeholder="email@example.com"
                     />
                   ) : (
@@ -231,7 +231,7 @@ const CustomerProfilePanel = () => {
 
                 <div>
                   <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-2">
-                    <Phone className="w-4 h-4 text-emerald-600" />
+                    <Phone className="w-4 h-4 text-gray-800" />
                     <span>Nomor Telepon</span>
                   </label>
                   {editing ? (
@@ -240,7 +240,7 @@ const CustomerProfilePanel = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
                       placeholder="08xxxxxxxxxx"
                     />
                   ) : (
@@ -256,7 +256,7 @@ const CustomerProfilePanel = () => {
                   <button
                     onClick={handleSave}
                     disabled={saving}
-                    className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center space-x-2"
+                    className="bg-gradient-to-r from-gray-800 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-gray-900 px-6 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center space-x-2"
                   >
                     {saving ? (
                       <>
@@ -273,7 +273,7 @@ const CustomerProfilePanel = () => {
                   
                   <button
                     onClick={handleCancel}
-                    className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2"
+                    className="bg-gray-500 hover:bg-gray-600 text-gray-900 px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2"
                   >
                     <X className="w-4 h-4" />
                     <span>Batal</span>
@@ -287,30 +287,30 @@ const CustomerProfilePanel = () => {
               <h4 className="text-xl font-bold text-gray-900 mb-4">Informasi Akun</h4>
               
               <div className="space-y-4">
-                <div className="bg-emerald-50 p-6 rounded-xl border border-emerald-200">
+                <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
                   <div className="flex items-center space-x-3 mb-3">
-                    <Calendar className="w-5 h-5 text-emerald-600" />
-                    <h5 className="font-semibold text-emerald-900">Member Sejak</h5>
+                    <Calendar className="w-5 h-5 text-gray-800" />
+                    <h5 className="font-semibold text-gray-900">Member Sejak</h5>
                   </div>
-                  <p className="text-emerald-700">
+                  <p className="text-gray-900">
                     {formatDate(profile?.created_at || user?.created_at)}
                   </p>
                 </div>
 
-                <div className="bg-blue-50 p-6 rounded-xl border border-blue-200">
+                <div className="bg-blue-50 p-6 rounded-xl border border-gray-200">
                   <div className="flex items-center space-x-3 mb-3">
-                    <Shield className="w-5 h-5 text-blue-600" />
-                    <h5 className="font-semibold text-blue-900">Status Akun</h5>
+                    <Shield className="w-5 h-5 text-gray-900" />
+                    <h5 className="font-semibold text-gray-900">Status Akun</h5>
                   </div>
-                  <p className="text-blue-700">Customer Aktif</p>
+                  <p className="text-gray-500">Customer Aktif</p>
                 </div>
 
-                <div className="bg-purple-50 p-6 rounded-xl border border-purple-200">
+                <div className="bg-purple-50 p-6 rounded-xl border border-gray-200">
                   <div className="flex items-center space-x-3 mb-3">
-                    <User className="w-5 h-5 text-purple-600" />
-                    <h5 className="font-semibold text-purple-900">Role</h5>
+                    <User className="w-5 h-5 text-gray-900" />
+                    <h5 className="font-semibold text-gray-900">Role</h5>
                   </div>
-                  <p className="text-purple-700">
+                  <p className="text-gray-500">
                     {profile?.role || user?.role || 'penyewa'}
                   </p>
                 </div>

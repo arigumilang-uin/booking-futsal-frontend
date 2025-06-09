@@ -141,22 +141,22 @@ const NotificationCenter = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-end">
-      <div className="bg-white w-full max-w-md h-full shadow-xl overflow-hidden border-l-4 border-l-green-500">
-        {/* Futsal Header */}
-        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4">
+      <div className="bg-white w-full max-w-md h-full shadow-xl overflow-hidden border-l-4 border-l-gray-800">
+        {/* Soccer Header */}
+        <div className="bg-gradient-to-r from-gray-800 to-gray-800 text-gray-900 p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
                 <span className="text-lg">⚽</span>
               </div>
               <div>
-                <h2 className="text-lg font-semibold text-white">Pemberitahuan Lapangan</h2>
-                <p className="text-green-100 text-sm">Update sistem futsal</p>
+                <h2 className="text-lg font-semibold text-gray-900">Pemberitahuan Lapangan</h2>
+                <p className="text-gray-100 text-sm">Update sistem soccer</p>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="text-white hover:text-green-200 p-1 rounded-lg hover:bg-white/10 transition-colors duration-200"
+              className="text-gray-900 hover:text-gray-200 p-1 rounded-lg hover:bg-white/10 transition-colors duration-200"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -164,23 +164,23 @@ const NotificationCenter = ({ isOpen, onClose }) => {
             </button>
           </div>
 
-          {/* Futsal Stats */}
+          {/* Soccer Stats */}
           {unreadCount > 0 && (
             <div className="mt-3 flex items-center space-x-2">
               <div className="bg-white/20 border border-white/30 px-3 py-1 rounded-lg backdrop-blur-sm">
-                <span className="text-white text-sm font-medium">
+                <span className="text-gray-900 text-sm font-medium">
                   🔔 {unreadCount} pemberitahuan baru
                 </span>
               </div>
-              <div className="text-green-100 text-sm">
+              <div className="text-gray-100 text-sm">
                 dari {notifications.length} total
               </div>
             </div>
           )}
         </div>
 
-        {/* Futsal Filter */}
-        <div className="p-4 border-b border-green-100 bg-green-50">
+        {/* Soccer Filter */}
+        <div className="p-4 border-b border-gray-100 bg-green-50">
           <div className="flex gap-2 mb-3">
             {['all', 'unread', 'read'].map((filterType) => (
               <button
@@ -188,8 +188,8 @@ const NotificationCenter = ({ isOpen, onClose }) => {
                 onClick={() => setFilter(filterType)}
                 className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                   filter === filterType
-                    ? 'bg-green-500 text-white shadow-sm'
-                    : 'bg-white text-gray-600 hover:bg-green-100 hover:text-green-700'
+                    ? 'bg-gray-800 text-gray-900 shadow-sm'
+                    : 'bg-white text-gray-600 hover:bg-gray-100 hover:text-gray-500'
                 }`}
               >
                 {filterType === 'all' ? '🏆 Semua' :
@@ -201,7 +201,7 @@ const NotificationCenter = ({ isOpen, onClose }) => {
           {unreadCount > 0 && (
             <button
               onClick={handleMarkAllAsRead}
-              className="text-sm text-green-700 hover:text-green-800 font-medium hover:bg-green-100 px-3 py-1.5 rounded-lg transition-colors duration-200 flex items-center space-x-1"
+              className="text-sm text-gray-500 hover:text-gray-900 font-medium hover:bg-gray-100 px-3 py-1.5 rounded-lg transition-colors duration-200 flex items-center space-x-1"
             >
               <span>⚽</span>
               <span>Tandai semua dibaca ({unreadCount})</span>
@@ -213,7 +213,7 @@ const NotificationCenter = ({ isOpen, onClose }) => {
         <div className="flex-1 overflow-y-auto">
           {loading ? (
             <div className="p-8 text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-2 border-gray-300 border-t-blue-500 mx-auto"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-2 border-gray-300 border-t-gray-800 mx-auto"></div>
               <p className="mt-3 text-gray-600">Memuat notifikasi...</p>
             </div>
           ) : notifications.length === 0 ? (
@@ -232,13 +232,13 @@ const NotificationCenter = ({ isOpen, onClose }) => {
                 <div
                   key={notification.id}
                   className={`p-4 hover:bg-gray-50 transition-colors duration-200 ${
-                    !notification.read_at ? 'bg-blue-50 border-l-4 border-l-blue-500' : ''
+                    !notification.read_at ? 'bg-blue-50 border-l-4 border-l-gray-800' : ''
                   }`}
                 >
                   <div className="flex items-start space-x-3">
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
                       !notification.read_at
-                        ? 'bg-blue-500 text-white'
+                        ? 'bg-gray-800 text-gray-900'
                         : 'bg-gray-200 text-gray-500'
                     }`}>
                       <span className="text-sm">
@@ -254,7 +254,7 @@ const NotificationCenter = ({ isOpen, onClose }) => {
                           {notification.title}
                         </h4>
                         {!notification.read_at && (
-                          <span className="ml-2 w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
+                          <span className="ml-2 w-2 h-2 bg-gray-800 rounded-full flex-shrink-0"></span>
                         )}
                       </div>
                       <p className="text-sm text-gray-600 mt-1">
@@ -268,7 +268,7 @@ const NotificationCenter = ({ isOpen, onClose }) => {
                           {!notification.read_at && (
                             <button
                               onClick={() => handleMarkAsRead(notification.id)}
-                              className="text-xs text-blue-600 hover:text-blue-800 font-medium"
+                              className="text-xs text-gray-900 hover:text-gray-900 font-medium"
                             >
                               Tandai dibaca
                             </button>

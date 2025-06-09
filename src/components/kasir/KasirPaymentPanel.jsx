@@ -128,9 +128,9 @@ const KasirPaymentPanel = () => {
   const getStatusIcon = (status) => {
     switch (status) {
       case 'paid':
-        return <CheckCircle className="w-5 h-5 text-green-600" />;
+        return <CheckCircle className="w-5 h-5 text-gray-900" />;
       case 'pending':
-        return <Clock className="w-5 h-5 text-yellow-600" />;
+        return <Clock className="w-5 h-5 text-gray-900" />;
       case 'failed':
         return <AlertCircle className="w-5 h-5 text-red-600" />;
       default:
@@ -155,7 +155,7 @@ const KasirPaymentPanel = () => {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <CreditCard className="w-6 h-6 text-white" />
+            <CreditCard className="w-6 h-6 text-gray-900" />
           </div>
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Pusat Pembayaran Kasir</h2>
@@ -165,7 +165,7 @@ const KasirPaymentPanel = () => {
 
         <button
           onClick={() => setShowManualPaymentModal(true)}
-          className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center space-x-2"
+          className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-gray-900 px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center space-x-2"
         >
           <Plus className="w-5 h-5" />
           <span>Proses Manual</span>
@@ -263,7 +263,7 @@ const KasirPaymentPanel = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-blue-600">
+                    <div className="text-sm font-medium text-gray-900">
                       #{payment.booking_number || payment.booking_id}
                     </div>
                   </td>
@@ -285,7 +285,7 @@ const KasirPaymentPanel = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPaymentStatusColor ? getPaymentStatusColor(payment.status) : 'bg-gray-100 text-gray-800'}`}>
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPaymentStatusColor ? getPaymentStatusColor(payment.status) : 'bg-gray-100 text-gray-900'}`}>
                       {getStatusIcon(payment.status)}
                       <span className="ml-1 capitalize">{payment.status}</span>
                     </span>
@@ -304,7 +304,7 @@ const KasirPaymentPanel = () => {
                     {payment.status === 'pending' && (
                       <button
                         onClick={() => handleConfirmPayment(payment.id)}
-                        className="text-green-600 hover:text-green-900 transition-colors"
+                        className="text-gray-900 hover:text-gray-900 transition-colors"
                         title="Konfirmasi Pembayaran"
                       >
                         <CheckCircle className="w-4 h-4" />

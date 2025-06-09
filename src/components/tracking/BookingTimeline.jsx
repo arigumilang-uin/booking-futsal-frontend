@@ -34,12 +34,12 @@ const BookingTimeline = ({ bookingId, isOpen, onClose }) => {
   const getEventIcon = (eventType, action) => {
     switch (eventType) {
       case 'payment':
-        return <CreditCard className="w-5 h-5 text-green-600" />;
+        return <CreditCard className="w-5 h-5 text-gray-900" />;
       case 'status_change':
-        if (action?.includes('CONFIRMED')) return <CheckCircle className="w-5 h-5 text-blue-600" />;
+        if (action?.includes('CONFIRMED')) return <CheckCircle className="w-5 h-5 text-gray-900" />;
         if (action?.includes('CANCELLED')) return <XCircle className="w-5 h-5 text-red-600" />;
-        if (action?.includes('COMPLETED')) return <CheckCircle className="w-5 h-5 text-green-600" />;
-        return <Activity className="w-5 h-5 text-yellow-600" />;
+        if (action?.includes('COMPLETED')) return <CheckCircle className="w-5 h-5 text-gray-900" />;
+        return <Activity className="w-5 h-5 text-gray-900" />;
       default:
         return <Clock className="w-5 h-5 text-gray-600" />;
     }
@@ -48,12 +48,12 @@ const BookingTimeline = ({ bookingId, isOpen, onClose }) => {
   const getEventColor = (eventType, action) => {
     switch (eventType) {
       case 'payment':
-        return 'border-green-200 bg-green-50';
+        return 'border-gray-200 bg-gray-50';
       case 'status_change':
-        if (action?.includes('CONFIRMED')) return 'border-blue-200 bg-blue-50';
+        if (action?.includes('CONFIRMED')) return 'border-gray-200 bg-blue-50';
         if (action?.includes('CANCELLED')) return 'border-red-200 bg-red-50';
-        if (action?.includes('COMPLETED')) return 'border-green-200 bg-green-50';
-        return 'border-yellow-200 bg-yellow-50';
+        if (action?.includes('COMPLETED')) return 'border-gray-200 bg-gray-50';
+        return 'border-gray-200 bg-gray-50';
       default:
         return 'border-gray-200 bg-gray-50';
     }
@@ -72,14 +72,14 @@ const BookingTimeline = ({ bookingId, isOpen, onClose }) => {
   const formatDateTime = (dateString) => {
     const date = new Date(dateString);
     return {
-      date: date.toLocaleDateString('id-ID', { 
-        day: '2-digit', 
-        month: 'short', 
-        year: 'numeric' 
+      date: date.toLocaleDateString('id-ID', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
       }),
-      time: date.toLocaleTimeString('id-ID', { 
-        hour: '2-digit', 
-        minute: '2-digit' 
+      time: date.toLocaleTimeString('id-ID', {
+        hour: '2-digit',
+        minute: '2-digit'
       })
     };
   };
@@ -90,7 +90,7 @@ const BookingTimeline = ({ bookingId, isOpen, onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
+        <div className="bg-gradient-to-r from-gray-800 to-gray-800 text-gray-900 p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <Activity className="w-6 h-6" />
@@ -98,19 +98,19 @@ const BookingTimeline = ({ bookingId, isOpen, onClose }) => {
             </div>
             <button
               onClick={onClose}
-              className="text-white hover:text-gray-200 transition-colors"
+              className="text-gray-900 hover:text-gray-200 transition-colors"
             >
               <XCircle className="w-6 h-6" />
             </button>
           </div>
-          <p className="text-blue-100 mt-2">Riwayat lengkap aktivitas booking #{bookingId}</p>
+          <p className="text-gray-100 mt-2">Riwayat lengkap aktivitas booking #{bookingId}</p>
         </div>
 
         {/* Content */}
         <div className="p-6 overflow-y-auto max-h-[60vh]">
           {loading && (
             <div className="flex items-center justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800"></div>
               <span className="ml-3 text-gray-600">Memuat timeline...</span>
             </div>
           )}
@@ -138,9 +138,8 @@ const BookingTimeline = ({ bookingId, isOpen, onClose }) => {
                 return (
                   <div
                     key={`${event.event_type}-${event.event_id}-${index}`}
-                    className={`border-l-4 pl-4 pb-4 ${
-                      index === timeline.length - 1 ? '' : 'border-l-gray-200'
-                    }`}
+                    className={`border-l-4 pl-4 pb-4 ${index === timeline.length - 1 ? '' : 'border-l-gray-200'
+                      }`}
                   >
                     <div className={`rounded-xl border-2 p-4 ${getEventColor(event.event_type, event.action)}`}>
                       <div className="flex items-start justify-between">
@@ -189,7 +188,7 @@ const BookingTimeline = ({ bookingId, isOpen, onClose }) => {
             </span>
             <button
               onClick={onClose}
-              className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
+              className="bg-gray-600 hover:bg-gray-700 text-gray-900 px-4 py-2 rounded-lg transition-colors"
             >
               Tutup
             </button>

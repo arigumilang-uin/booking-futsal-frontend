@@ -146,7 +146,7 @@ const ManualPaymentModal = ({ isOpen, onClose, onSuccess }) => {
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
-              <CreditCard className="w-5 h-5 text-white" />
+              <CreditCard className="w-5 h-5 text-gray-900" />
             </div>
             <div>
               <h3 className="text-xl font-bold text-gray-900">Proses Pembayaran Manual</h3>
@@ -207,10 +207,10 @@ const ManualPaymentModal = ({ isOpen, onClose, onSuccess }) => {
               )}
 
               {selectedBooking && (
-                <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+                <div className="bg-green-50 border border-gray-200 rounded-xl p-4">
                   <div className="flex items-center space-x-2 mb-2">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
-                    <span className="font-medium text-green-900">Booking Dipilih</span>
+                    <CheckCircle className="w-5 h-5 text-gray-900" />
+                    <span className="font-medium text-gray-900">Booking Dipilih</span>
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
@@ -323,7 +323,7 @@ const ManualPaymentModal = ({ isOpen, onClose, onSuccess }) => {
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-gray-900 px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Memproses...' : 'Proses Pembayaran'}
             </button>

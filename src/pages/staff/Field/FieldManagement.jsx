@@ -91,7 +91,7 @@ const FieldManagement = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-800"></div>
       </div>
     );
   }
@@ -103,7 +103,7 @@ const FieldManagement = () => {
         <h1 className="text-3xl font-black text-gray-900">Manajemen Lapangan</h1>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg"
+          className="bg-gray-800 hover:bg-gray-500 text-gray-900 px-6 py-2 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg"
         >
           + Tambah Lapangan
         </button>
@@ -126,7 +126,7 @@ const FieldManagement = () => {
             <select
               value={filters.status}
               onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-600 focus:border-transparent"
             >
               <option value="">Semua Status</option>
               <option value="active">Aktif</option>
@@ -142,10 +142,10 @@ const FieldManagement = () => {
             <select
               value={filters.type}
               onChange={(e) => setFilters({ ...filters, type: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-600 focus:border-transparent"
             >
               <option value="">Semua Tipe</option>
-              <option value="futsal">Futsal</option>
+              <option value="soccer">Soccer</option>
               <option value="mini_soccer">Mini Soccer</option>
               <option value="basketball">Basketball</option>
             </select>
@@ -160,7 +160,7 @@ const FieldManagement = () => {
               value={filters.search}
               onChange={(e) => setFilters({ ...filters, search: e.target.value })}
               placeholder="Nama lapangan..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-600 focus:border-transparent"
             />
           </div>
         </div>
@@ -195,8 +195,8 @@ const FieldManagement = () => {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-12 w-12">
-                        <div className="h-12 w-12 rounded-xl bg-gradient-to-r from-green-500 to-blue-600 flex items-center justify-center">
-                          <span className="text-white font-bold text-lg">
+                        <div className="h-12 w-12 rounded-xl bg-gradient-to-r from-gray-800 to-gray-800 flex items-center justify-center">
+                          <span className="text-gray-900 font-bold text-lg">
                             {field.name?.charAt(0)?.toUpperCase() || 'L'}
                           </span>
                         </div>
@@ -209,9 +209,9 @@ const FieldManagement = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${field.status === 'active'
-                      ? 'bg-green-100 text-green-800'
+                      ? 'bg-gray-100 text-gray-900'
                       : field.status === 'maintenance'
-                        ? 'bg-yellow-100 text-yellow-800'
+                        ? 'bg-gray-100 text-gray-900'
                         : 'bg-red-100 text-red-800'
                       }`}>
                       {field.status === 'active' ? 'Aktif' :
@@ -234,13 +234,13 @@ const FieldManagement = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                     <button
                       onClick={() => handleShowAssignModal(field)}
-                      className="text-purple-600 hover:text-purple-900 font-semibold"
+                      className="text-gray-900 hover:text-gray-900 font-semibold"
                     >
                       Assign
                     </button>
                     <button
                       onClick={() => handleEditField(field)}
-                      className="text-blue-600 hover:text-blue-900 font-semibold"
+                      className="text-gray-900 hover:text-gray-900 font-semibold"
                     >
                       Edit
                     </button>
@@ -277,7 +277,7 @@ const FieldManagement = () => {
                     const operatorId = e.target.value ? parseInt(e.target.value) : null;
                     handleAssignOperator(selectedField.id, operatorId);
                   }}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-600 focus:border-transparent"
                 >
                   <option value="">-- Pilih Operator --</option>
                   {operators.map(operator => (
@@ -290,11 +290,11 @@ const FieldManagement = () => {
               </div>
 
               {selectedField.assigned_operator && (
-                <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
-                  <p className="text-sm text-yellow-800">
+                <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+                  <p className="text-sm text-gray-900">
                     <strong>Operator Saat Ini:</strong> {selectedField.operator_name}
                   </p>
-                  <p className="text-xs text-yellow-600 mt-1">
+                  <p className="text-xs text-gray-900 mt-1">
                     Pilih operator baru untuk mengganti, atau pilih "-- Pilih Operator --" untuk menghapus penugasan.
                   </p>
                 </div>
@@ -304,7 +304,7 @@ const FieldManagement = () => {
             <div className="flex justify-end space-x-3 mt-6">
               <button
                 onClick={() => setShowAssignModal(false)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800 font-semibold"
+                className="px-4 py-2 text-gray-600 hover:text-gray-900 font-semibold"
               >
                 Batal
               </button>

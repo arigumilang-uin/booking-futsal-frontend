@@ -40,7 +40,7 @@ const BookingTimelineModal = ({ isOpen, onClose, bookingId, bookingNumber }) => 
     if (eventType === 'payment') {
       return '💳';
     }
-    
+
     switch (statusTo) {
       case 'confirmed': return '✅';
       case 'completed': return '🏁';
@@ -51,12 +51,12 @@ const BookingTimelineModal = ({ isOpen, onClose, bookingId, bookingNumber }) => 
 
   const getEventColor = (eventType, statusTo) => {
     if (eventType === 'payment') {
-      return 'bg-blue-50 border-blue-200';
+      return 'bg-blue-50 border-gray-200';
     }
-    
+
     switch (statusTo) {
-      case 'confirmed': return 'bg-green-50 border-green-200';
-      case 'completed': return 'bg-purple-50 border-purple-200';
+      case 'confirmed': return 'bg-gray-50 border-gray-200';
+      case 'completed': return 'bg-purple-50 border-gray-200';
       case 'cancelled': return 'bg-red-50 border-red-200';
       default: return 'bg-gray-50 border-gray-200';
     }
@@ -68,15 +68,15 @@ const BookingTimelineModal = ({ isOpen, onClose, bookingId, bookingNumber }) => 
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[80vh] overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-blue-500 to-blue-600">
+        <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-gray-800 to-gray-800">
           <div className="flex justify-between items-center">
             <div>
-              <h3 className="text-lg font-semibold text-white">Timeline Booking</h3>
-              <p className="text-blue-100 text-sm">{bookingNumber}</p>
+              <h3 className="text-lg font-semibold text-gray-900">Timeline Booking</h3>
+              <p className="text-gray-100 text-sm">{bookingNumber}</p>
             </div>
             <button
               onClick={onClose}
-              className="text-white hover:text-blue-200 transition-colors"
+              className="text-gray-900 hover:text-gray-200 transition-colors"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -89,7 +89,7 @@ const BookingTimelineModal = ({ isOpen, onClose, bookingId, bookingNumber }) => 
         <div className="p-6 overflow-y-auto max-h-[60vh]">
           {loading ? (
             <div className="flex items-center justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800"></div>
               <span className="ml-3 text-gray-600">Memuat timeline...</span>
             </div>
           ) : timeline.length === 0 ? (
@@ -113,7 +113,7 @@ const BookingTimelineModal = ({ isOpen, onClose, bookingId, bookingNumber }) => 
                             {event.event_type === 'payment' ? 'Payment' : 'Status Change'}
                           </h4>
                           <p className="text-sm text-gray-600">
-                            {event.event_type === 'payment' 
+                            {event.event_type === 'payment'
                               ? `${event.reason} - Rp ${parseInt(event.notes || 0).toLocaleString('id-ID')}`
                               : `${event.status_from || 'pending'} → ${event.status_to}`
                             }
@@ -147,7 +147,7 @@ const BookingTimelineModal = ({ isOpen, onClose, bookingId, bookingNumber }) => 
           <div className="flex justify-end">
             <button
               onClick={onClose}
-              className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+              className="px-4 py-2 bg-gray-600 text-gray-900 rounded-lg hover:bg-gray-700 transition-colors"
             >
               Tutup
             </button>

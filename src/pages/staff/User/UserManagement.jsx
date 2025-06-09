@@ -93,7 +93,7 @@ const UserManagement = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-800"></div>
       </div>
     );
   }
@@ -105,7 +105,7 @@ const UserManagement = () => {
         <h1 className="text-3xl font-black text-gray-900">Manajemen Pengguna</h1>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg"
+          className="bg-gray-800 hover:bg-gray-500 text-gray-900 px-6 py-2 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg"
         >
           + Tambah Pengguna
         </button>
@@ -128,7 +128,7 @@ const UserManagement = () => {
             <select
               value={filters.role}
               onChange={(e) => setFilters({ ...filters, role: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-600 focus:border-transparent"
             >
               <option value="">Semua Role</option>
               {roleOptions.map(role => (
@@ -144,7 +144,7 @@ const UserManagement = () => {
             <select
               value={filters.status}
               onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-600 focus:border-transparent"
             >
               <option value="">Semua Status</option>
               <option value="true">Aktif</option>
@@ -161,7 +161,7 @@ const UserManagement = () => {
               value={filters.search}
               onChange={(e) => setFilters({ ...filters, search: e.target.value })}
               placeholder="Nama atau email..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-600 focus:border-transparent"
             />
           </div>
         </div>
@@ -196,8 +196,8 @@ const UserManagement = () => {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-10 w-10">
-                        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-                          <span className="text-white font-semibold text-sm">
+                        <div className="h-10 w-10 rounded-full bg-gradient-to-r from-gray-800 to-gray-800 flex items-center justify-center">
+                          <span className="text-gray-900 font-semibold text-sm">
                             {user.name?.charAt(0)?.toUpperCase() || 'U'}
                           </span>
                         </div>
@@ -212,7 +212,7 @@ const UserManagement = () => {
                     <select
                       value={user.role}
                       onChange={(e) => handleRoleChange(user.id, e.target.value)}
-                      className="text-sm border border-gray-300 rounded-lg px-3 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="text-sm border border-gray-300 rounded-lg px-3 py-1 focus:ring-2 focus:ring-gray-600 focus:border-transparent"
                     >
                       {roleOptions.map(role => (
                         <option key={role.value} value={role.value}>{role.label}</option>
@@ -223,7 +223,7 @@ const UserManagement = () => {
                     <button
                       onClick={() => handleStatusToggle(user.id, user.is_active)}
                       className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold transition-all duration-200 ${user.is_active
-                        ? 'bg-green-100 text-green-800 hover:bg-green-200'
+                        ? 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                         : 'bg-red-100 text-red-800 hover:bg-red-200'
                         }`}
                     >
@@ -236,7 +236,7 @@ const UserManagement = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                     <button
                       onClick={() => handleEditUser(user)}
-                      className="text-blue-600 hover:text-blue-900 font-semibold"
+                      className="text-gray-900 hover:text-gray-900 font-semibold"
                     >
                       Edit
                     </button>

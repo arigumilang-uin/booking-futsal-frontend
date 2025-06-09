@@ -110,16 +110,16 @@ const BookingDebugger = () => {
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className="bg-blue-50 p-4 rounded-lg">
-          <h3 className="font-semibold text-blue-900">Current Bookings</h3>
-          <p className="text-2xl font-bold text-blue-600">{bookings.length}</p>
+          <h3 className="font-semibold text-gray-900">Current Bookings</h3>
+          <p className="text-2xl font-bold text-gray-900">{bookings.length}</p>
         </div>
         <div className="bg-green-50 p-4 rounded-lg">
-          <h3 className="font-semibold text-green-900">Available Fields</h3>
-          <p className="text-2xl font-bold text-green-600">{fields.length}</p>
+          <h3 className="font-semibold text-gray-900">Available Fields</h3>
+          <p className="text-2xl font-bold text-gray-900">{fields.length}</p>
         </div>
         <div className="bg-purple-50 p-4 rounded-lg">
-          <h3 className="font-semibold text-purple-900">Test Status</h3>
-          <p className="text-2xl font-bold text-purple-600">
+          <h3 className="font-semibold text-gray-900">Test Status</h3>
+          <p className="text-2xl font-bold text-gray-900">
             {creating ? 'Creating...' : 'Ready'}
           </p>
         </div>
@@ -130,20 +130,20 @@ const BookingDebugger = () => {
         <button
           onClick={createTestBooking}
           disabled={creating || loading || fields.length === 0}
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-gray-800 text-gray-900 px-6 py-2 rounded-lg hover:bg-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {creating ? 'Creating Booking...' : `Create Test Booking #${bookings.length + 1}`}
         </button>
         <button
           onClick={loadData}
           disabled={loading}
-          className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50"
+          className="bg-gray-800 text-gray-900 px-6 py-2 rounded-lg hover:bg-gray-500 disabled:opacity-50"
         >
           {loading ? 'Refreshing...' : 'Refresh Data'}
         </button>
         <button
           onClick={clearLogs}
-          className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700"
+          className="bg-gray-600 text-gray-900 px-6 py-2 rounded-lg hover:bg-gray-700"
         >
           Clear Logs
         </button>
@@ -162,8 +162,8 @@ const BookingDebugger = () => {
                   Date: {booking.date} | 
                   Time: {booking.time_slot} | 
                   Status: <span className={`font-medium ${
-                    booking.status === 'confirmed' ? 'text-green-600' : 
-                    booking.status === 'pending' ? 'text-yellow-600' : 'text-red-600'
+                    booking.status === 'confirmed' ? 'text-gray-900' : 
+                    booking.status === 'pending' ? 'text-gray-900' : 'text-red-600'
                   }`}>{booking.status}</span>
                 </div>
               ))}

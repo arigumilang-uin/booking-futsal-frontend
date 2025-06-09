@@ -17,7 +17,7 @@ const FieldManagement = () => {
   // Form data
   const [formData, setFormData] = useState({
     name: '',
-    type: 'futsal',
+    type: 'soccer',
     description: '',
     capacity: '',
     location: '',
@@ -27,7 +27,7 @@ const FieldManagement = () => {
   });
 
   const fieldTypes = [
-    { value: 'futsal', label: 'Futsal' },
+    { value: 'soccer', label: 'Soccer' },
     { value: 'mini_soccer', label: 'Mini Soccer' },
     { value: 'basketball', label: 'Basketball' },
     { value: 'badminton', label: 'Badminton' },
@@ -105,7 +105,7 @@ const FieldManagement = () => {
     setSelectedField(null);
     setFormData({
       name: '',
-      type: 'futsal',
+      type: 'soccer',
       description: '',
       capacity: '',
       location: '',
@@ -121,7 +121,7 @@ const FieldManagement = () => {
     setSelectedField(field);
     setFormData({
       name: field.name || '',
-      type: field.type || 'futsal',
+      type: field.type || 'soccer',
       description: field.description || '',
       capacity: field.capacity?.toString() || '',
       location: field.location || '',
@@ -138,7 +138,7 @@ const FieldManagement = () => {
     setSelectedField(null);
     setFormData({
       name: '',
-      type: 'futsal',
+      type: 'soccer',
       description: '',
       capacity: '',
       location: '',
@@ -159,30 +159,30 @@ const FieldManagement = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'active':
-        return 'bg-green-100 text-green-800';
+        return 'bg-gray-100 text-gray-900';
       case 'maintenance':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-gray-100 text-gray-900';
       case 'inactive':
         return 'bg-red-100 text-red-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-100 text-gray-900';
     }
   };
 
   const getTypeColor = (type) => {
     switch (type) {
-      case 'futsal':
-        return 'bg-blue-100 text-blue-800';
+      case 'soccer':
+        return 'bg-gray-100 text-gray-900';
       case 'mini_soccer':
-        return 'bg-green-100 text-green-800';
+        return 'bg-gray-100 text-gray-900';
       case 'basketball':
         return 'bg-orange-100 text-orange-800';
       case 'badminton':
-        return 'bg-purple-100 text-purple-800';
+        return 'bg-gray-100 text-gray-900';
       case 'volleyball':
         return 'bg-pink-100 text-pink-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-100 text-gray-900';
     }
   };
 
@@ -208,14 +208,14 @@ const FieldManagement = () => {
         <div className="flex space-x-4">
           <button
             onClick={loadFields}
-            className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition duration-200 flex items-center space-x-2"
+            className="bg-gray-600 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-700 transition duration-200 flex items-center space-x-2"
           >
             <span>🔄</span>
             <span>Refresh</span>
           </button>
           <button
             onClick={openCreateModal}
-            className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-200 flex items-center space-x-2"
+            className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-500 transition duration-200 flex items-center space-x-2"
           >
             <span>➕</span>
             <span>Tambah Lapangan</span>
@@ -231,7 +231,7 @@ const FieldManagement = () => {
               <p className="text-gray-600 font-semibold mb-1">Total Lapangan</p>
               <p className="text-3xl font-bold text-gray-900">{fields.length}</p>
             </div>
-            <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center">
+            <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center">
               <span className="text-2xl">🏟️</span>
             </div>
           </div>
@@ -241,11 +241,11 @@ const FieldManagement = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 font-semibold mb-1">Lapangan Aktif</p>
-              <p className="text-3xl font-bold text-green-900">
+              <p className="text-3xl font-bold text-gray-900">
                 {fields.filter(f => f.status === 'active').length}
               </p>
             </div>
-            <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center">
+            <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center">
               <span className="text-2xl">✅</span>
             </div>
           </div>
@@ -255,11 +255,11 @@ const FieldManagement = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 font-semibold mb-1">Maintenance</p>
-              <p className="text-3xl font-bold text-yellow-900">
+              <p className="text-3xl font-bold text-gray-900">
                 {fields.filter(f => f.status === 'maintenance').length}
               </p>
             </div>
-            <div className="w-14 h-14 bg-yellow-100 rounded-2xl flex items-center justify-center">
+            <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center">
               <span className="text-2xl">🔧</span>
             </div>
           </div>
@@ -269,11 +269,11 @@ const FieldManagement = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 font-semibold mb-1">Rata-rata Harga</p>
-              <p className="text-3xl font-bold text-purple-900">
+              <p className="text-3xl font-bold text-gray-900">
                 {formatCurrency(fields.reduce((sum, f) => sum + (f.price_per_hour || 0), 0) / Math.max(fields.length, 1))}
               </p>
             </div>
-            <div className="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center">
+            <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center">
               <span className="text-2xl">💰</span>
             </div>
           </div>
@@ -299,7 +299,7 @@ const FieldManagement = () => {
                 </div>
                 <button
                   onClick={() => openEditModal(field)}
-                  className="text-blue-600 hover:text-blue-800 p-2 rounded-lg hover:bg-blue-50 transition duration-200"
+                  className="text-gray-900 hover:text-gray-900 p-2 rounded-lg hover:bg-blue-50 transition duration-200"
                 >
                   <span>✏️</span>
                 </button>
@@ -312,7 +312,7 @@ const FieldManagement = () => {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Harga/Jam:</span>
-                  <span className="font-bold text-green-600">{formatCurrency(field.price_per_hour || 0)}</span>
+                  <span className="font-bold text-gray-900">{formatCurrency(field.price_per_hour || 0)}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Lokasi:</span>
@@ -331,7 +331,7 @@ const FieldManagement = () => {
                   <p className="text-sm font-medium text-gray-700 mb-2">Fasilitas:</p>
                   <div className="flex flex-wrap gap-1">
                     {(Array.isArray(field.facilities) ? field.facilities : field.facilities.split(',')).map((facility, index) => (
-                      <span key={index} className="inline-flex px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
+                      <span key={index} className="inline-flex px-2 py-1 text-xs bg-gray-100 text-gray-900 rounded-full">
                         {facility.trim()}
                       </span>
                     ))}
@@ -351,7 +351,7 @@ const FieldManagement = () => {
             <p className="text-gray-500 mb-4">Mulai dengan menambahkan lapangan pertama Anda.</p>
             <button
               onClick={openCreateModal}
-              className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-200"
+              className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-500 transition duration-200"
             >
               Tambah Lapangan
             </button>
@@ -377,7 +377,7 @@ const FieldManagement = () => {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                     required
                   />
                 </div>
@@ -387,7 +387,7 @@ const FieldManagement = () => {
                   <select
                     value={formData.type}
                     onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value }))}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                     required
                   >
                     {fieldTypes.map(type => (
@@ -404,7 +404,7 @@ const FieldManagement = () => {
                     type="number"
                     value={formData.capacity}
                     onChange={(e) => setFormData(prev => ({ ...prev, capacity: e.target.value }))}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                     min="1"
                   />
                 </div>
@@ -415,7 +415,7 @@ const FieldManagement = () => {
                     type="number"
                     value={formData.price_per_hour}
                     onChange={(e) => setFormData(prev => ({ ...prev, price_per_hour: e.target.value }))}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                     min="0"
                     step="1000"
                     required
@@ -428,7 +428,7 @@ const FieldManagement = () => {
                     type="text"
                     value={formData.location}
                     onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                     placeholder="Contoh: Lantai 2, Area A"
                   />
                 </div>
@@ -438,7 +438,7 @@ const FieldManagement = () => {
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                   >
                     {statusOptions.map(status => (
                       <option key={status.value} value={status.value}>
@@ -455,7 +455,7 @@ const FieldManagement = () => {
                   value={formData.description}
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   rows={3}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                   placeholder="Deskripsi lapangan..."
                 />
               </div>
@@ -466,7 +466,7 @@ const FieldManagement = () => {
                   type="text"
                   value={formData.facilities}
                   onChange={(e) => setFormData(prev => ({ ...prev, facilities: e.target.value }))}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                   placeholder="Pisahkan dengan koma: AC, Toilet, Parkir, dll"
                 />
               </div>
@@ -482,7 +482,7 @@ const FieldManagement = () => {
                 <button
                   type="submit"
                   disabled={processing}
-                  className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 disabled:opacity-50"
+                  className="px-6 py-2 bg-gray-800 text-gray-900 rounded-lg hover:bg-gray-500 transition duration-200 disabled:opacity-50"
                 >
                   {processing ? 'Menyimpan...' : modalType === 'create' ? 'Tambah Lapangan' : 'Simpan Perubahan'}
                 </button>

@@ -47,13 +47,13 @@ class ErrorBoundary extends React.Component {
             <div className="flex space-x-4 justify-center">
               <button
                 onClick={() => window.location.reload()}
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="bg-gray-800 text-gray-900 px-6 py-2 rounded-lg hover:bg-gray-500 transition-colors"
               >
                 Refresh Page
               </button>
               <button
                 onClick={() => this.setState({ hasError: false, error: null, errorInfo: null })}
-                className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+                className="bg-gray-600 text-gray-900 px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors"
               >
                 Try Again
               </button>

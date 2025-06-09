@@ -66,7 +66,7 @@ const Register = () => {
 
       {/* Success Message */}
       {success && (
-        <div className="bg-green-50 border border-green-200 text-green-700 p-4 mb-6 rounded-lg text-sm">
+        <div className="bg-green-50 border border-gray-200 text-green-800 p-4 mb-6 rounded-lg text-sm">
           <div className="flex items-center space-x-2">
             <span>✅</span>
             <span>{success}</span>
@@ -88,7 +88,10 @@ const Register = () => {
               onChange={(e) => setName(e.target.value)}
               required
               autoComplete="name"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 text-sm"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 text-sm"
+              style={{ '--tw-ring-color': '#1F2937' }}
+              onFocus={(e) => e.target.style.boxShadow = '0 0 0 2px #1F2937'}
+              onBlur={(e) => e.target.style.boxShadow = 'none'}
               placeholder="Nama lengkap"
             />
           </div>
@@ -103,7 +106,10 @@ const Register = () => {
               onChange={(e) => setPhone(e.target.value)}
               required
               autoComplete="tel"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 text-sm"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 text-sm"
+              style={{ '--tw-ring-color': '#1F2937' }}
+              onFocus={(e) => e.target.style.boxShadow = '0 0 0 2px #1F2937'}
+              onBlur={(e) => e.target.style.boxShadow = 'none'}
               placeholder="081234567890"
             />
           </div>
@@ -120,7 +126,10 @@ const Register = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
             autoComplete="email"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 text-sm"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 text-sm"
+            style={{ '--tw-ring-color': '#1F2937' }}
+            onFocus={(e) => e.target.style.boxShadow = '0 0 0 2px #1F2937'}
+            onBlur={(e) => e.target.style.boxShadow = 'none'}
             placeholder="contoh@email.com"
           />
         </div>
@@ -137,7 +146,10 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="new-password"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 text-sm"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 text-sm"
+              style={{ '--tw-ring-color': '#1F2937' }}
+              onFocus={(e) => e.target.style.boxShadow = '0 0 0 2px #1F2937'}
+              onBlur={(e) => e.target.style.boxShadow = 'none'}
               placeholder="Min. 6 karakter"
               minLength="6"
             />
@@ -153,7 +165,10 @@ const Register = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
               autoComplete="new-password"
-              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 text-sm"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 text-sm"
+              style={{ '--tw-ring-color': '#1F2937' }}
+              onFocus={(e) => e.target.style.boxShadow = '0 0 0 2px #1F2937'}
+              onBlur={(e) => e.target.style.boxShadow = 'none'}
               placeholder="Ulangi password"
             />
           </div>
@@ -172,7 +187,17 @@ const Register = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02]"
+          className="w-full text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02]"
+          style={{
+            background: `linear-gradient(135deg, #1F2937 0%, #1F2937 100%)`,
+            boxShadow: '0 4px 14px 0 rgba(31, 41, 55, 0.39)'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.background = `linear-gradient(135deg, #1F2937 0%, #374151 100%)`;
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.background = `linear-gradient(135deg, #1F2937 0%, #1F2937 100%)`;
+          }}
         >
           {loading ? (
             <div className="flex items-center justify-center space-x-2">
@@ -187,11 +212,11 @@ const Register = () => {
         {/* Terms */}
         <div className="text-center text-xs text-gray-600">
           Dengan mendaftar, Anda menyetujui{' '}
-          <a href="#" className="text-green-600 hover:text-green-700 font-medium underline underline-offset-2">
+          <a href="#" className="text-gray-900 hover:text-gray-500 font-medium underline underline-offset-2">
             Syarat & Ketentuan
           </a>{' '}
           dan{' '}
-          <a href="#" className="text-green-600 hover:text-green-700 font-medium underline underline-offset-2">
+          <a href="#" className="text-gray-900 hover:text-gray-500 font-medium underline underline-offset-2">
             Kebijakan Privasi
           </a>
         </div>

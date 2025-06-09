@@ -257,21 +257,21 @@ const CustomerBookingPanel = () => {
     <div className="p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center space-x-3 mb-6">
-        <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
-          <Calendar className="w-6 h-6 text-white" />
+        <div className="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-800 rounded-2xl flex items-center justify-center shadow-lg">
+          <Calendar className="w-6 h-6 text-gray-900" />
         </div>
         <div>
           <h2 className="text-3xl font-bold text-gray-900">Booking Baru</h2>
-          <p className="text-gray-600">Buat reservasi lapangan futsal</p>
+          <p className="text-gray-600">Buat reservasi lapangan soccer</p>
         </div>
       </div>
 
       {/* Success/Error Messages */}
       {success && (
-        <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+        <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
           <div className="flex items-center">
-            <div className="w-5 h-5 text-green-600 mr-2">✅</div>
-            <span className="text-green-800">{success}</span>
+            <div className="w-5 h-5 text-gray-900 mr-2">✅</div>
+            <span className="text-gray-900">{success}</span>
           </div>
         </div>
       )}
@@ -292,7 +292,7 @@ const CustomerBookingPanel = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
               <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
-                <MapPin className="w-4 h-4 text-emerald-600" />
+                <MapPin className="w-4 h-4 text-gray-800" />
                 <span>Pilih Lapangan</span>
               </label>
               <select
@@ -300,7 +300,7 @@ const CustomerBookingPanel = () => {
                 value={formData.field_id}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
               >
                 <option value="">-- Pilih Lapangan --</option>
                 {fields.map(field => (
@@ -313,7 +313,7 @@ const CustomerBookingPanel = () => {
 
             <div>
               <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
-                <Calendar className="w-4 h-4 text-emerald-600" />
+                <Calendar className="w-4 h-4 text-gray-800" />
                 <span>Tanggal</span>
               </label>
               <input
@@ -324,20 +324,20 @@ const CustomerBookingPanel = () => {
                 min={getMinDate()}
                 max={getMaxDate()}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
               />
             </div>
           </div>
 
           {/* Duration Display */}
           {formData.start_time && formData.end_time && (
-            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <Clock className="w-5 h-5 text-emerald-600" />
-                  <span className="font-semibold text-emerald-900">Durasi Booking:</span>
+                  <Clock className="w-5 h-5 text-gray-800" />
+                  <span className="font-semibold text-gray-900">Durasi Booking:</span>
                 </div>
-                <div className="text-emerald-700 font-bold">
+                <div className="text-gray-900 font-bold">
                   {(() => {
                     const startHour = parseInt(formData.start_time.split(':')[0]);
                     const startMinute = parseInt(formData.start_time.split(':')[1]);
@@ -364,7 +364,7 @@ const CustomerBookingPanel = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
               <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
-                <Clock className="w-4 h-4 text-emerald-600" />
+                <Clock className="w-4 h-4 text-gray-800" />
                 <span>Jam Mulai</span>
               </label>
               <select
@@ -372,7 +372,7 @@ const CustomerBookingPanel = () => {
                 value={formData.start_time}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
               >
                 <option value="">-- Pilih Jam Mulai --</option>
                 {generateTimeOptions().map(time => (
@@ -383,7 +383,7 @@ const CustomerBookingPanel = () => {
 
             <div>
               <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
-                <Clock className="w-4 h-4 text-emerald-600" />
+                <Clock className="w-4 h-4 text-gray-800" />
                 <span>Jam Selesai</span>
               </label>
               <select
@@ -392,7 +392,7 @@ const CustomerBookingPanel = () => {
                 onChange={handleInputChange}
                 required
                 disabled={!formData.start_time}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800 disabled:bg-gray-100 disabled:cursor-not-allowed"
               >
                 <option value="">
                   {!formData.start_time ? "-- Pilih Jam Mulai Dulu --" : "-- Pilih Jam Selesai --"}
@@ -408,7 +408,7 @@ const CustomerBookingPanel = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div>
               <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
-                <User className="w-4 h-4 text-emerald-600" />
+                <User className="w-4 h-4 text-gray-800" />
                 <span>Nama Lengkap</span>
               </label>
               <input
@@ -418,13 +418,13 @@ const CustomerBookingPanel = () => {
                 onChange={handleInputChange}
                 required
                 placeholder="Masukkan nama lengkap"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
               />
             </div>
 
             <div>
               <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
-                <Phone className="w-4 h-4 text-emerald-600" />
+                <Phone className="w-4 h-4 text-gray-800" />
                 <span>Nomor Telepon</span>
               </label>
               <input
@@ -434,13 +434,13 @@ const CustomerBookingPanel = () => {
                 onChange={handleInputChange}
                 required
                 placeholder="08xxxxxxxxxx"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
               />
             </div>
 
             <div>
               <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
-                <Mail className="w-4 h-4 text-emerald-600" />
+                <Mail className="w-4 h-4 text-gray-800" />
                 <span>Email (Opsional)</span>
               </label>
               <input
@@ -449,7 +449,7 @@ const CustomerBookingPanel = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="email@example.com"
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
               />
             </div>
           </div>
@@ -457,7 +457,7 @@ const CustomerBookingPanel = () => {
           {/* Notes */}
           <div>
             <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
-              <MessageSquare className="w-4 h-4 text-emerald-600" />
+              <MessageSquare className="w-4 h-4 text-gray-800" />
               <span>Catatan (Opsional)</span>
             </label>
             <textarea
@@ -466,7 +466,7 @@ const CustomerBookingPanel = () => {
               onChange={handleInputChange}
               rows={3}
               placeholder="Tambahkan catatan khusus untuk booking ini..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 resize-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800 resize-none"
             />
           </div>
 
@@ -475,7 +475,7 @@ const CustomerBookingPanel = () => {
             <button
               type="submit"
               disabled={submitting || loading}
-              className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              className="bg-gradient-to-r from-gray-800 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-gray-900 px-8 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
               {submitting ? (
                 <div className="flex items-center space-x-2">
@@ -495,7 +495,7 @@ const CustomerBookingPanel = () => {
 
       {loading && (
         <div className="text-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800 mx-auto mb-4"></div>
           <p className="text-gray-600">Memuat data lapangan...</p>
         </div>
       )}

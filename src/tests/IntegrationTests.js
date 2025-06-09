@@ -53,7 +53,7 @@ class IntegrationTestSuite {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: 'ppwweebb05@gmail.com',
-          password: 'futsaluas'
+          password: 'socceruas'
         })
       });
       
@@ -173,7 +173,7 @@ class IntegrationTestSuite {
         }, 10000);
         
         try {
-          const ws = new WebSocket('wss://booking-futsal-production.up.railway.app/ws');
+          const ws = new WebSocket('wss://booking-soccer-production.up.railway.app/ws');
           
           ws.onopen = () => {
             clearTimeout(timeout);

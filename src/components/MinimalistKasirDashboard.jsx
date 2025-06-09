@@ -11,12 +11,12 @@ import ManualPaymentModal from './kasir/ManualPaymentModal';
 const PaymentManagementPanel = () => (
   <div className="p-6">
     <h2 className="text-2xl font-bold text-gray-900 mb-6">Manajemen Pembayaran</h2>
-    <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg text-center">
-      <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+    <div className="bg-gradient-to-br from-green-50 to-gray-100 p-6 rounded-lg text-center">
+      <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
         <span className="text-2xl text-white">💳</span>
       </div>
-      <h3 className="text-lg font-semibold text-green-900 mb-2">Proses Pembayaran</h3>
-      <p className="text-green-700 mb-4">Kelola transaksi dan pembayaran booking lapangan.</p>
+      <h3 className="text-lg font-semibold text-white mb-2">Proses Pembayaran</h3>
+      <p className="text-gray-500 mb-4">Kelola transaksi dan pembayaran booking lapangan.</p>
     </div>
   </div>
 );
@@ -31,18 +31,18 @@ const TransactionHistoryPanel = ({ dashboardData }) => {
       {/* Transaction Summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className="bg-green-50 p-4 rounded-lg">
-          <h3 className="text-sm font-medium text-green-800">Total Transaksi Sukses</h3>
-          <p className="text-2xl font-bold text-green-900">{paidTransactions.length}</p>
+          <h3 className="text-sm font-medium text-gray-900">Total Transaksi Sukses</h3>
+          <p className="text-2xl font-bold text-gray-900">{paidTransactions.length}</p>
         </div>
         <div className="bg-blue-50 p-4 rounded-lg">
-          <h3 className="text-sm font-medium text-blue-800">Total Pendapatan</h3>
-          <p className="text-2xl font-bold text-blue-900">
+          <h3 className="text-sm font-medium text-gray-900">Total Pendapatan</h3>
+          <p className="text-2xl font-bold text-gray-900">
             Rp {paidTransactions.reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0).toLocaleString('id-ID')}
           </p>
         </div>
         <div className="bg-purple-50 p-4 rounded-lg">
-          <h3 className="text-sm font-medium text-purple-800">Rata-rata Transaksi</h3>
-          <p className="text-2xl font-bold text-purple-900">
+          <h3 className="text-sm font-medium text-gray-900">Rata-rata Transaksi</h3>
+          <p className="text-2xl font-bold text-gray-900">
             Rp {paidTransactions.length > 0 ?
               Math.round(paidTransactions.reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0) / paidTransactions.length).toLocaleString('id-ID') :
               '0'
@@ -255,36 +255,36 @@ const MinimalistKasirDashboard = () => {
       title: 'Total Transaksi',
       value: dashboardData.payment_metrics?.total_transactions || 0,
       icon: '💳',
-      color: 'bg-green-500',
-      bgColor: 'bg-green-100'
+      color: 'bg-gray-800',
+      bgColor: 'bg-gray-100'
     },
     {
       title: 'Pendapatan Hari Ini',
       value: `Rp ${dashboardData.payment_metrics?.daily_revenue || '0'}`,
       icon: '💰',
-      color: 'bg-blue-500',
-      bgColor: 'bg-blue-100'
+      color: 'bg-gray-800',
+      bgColor: 'bg-gray-100'
     },
     {
       title: 'Pembayaran Pending',
       value: dashboardData.payment_metrics?.pending_payments || 0,
       icon: '⏳',
-      color: 'bg-yellow-500',
-      bgColor: 'bg-yellow-100'
+      color: 'bg-gray-800',
+      bgColor: 'bg-gray-100'
     },
     {
       title: 'Success Rate',
       value: dashboardData.payment_metrics?.success_rate || '0%',
       icon: '📈',
-      color: 'bg-purple-500',
-      bgColor: 'bg-purple-100'
+      color: 'bg-gray-800',
+      bgColor: 'bg-gray-100'
     },
     {
       title: 'Transaksi Sukses',
       value: dashboardData.payment_metrics?.total_transactions || 0,
       icon: '✅',
-      color: 'bg-emerald-500',
-      bgColor: 'bg-emerald-100'
+      color: 'bg-gray-800',
+      bgColor: 'bg-gray-100'
     },
     {
       title: 'Metode Pembayaran',
@@ -319,7 +319,7 @@ const MinimalistKasirDashboard = () => {
                 Selamat datang, {user?.name || 'Kasir'}! 💰
               </h1>
               <p className="text-gray-600">
-                Kelola pembayaran dan transaksi booking lapangan futsal
+                Kelola pembayaran dan transaksi booking lapangan soccer
               </p>
             </div>
             <button
@@ -327,7 +327,7 @@ const MinimalistKasirDashboard = () => {
               disabled={refreshing}
               className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${refreshing
                 ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : 'bg-orange-600 text-white hover:bg-orange-700 hover:scale-105 shadow-lg'
+                : 'bg-orange-600 text-gray-900 hover:bg-orange-700 hover:scale-105 shadow-lg'
                 }`}
             >
               <svg className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -386,38 +386,38 @@ const MinimalistKasirDashboard = () => {
             <div className="p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Overview Kasir</h2>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-green-900 mb-4">Ringkasan Pembayaran</h3>
+                <div className="bg-gradient-to-br from-green-50 to-gray-100 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Ringkasan Pembayaran</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-green-700">Total Transaksi Hari Ini:</span>
-                      <span className="font-bold text-green-900">{dashboardData.payment_metrics?.total_transactions || 0}</span>
+                      <span className="text-gray-500">Total Transaksi Hari Ini:</span>
+                      <span className="font-bold text-gray-900">{dashboardData.payment_metrics?.total_transactions || 0}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-green-700">Pendapatan:</span>
-                      <span className="font-bold text-green-900">Rp {dashboardData.payment_metrics?.daily_revenue || '0'}</span>
+                      <span className="text-gray-500">Pendapatan:</span>
+                      <span className="font-bold text-gray-900">Rp {dashboardData.payment_metrics?.daily_revenue || '0'}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-green-700">Success Rate:</span>
-                      <span className="font-bold text-green-900">{dashboardData.payment_metrics?.success_rate || '0%'}</span>
+                      <span className="text-gray-500">Success Rate:</span>
+                      <span className="font-bold text-gray-900">{dashboardData.payment_metrics?.success_rate || '0%'}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-blue-900 mb-4">Status Pembayaran</h3>
+                <div className="bg-gradient-to-br from-blue-50 to-gray-100 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Status Pembayaran</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span className="text-blue-700">Pending Payment:</span>
-                      <span className="font-bold text-blue-900">{dashboardData.payment_metrics?.pending_payments || 0}</span>
+                      <span className="text-gray-500">Pending Payment:</span>
+                      <span className="font-bold text-gray-900">{dashboardData.payment_metrics?.pending_payments || 0}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-blue-700">Confirmed:</span>
-                      <span className="font-bold text-blue-900">{dashboardData.payment_metrics?.total_transactions || 0}</span>
+                      <span className="text-gray-500">Confirmed:</span>
+                      <span className="font-bold text-gray-900">{dashboardData.payment_metrics?.total_transactions || 0}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-blue-700">Metode Aktif:</span>
-                      <span className="font-bold text-blue-900">3 Metode</span>
+                      <span className="text-gray-500">Metode Aktif:</span>
+                      <span className="font-bold text-gray-900">3 Metode</span>
                     </div>
                   </div>
                 </div>

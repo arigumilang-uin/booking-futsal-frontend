@@ -22,7 +22,7 @@ const FieldManagementPanel = () => {
   const [newField, setNewField] = useState({
     name: '',
     description: '',
-    type: 'futsal',
+    type: 'soccer',
     price: '',
     price_weekend: '',
     capacity: '',
@@ -170,7 +170,7 @@ const FieldManagementPanel = () => {
     setNewField({
       name: '',
       description: '',
-      type: 'futsal',
+      type: 'soccer',
       price: '',
       price_weekend: '',
       capacity: '',
@@ -188,10 +188,10 @@ const FieldManagementPanel = () => {
   const getStatusColor = (field) => {
     // Use backend status field instead of is_active/maintenance_mode
     switch (field.status) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'maintenance': return 'bg-yellow-100 text-yellow-800';
+      case 'active': return 'bg-gray-100 text-gray-900';
+      case 'maintenance': return 'bg-gray-100 text-gray-900';
       case 'inactive': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-gray-100 text-gray-900';
     }
   };
 
@@ -223,7 +223,7 @@ const FieldManagementPanel = () => {
           </h2>
           <button
             onClick={() => setShowCreateForm(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
           >
             ➕ Tambah Lapangan
           </button>
@@ -248,7 +248,7 @@ const FieldManagementPanel = () => {
             className="border border-gray-300 rounded-lg px-3 py-2"
           >
             <option value="">Semua Type</option>
-            <option value="futsal">Futsal</option>
+            <option value="soccer">Soccer</option>
             <option value="indoor">Indoor</option>
             <option value="outdoor">Outdoor</option>
             <option value="synthetic">Synthetic</option>
@@ -265,7 +265,7 @@ const FieldManagementPanel = () => {
 
           <button
             onClick={loadFields}
-            className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+            className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
           >
             🔄 Refresh
           </button>
@@ -349,7 +349,7 @@ const FieldManagementPanel = () => {
                 }}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2"
               >
-                <option value="futsal">Futsal</option>
+                <option value="soccer">Soccer</option>
                 <option value="indoor">Indoor</option>
                 <option value="outdoor">Outdoor</option>
                 <option value="synthetic">Synthetic</option>
@@ -512,7 +512,7 @@ const FieldManagementPanel = () => {
           <div className="flex space-x-3 mt-6">
             <button
               onClick={editingField ? handleUpdateField : handleCreateField}
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+              className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
             >
               {editingField ? 'Update' : 'Simpan'}
             </button>
@@ -525,7 +525,7 @@ const FieldManagementPanel = () => {
                   resetForm();
                 }
               }}
-              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+              className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
             >
               Batal
             </button>
@@ -543,7 +543,7 @@ const FieldManagementPanel = () => {
 
         {loading ? (
           <div className="p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800 mx-auto"></div>
             <p className="mt-2 text-gray-600">Memuat lapangan...</p>
           </div>
         ) : fields.length === 0 ? (
@@ -624,13 +624,13 @@ const FieldManagementPanel = () => {
                             setSelectedField(field);
                             setShowAssignModal(true);
                           }}
-                          className="text-purple-600 hover:text-purple-900"
+                          className="text-gray-900 hover:text-gray-900"
                         >
                           Assign
                         </button>
                         <button
                           onClick={() => setEditingField(field)}
-                          className="text-blue-600 hover:text-blue-900"
+                          className="text-gray-900 hover:text-gray-900"
                         >
                           Edit
                         </button>
@@ -680,11 +680,11 @@ const FieldManagementPanel = () => {
               </div>
 
               {selectedField.assigned_operator && (
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                  <p className="text-sm text-yellow-800">
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                  <p className="text-sm text-gray-900">
                     <strong>Operator Saat Ini:</strong> {selectedField.operator_name}
                   </p>
-                  <p className="text-xs text-yellow-600 mt-1">
+                  <p className="text-xs text-gray-900 mt-1">
                     Pilih operator baru untuk mengganti, atau pilih "-- Pilih Operator --" untuk menghapus penugasan.
                   </p>
                 </div>
@@ -694,7 +694,7 @@ const FieldManagementPanel = () => {
             <div className="flex justify-end space-x-3 mt-6">
               <button
                 onClick={() => setShowAssignModal(false)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium"
+                className="px-4 py-2 text-gray-600 hover:text-gray-900 font-medium"
               >
                 Batal
               </button>

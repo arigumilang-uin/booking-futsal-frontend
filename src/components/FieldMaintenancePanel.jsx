@@ -1,6 +1,6 @@
 // src/components/FieldMaintenancePanel.jsx
 import { useState, useEffect, useCallback } from 'react';
-import { 
+import {
   getMaintenanceSchedule,
   createMaintenanceTask,
   updateMaintenanceTask,
@@ -44,7 +44,7 @@ const FieldMaintenancePanel = () => {
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
-      
+
       const [scheduleRes, historyRes, equipmentRes] = await Promise.allSettled([
         getMaintenanceSchedule(),
         getMaintenanceHistory({ limit: 20 }),
@@ -148,23 +148,23 @@ const FieldMaintenancePanel = () => {
 
   const getStatusColor = (status) => {
     const colors = {
-      'scheduled': 'bg-blue-100 text-blue-800',
-      'in_progress': 'bg-yellow-100 text-yellow-800',
-      'completed': 'bg-green-100 text-green-800',
+      'scheduled': 'bg-gray-100 text-gray-900',
+      'in_progress': 'bg-gray-100 text-gray-900',
+      'completed': 'bg-gray-100 text-gray-900',
       'cancelled': 'bg-red-100 text-red-800',
       'overdue': 'bg-red-100 text-red-800'
     };
-    return colors[status] || 'bg-gray-100 text-gray-800';
+    return colors[status] || 'bg-gray-100 text-gray-900';
   };
 
   const getPriorityColor = (priority) => {
     const colors = {
-      'low': 'bg-green-100 text-green-800',
-      'medium': 'bg-yellow-100 text-yellow-800',
+      'low': 'bg-gray-100 text-gray-900',
+      'medium': 'bg-gray-100 text-gray-900',
       'high': 'bg-orange-100 text-orange-800',
       'urgent': 'bg-red-100 text-red-800'
     };
-    return colors[priority] || 'bg-gray-100 text-gray-800';
+    return colors[priority] || 'bg-gray-100 text-gray-900';
   };
 
   const formatDate = (dateString) => {
@@ -187,13 +187,13 @@ const FieldMaintenancePanel = () => {
         <div className="flex space-x-3">
           <button
             onClick={() => setShowIssueForm(true)}
-            className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+            className="bg-red-600 text-gray-900 px-4 py-2 rounded-lg hover:bg-red-700"
           >
             🚨 Report Issue
           </button>
           <button
             onClick={() => setShowCreateForm(true)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
           >
             ➕ Schedule Maintenance
           </button>
@@ -219,11 +219,10 @@ const FieldMaintenancePanel = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${
-                  activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
+                className={`py-3 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === tab.id
+                    ? 'border-gray-800 text-gray-900'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
+                  }`}
               >
                 <span className="mr-2">{tab.icon}</span>
                 {tab.label}
@@ -263,7 +262,7 @@ const FieldMaintenancePanel = () => {
                           {task.status === 'scheduled' && (
                             <button
                               onClick={() => handleUpdateMaintenanceStatus(task.id, 'in_progress')}
-                              className="bg-yellow-600 text-white px-3 py-1 rounded text-sm hover:bg-yellow-700"
+                              className="bg-gray-800 text-gray-900 px-3 py-1 rounded text-sm hover:bg-gray-500"
                             >
                               Start
                             </button>
@@ -271,7 +270,7 @@ const FieldMaintenancePanel = () => {
                           {task.status === 'in_progress' && (
                             <button
                               onClick={() => handleUpdateMaintenanceStatus(task.id, 'completed')}
-                              className="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700"
+                              className="bg-gray-800 text-white px-3 py-1 rounded text-sm hover:bg-gray-500"
                             >
                               Complete
                             </button>
@@ -332,11 +331,10 @@ const FieldMaintenancePanel = () => {
                     <div key={item.id} className="border rounded-lg p-4">
                       <div className="flex items-center justify-between mb-2">
                         <h4 className="font-medium text-gray-900">{item.name}</h4>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          item.status === 'available' ? 'bg-green-100 text-green-800' :
-                          item.status === 'in_use' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-red-100 text-red-800'
-                        }`}>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${item.status === 'available' ? 'bg-gray-100 text-gray-900' :
+                            item.status === 'in_use' ? 'bg-gray-100 text-gray-900' :
+                              'bg-red-100 text-red-800'
+                          }`}>
                           {item.status}
                         </span>
                       </div>
@@ -467,13 +465,13 @@ const FieldMaintenancePanel = () => {
             <div className="flex space-x-3 mt-6">
               <button
                 onClick={handleCreateMaintenance}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
               >
                 Schedule
               </button>
               <button
                 onClick={() => setShowCreateForm(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+                className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
               >
                 Cancel
               </button>
@@ -568,13 +566,13 @@ const FieldMaintenancePanel = () => {
             <div className="flex space-x-3 mt-6">
               <button
                 onClick={handleReportIssue}
-                className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+                className="bg-red-600 text-gray-900 px-4 py-2 rounded-lg hover:bg-red-700"
               >
                 Report Issue
               </button>
               <button
                 onClick={() => setShowIssueForm(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+                className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
               >
                 Cancel
               </button>

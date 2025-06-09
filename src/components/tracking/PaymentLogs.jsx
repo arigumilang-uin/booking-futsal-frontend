@@ -35,10 +35,10 @@ const PaymentLogs = ({ paymentId, isOpen, onClose }) => {
     switch (action?.toLowerCase()) {
       case 'created':
       case 'payment_created':
-        return <CreditCard className="w-5 h-5 text-blue-600" />;
+        return <CreditCard className="w-5 h-5 text-gray-900" />;
       case 'processed':
       case 'payment_processed':
-        return <CheckCircle className="w-5 h-5 text-green-600" />;
+        return <CheckCircle className="w-5 h-5 text-gray-900" />;
       case 'failed':
       case 'payment_failed':
         return <XCircle className="w-5 h-5 text-red-600" />;
@@ -51,10 +51,10 @@ const PaymentLogs = ({ paymentId, isOpen, onClose }) => {
     switch (action?.toLowerCase()) {
       case 'created':
       case 'payment_created':
-        return 'border-blue-200 bg-blue-50';
+        return 'border-gray-200 bg-blue-50';
       case 'processed':
       case 'payment_processed':
-        return 'border-green-200 bg-green-50';
+        return 'border-gray-200 bg-gray-50';
       case 'failed':
       case 'payment_failed':
         return 'border-red-200 bg-red-50';
@@ -80,13 +80,13 @@ const PaymentLogs = ({ paymentId, isOpen, onClose }) => {
   const formatDateTime = (dateString) => {
     const date = new Date(dateString);
     return {
-      date: date.toLocaleDateString('id-ID', { 
-        day: '2-digit', 
-        month: 'short', 
-        year: 'numeric' 
+      date: date.toLocaleDateString('id-ID', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
       }),
-      time: date.toLocaleTimeString('id-ID', { 
-        hour: '2-digit', 
+      time: date.toLocaleTimeString('id-ID', {
+        hour: '2-digit',
         minute: '2-digit',
         second: '2-digit'
       })
@@ -109,7 +109,7 @@ const PaymentLogs = ({ paymentId, isOpen, onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[80vh] overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white p-6">
+        <div className="bg-gradient-to-r from-gray-800 to-gray-800 text-gray-900 p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <CreditCard className="w-6 h-6" />
@@ -117,19 +117,19 @@ const PaymentLogs = ({ paymentId, isOpen, onClose }) => {
             </div>
             <button
               onClick={onClose}
-              className="text-white hover:text-gray-200 transition-colors"
+              className="text-gray-900 hover:text-gray-200 transition-colors"
             >
               <XCircle className="w-6 h-6" />
             </button>
           </div>
-          <p className="text-green-100 mt-2">Riwayat aktivitas payment #{paymentId}</p>
+          <p className="text-gray-100 mt-2">Riwayat aktivitas payment #{paymentId}</p>
         </div>
 
         {/* Content */}
         <div className="p-6 overflow-y-auto max-h-[60vh]">
           {loading && (
             <div className="flex items-center justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800"></div>
               <span className="ml-3 text-gray-600">Memuat log payment...</span>
             </div>
           )}
@@ -171,13 +171,12 @@ const PaymentLogs = ({ paymentId, isOpen, onClose }) => {
                           {log.status_code && (
                             <div className="flex items-center space-x-2 mb-2">
                               <span className="text-sm text-gray-600">Status Code:</span>
-                              <span className={`px-2 py-1 rounded text-xs font-medium ${
-                                log.status_code >= 200 && log.status_code < 300 
-                                  ? 'bg-green-100 text-green-800'
-                                  : log.status_code >= 400
+                              <span className={`px-2 py-1 rounded text-xs font-medium ${log.status_code >= 200 && log.status_code < 300
+                                ? 'bg-gray-100 text-gray-900'
+                                : log.status_code >= 400
                                   ? 'bg-red-100 text-red-800'
-                                  : 'bg-yellow-100 text-yellow-800'
-                              }`}>
+                                  : 'bg-gray-100 text-gray-900'
+                                }`}>
                                 {log.status_code}
                               </span>
                             </div>
@@ -201,7 +200,7 @@ const PaymentLogs = ({ paymentId, isOpen, onClose }) => {
                       <div className="mb-3">
                         <h5 className="text-sm font-medium text-gray-700 mb-2">Request Data:</h5>
                         <div className="bg-gray-100 rounded-lg p-3 overflow-x-auto">
-                          <pre className="text-xs text-gray-800 whitespace-pre-wrap">
+                          <pre className="text-xs text-gray-900 whitespace-pre-wrap">
                             {formatJsonData(log.request_data)}
                           </pre>
                         </div>
@@ -213,7 +212,7 @@ const PaymentLogs = ({ paymentId, isOpen, onClose }) => {
                       <div>
                         <h5 className="text-sm font-medium text-gray-700 mb-2">Response Data:</h5>
                         <div className="bg-gray-100 rounded-lg p-3 overflow-x-auto">
-                          <pre className="text-xs text-gray-800 whitespace-pre-wrap">
+                          <pre className="text-xs text-gray-900 whitespace-pre-wrap">
                             {formatJsonData(log.response_data)}
                           </pre>
                         </div>
@@ -234,7 +233,7 @@ const PaymentLogs = ({ paymentId, isOpen, onClose }) => {
             </span>
             <button
               onClick={onClose}
-              className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
+              className="bg-gray-600 hover:bg-gray-700 text-gray-900 px-4 py-2 rounded-lg transition-colors"
             >
               Tutup
             </button>

@@ -36,22 +36,22 @@ const MinimalistManagerHeader = () => {
 
   return (
     <>
-      <header className="bg-white border-b-2 border-blue-500 shadow-lg">
+      <header className="bg-white border-b-2 border-gray-800 shadow-lg">
         <div className="max-w-7xl mx-auto">
           {/* Main Header */}
           <div className="flex items-center justify-between px-6 py-4">
-            {/* Left Side - Futsal Brand */}
+            {/* Left Side - Soccer Brand */}
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-2xl text-white">📊</span>
+              <div className="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-2xl text-gray-900">📊</span>
               </div>
 
               <div>
                 <h1 className="text-xl font-bold text-gray-900">
-                  FutsalPro Management
+                  Panam Soccer Field Management
                 </h1>
                 <div className="flex items-center space-x-2 mt-0.5">
-                  <span className="text-sm text-gray-600">Manajemen Bisnis Futsal</span>
+                  <span className="text-sm text-gray-600">Manajemen Bisnis Soccer</span>
                   <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
                   <span className="text-sm text-gray-600">
                     {currentTime.toLocaleDateString('id-ID', {
@@ -64,12 +64,12 @@ const MinimalistManagerHeader = () => {
               </div>
             </div>
 
-            {/* Right Side - Futsal Actions */}
+            {/* Right Side - Soccer Actions */}
             <div className="flex items-center space-x-4">
               {/* System Status */}
-              <div className="hidden md:flex items-center space-x-2 bg-blue-50 px-3 py-2 rounded-lg border border-blue-200">
-                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                <span className="text-sm text-blue-700 font-medium">Manager Aktif</span>
+              <div className="hidden md:flex items-center space-x-2 bg-blue-50 px-3 py-2 rounded-lg border border-gray-200">
+                <div className="w-2 h-2 bg-gray-800 rounded-full animate-pulse"></div>
+                <span className="text-sm text-gray-500 font-medium">Manager Aktif</span>
               </div>
 
               {/* Notifications */}
@@ -81,11 +81,11 @@ const MinimalistManagerHeader = () => {
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="flex items-center space-x-3 bg-gray-50 hover:bg-gray-100 rounded-lg px-4 py-2 transition-all duration-200 border border-gray-200"
                 >
-                  <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center shadow-sm">
+                  <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shadow-sm">
                     <span className="text-sm text-white">👤</span>
                   </div>
                   <div className="text-left">
-                    <p className="text-sm font-medium text-gray-900">{getGreeting()}</p>
+                    <p className="text-sm font-medium text-white">{getGreeting()}</p>
                     <p className="text-xs text-gray-600">{user?.name || "Manager"}</p>
                   </div>
                   <svg
@@ -98,20 +98,20 @@ const MinimalistManagerHeader = () => {
                   </svg>
                 </button>
 
-                {/* Futsal User Dropdown */}
+                {/* Soccer User Dropdown */}
                 {showUserMenu && (
-                  <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-xl border border-blue-200 py-2 z-50">
+                  <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
                     {/* User Info */}
-                    <div className="px-4 py-3 border-b border-blue-100 bg-blue-50">
+                    <div className="px-4 py-3 border-b border-gray-100 bg-blue-50">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center shadow-sm">
-                          <span className="text-sm font-bold text-white">👤</span>
+                        <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center shadow-sm">
+                          <span className="text-sm font-bold text-gray-900">👤</span>
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-900">{user?.name}</p>
                           <p className="text-xs text-gray-600">{user?.email}</p>
                           <div className="flex items-center space-x-2 mt-1">
-                            <span className="text-xs text-blue-700 bg-blue-100 px-2 py-0.5 rounded">
+                            <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
                               📊 {user?.role || 'Manager Bisnis'}
                             </span>
                           </div>
@@ -128,7 +128,7 @@ const MinimalistManagerHeader = () => {
                         }}
                         className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 flex items-center space-x-3"
                       >
-                        <span className="text-blue-500">🔄</span>
+                        <span className="text-gray-900">🔄</span>
                         <span>Muat Ulang Dashboard</span>
                       </button>
 
@@ -139,13 +139,13 @@ const MinimalistManagerHeader = () => {
                         }}
                         className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 flex items-center space-x-3"
                       >
-                        <span className="text-blue-500">⚙️</span>
+                        <span className="text-gray-900">⚙️</span>
                         <span>Pengaturan Akun</span>
                       </button>
                     </div>
 
                     {/* Logout */}
-                    <div className="border-t border-blue-100 pt-2">
+                    <div className="border-t border-gray-100 pt-2">
                       <button
                         onClick={() => {
                           handleLogout();
@@ -184,7 +184,7 @@ const MinimalistManagerHeader = () => {
                 </span>
               </div>
 
-              <div className="text-xs text-blue-600 bg-blue-100 px-3 py-1 rounded-lg border border-blue-200">
+              <div className="text-xs text-gray-900 bg-gray-100 px-3 py-1 rounded-lg border border-gray-200">
                 🟢 Live • Manager Aktif
               </div>
             </div>

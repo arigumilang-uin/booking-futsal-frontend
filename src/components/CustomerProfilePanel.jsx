@@ -13,7 +13,7 @@ const CustomerProfilePanel = () => {
       <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-lg">
         <div className="text-center">
           <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-2xl text-white">👤</span>
+            <span className="text-2xl text-gray-900">👤</span>
           </div>
           <h3 className="text-lg font-semibold text-orange-900 mb-2">Kelola Profil Anda</h3>
           <p className="text-orange-700 mb-4">
@@ -37,7 +37,7 @@ const CustomerProfilePanel = () => {
           
           <button
             onClick={() => navigate('/customer/profile')}
-            className="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition duration-200 font-medium"
+            className="bg-orange-600 text-gray-900 px-6 py-3 rounded-lg hover:bg-orange-700 transition duration-200 font-medium"
           >
             Edit Profil
           </button>

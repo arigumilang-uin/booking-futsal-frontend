@@ -8,7 +8,7 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
-  
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -58,14 +58,14 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 flex items-center justify-center p-4">
       {/* Background Pattern */}
-      <div 
+      <div
         className="absolute inset-0 opacity-5"
         style={{
           backgroundImage: `
-            linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px),
-            linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px)
+            linear-gradient(90deg, rgba(31, 41, 55, 0.1) 1px, transparent 1px),
+            linear-gradient(rgba(31, 41, 55, 0.1) 1px, transparent 1px)
           `,
           backgroundSize: '20px 20px'
         }}
@@ -76,8 +76,8 @@ const ResetPassword = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
-            <div className="w-16 h-16 bg-green-500 rounded-xl flex items-center justify-center">
-              <span className="text-3xl text-white">🔒</span>
+            <div className="w-16 h-16 bg-gray-800 rounded-xl flex items-center justify-center">
+              <span className="text-3xl text-gray-900">🔒</span>
             </div>
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Reset Password</h1>
@@ -96,7 +96,7 @@ const ResetPassword = () => {
 
         {/* Success Message */}
         {success && (
-          <div className="bg-green-50 border border-green-200 text-green-700 p-4 mb-6 rounded-lg text-sm">
+          <div className="bg-green-50 border border-gray-200 text-gray-500 p-4 mb-6 rounded-lg text-sm">
             <div className="flex items-center space-x-2">
               <span>✅</span>
               <span>{success}</span>
@@ -116,7 +116,7 @@ const ResetPassword = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all duration-200"
                 placeholder="Masukkan password baru"
                 minLength="6"
               />
@@ -131,7 +131,7 @@ const ResetPassword = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent transition-all duration-200"
                 placeholder="Ulangi password baru"
               />
             </div>
@@ -148,7 +148,7 @@ const ResetPassword = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
+              className="w-full bg-gradient-to-r from-gray-800 to-gray-800 hover:from-gray-800 hover:to-gray-500 text-gray-900 font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
             >
               {loading ? (
                 <div className="flex items-center justify-center space-x-2">
@@ -166,7 +166,7 @@ const ResetPassword = () => {
         <div className="mt-8 text-center">
           <Link
             to="/login"
-            className="text-green-600 hover:text-green-800 font-medium text-sm flex items-center justify-center space-x-2"
+            className="text-gray-900 hover:text-gray-900 font-medium text-sm flex items-center justify-center space-x-2"
           >
             <span>←</span>
             <span>Kembali ke Login</span>
@@ -175,7 +175,7 @@ const ResetPassword = () => {
 
         {/* Footer */}
         <div className="mt-8 text-center text-xs text-gray-500">
-          <p>© 2025 FutsalPro. All rights reserved.</p>
+          <p>© 2025 Panam Soccer Field. All rights reserved.</p>
         </div>
       </div>
     </div>

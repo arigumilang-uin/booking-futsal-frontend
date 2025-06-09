@@ -200,7 +200,7 @@ const EnhancedBookingManagement = () => {
         </div>
         <button
           onClick={loadBookings}
-          className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-200 flex items-center space-x-2"
+          className="bg-gray-800 text-gray-900 px-6 py-3 rounded-lg hover:bg-gray-500 transition duration-200 flex items-center space-x-2"
         >
           <span>🔄</span>
           <span>Refresh</span>
@@ -214,13 +214,13 @@ const EnhancedBookingManagement = () => {
             key={status.value}
             className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
               filters.status === status.value
-                ? 'border-green-500 bg-green-50'
-                : 'border-gray-200 bg-white hover:border-green-300'
+                ? 'border-gray-800 bg-green-50'
+                : 'border-gray-200 bg-white hover:border-gray-800'
             }`}
             onClick={() => setFilters(prev => ({ ...prev, status: status.value }))}
           >
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-900">
+              <div className="text-2xl font-bold text-white">
                 {status.value === 'all' ? bookings.length : statusCounts[status.value] || 0}
               </div>
               <div className="text-sm font-medium text-gray-600">{status.label}</div>
@@ -240,7 +240,7 @@ const EnhancedBookingManagement = () => {
               placeholder="Nama, lapangan, atau kode..."
               value={filters.search}
               onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -250,7 +250,7 @@ const EnhancedBookingManagement = () => {
               type="date"
               value={filters.dateFrom}
               onChange={(e) => setFilters(prev => ({ ...prev, dateFrom: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -260,7 +260,7 @@ const EnhancedBookingManagement = () => {
               type="date"
               value={filters.dateTo}
               onChange={(e) => setFilters(prev => ({ ...prev, dateTo: e.target.value }))}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             />
           </div>
 
@@ -272,7 +272,7 @@ const EnhancedBookingManagement = () => {
                 const [sortBy, sortOrder] = e.target.value.split('-');
                 setFilters(prev => ({ ...prev, sortBy, sortOrder }));
               }}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
             >
               <option value="date-desc">Tanggal (Terbaru)</option>
               <option value="date-asc">Tanggal (Terlama)</option>
@@ -295,7 +295,7 @@ const EnhancedBookingManagement = () => {
               sortBy: 'date',
               sortOrder: 'desc'
             })}
-            className="text-green-600 hover:text-green-800 text-sm font-medium"
+            className="text-gray-900 hover:text-gray-900 text-sm font-medium"
           >
             Reset Filter
           </button>
@@ -377,14 +377,14 @@ const EnhancedBookingManagement = () => {
                             <button
                               onClick={() => openModal(booking, 'confirm')}
                               disabled={processing === booking.id}
-                              className="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 transition duration-200 disabled:opacity-50"
+                              className="bg-gray-800 text-gray-900 px-3 py-1 rounded-lg hover:bg-gray-500 transition duration-200 disabled:opacity-50"
                             >
                               Konfirmasi
                             </button>
                             <button
                               onClick={() => openModal(booking, 'reject')}
                               disabled={processing === booking.id}
-                              className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 transition duration-200 disabled:opacity-50"
+                              className="bg-red-600 text-gray-900 px-3 py-1 rounded-lg hover:bg-red-700 transition duration-200 disabled:opacity-50"
                             >
                               Tolak
                             </button>
@@ -392,7 +392,7 @@ const EnhancedBookingManagement = () => {
                         )}
                         <button
                           onClick={() => openModal(booking, 'view')}
-                          className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition duration-200"
+                          className="bg-gray-800 text-gray-900 px-3 py-1 rounded-lg hover:bg-gray-500 transition duration-200"
                         >
                           Detail
                         </button>
@@ -450,7 +450,7 @@ const EnhancedBookingManagement = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Total:</span>
-                      <span className="font-medium text-green-600">{formatCurrency(selectedBooking.total_amount)}</span>
+                      <span className="font-medium text-gray-900">{formatCurrency(selectedBooking.total_amount)}</span>
                     </div>
                   </div>
                 </div>
@@ -485,7 +485,7 @@ const EnhancedBookingManagement = () => {
                     onChange={(e) => setReason(e.target.value)}
                     placeholder={actionType === 'confirm' ? 'Tambahkan catatan...' : 'Masukkan alasan penolakan...'}
                     rows={3}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
                     required={actionType === 'reject'}
                   />
                 </div>
@@ -503,7 +503,7 @@ const EnhancedBookingManagement = () => {
                 <button
                   onClick={() => handleStatusUpdate(selectedBooking.id, 'confirmed', reason)}
                   disabled={processing === selectedBooking.id}
-                  className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 disabled:opacity-50"
+                  className="px-6 py-2 bg-gray-800 text-gray-900 rounded-lg hover:bg-gray-500 transition duration-200 disabled:opacity-50"
                 >
                   {processing === selectedBooking.id ? 'Memproses...' : 'Konfirmasi Booking'}
                 </button>
@@ -512,7 +512,7 @@ const EnhancedBookingManagement = () => {
                 <button
                   onClick={() => handleStatusUpdate(selectedBooking.id, 'rejected', reason)}
                   disabled={processing === selectedBooking.id || !reason.trim()}
-                  className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200 disabled:opacity-50"
+                  className="px-6 py-2 bg-red-600 text-gray-900 rounded-lg hover:bg-red-700 transition duration-200 disabled:opacity-50"
                 >
                   {processing === selectedBooking.id ? 'Memproses...' : 'Tolak Booking'}
                 </button>

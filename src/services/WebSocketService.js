@@ -26,7 +26,7 @@ class WebSocketService {
     this.userRole = userRole;
 
     // Use production backend WebSocket URL
-    const wsUrl = `wss://booking-futsal-production.up.railway.app/ws?token=${token}&userId=${userId}&role=${userRole}`;
+    const wsUrl = `wss://booking-soccer-production.up.railway.app/ws?token=${token}&userId=${userId}&role=${userRole}`;
     
     console.log('🔌 Connecting to WebSocket:', wsUrl);
 

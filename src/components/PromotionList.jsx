@@ -114,7 +114,7 @@ const PromotionList = ({ onSelectPromotion, selectedPromotion, bookingData = nul
   if (loading) {
     return (
       <div className="p-6 text-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800 mx-auto"></div>
         <p className="mt-2 text-gray-600">Memuat promosi...</p>
       </div>
     );
@@ -155,7 +155,7 @@ const PromotionList = ({ onSelectPromotion, selectedPromotion, bookingData = nul
               key={promotion.id}
               className={`border rounded-lg p-4 transition-all ${
                 isSelected
-                  ? 'border-blue-500 bg-blue-50'
+                  ? 'border-gray-800 bg-blue-50'
                   : isValid
                   ? 'border-gray-200 hover:border-gray-300'
                   : 'border-gray-200 bg-gray-50 opacity-60'
@@ -174,12 +174,12 @@ const PromotionList = ({ onSelectPromotion, selectedPromotion, bookingData = nul
                         {promotion.title}
                       </h3>
                       <div className="flex items-center space-x-2 text-sm">
-                        <span className="font-medium text-blue-600">
+                        <span className="font-medium text-gray-900">
                           {formatDiscountText(promotion)}
                         </span>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                           isValid 
-                            ? 'bg-green-100 text-green-800' 
+                            ? 'bg-gray-100 text-gray-900' 
                             : 'bg-red-100 text-red-800'
                         }`}>
                           {statusText}
@@ -251,8 +251,8 @@ const PromotionList = ({ onSelectPromotion, selectedPromotion, bookingData = nul
                       disabled={isValidating}
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                         isSelected
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                          ? 'bg-gray-800 text-gray-900'
+                          : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                       } disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                       {isValidating ? (
@@ -270,7 +270,7 @@ const PromotionList = ({ onSelectPromotion, selectedPromotion, bookingData = nul
                   
                   <button
                     onClick={() => handleToggleDetails(promotion.id)}
-                    className="px-3 py-1 text-xs text-gray-600 hover:text-gray-800 border border-gray-300 rounded hover:bg-gray-50"
+                    className="px-3 py-1 text-xs text-gray-600 hover:text-gray-900 border border-gray-300 rounded hover:bg-gray-50"
                   >
                     {isExpanded ? 'Tutup' : 'Detail'}
                   </button>
@@ -283,18 +283,18 @@ const PromotionList = ({ onSelectPromotion, selectedPromotion, bookingData = nul
 
       {/* Selected Promotion Summary */}
       {selectedPromotion && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
-          <h3 className="font-medium text-blue-900 mb-2">Promosi Terpilih</h3>
+        <div className="bg-blue-50 border border-gray-200 rounded-lg p-4 mt-4">
+          <h3 className="font-medium text-gray-900 mb-2">Promosi Terpilih</h3>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-blue-800">{selectedPromotion.title}</p>
-              <p className="text-sm text-blue-600">
+              <p className="text-gray-900">{selectedPromotion.title}</p>
+              <p className="text-sm text-gray-900">
                 {formatDiscountText(selectedPromotion)}
               </p>
             </div>
             <button
               onClick={() => onSelectPromotion?.(null)}
-              className="text-blue-600 hover:text-blue-800 text-sm"
+              className="text-gray-900 hover:text-gray-900 text-sm"
             >
               Hapus
             </button>

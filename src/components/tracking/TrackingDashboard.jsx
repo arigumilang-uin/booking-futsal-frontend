@@ -68,8 +68,8 @@ const TrackingDashboard = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <Activity className="w-6 h-6 text-white" />
+          <div className="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-800 rounded-2xl flex items-center justify-center shadow-lg">
+            <Activity className="w-6 h-6 text-gray-900" />
           </div>
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Analytics Tracking</h2>
@@ -81,7 +81,7 @@ const TrackingDashboard = () => {
           <select
             value={timeRange}
             onChange={(e) => setTimeRange(Number(e.target.value))}
-            className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
           >
             <option value={7}>7 Hari Terakhir</option>
             <option value={30}>30 Hari Terakhir</option>
@@ -89,7 +89,7 @@ const TrackingDashboard = () => {
           </select>
           <button
             onClick={fetchTrackingData}
-            className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+            className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500 transition-colors"
           >
             🔄 Refresh
           </button>
@@ -98,7 +98,7 @@ const TrackingDashboard = () => {
 
       {loading && (
         <div className="flex items-center justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-800"></div>
           <span className="ml-3 text-gray-600">Memuat data analytics...</span>
         </div>
       )}
@@ -116,23 +116,23 @@ const TrackingDashboard = () => {
         <>
           {/* Stats Overview */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl border-2 border-blue-200">
+            <div className="bg-gradient-to-br from-blue-50 to-gray-100 p-6 rounded-2xl border-2 border-gray-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-blue-700 text-sm font-medium">Total Perubahan</p>
-                  <p className="text-3xl font-bold text-blue-900">{stats.totalChanges}</p>
+                  <p className="text-gray-500 text-sm font-medium">Total Perubahan</p>
+                  <p className="text-3xl font-bold text-white">{stats.totalChanges}</p>
                 </div>
-                <TrendingUp className="w-8 h-8 text-blue-600" />
+                <TrendingUp className="w-8 h-8 text-white" />
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl border-2 border-green-200">
+            <div className="bg-gradient-to-br from-green-50 to-gray-100 p-6 rounded-2xl border-2 border-gray-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-green-700 text-sm font-medium">Konfirmasi</p>
-                  <p className="text-3xl font-bold text-green-900">{stats.confirmations}</p>
+                  <p className="text-gray-500 text-sm font-medium">Konfirmasi</p>
+                  <p className="text-3xl font-bold text-gray-900">{stats.confirmations}</p>
                 </div>
-                <BarChart3 className="w-8 h-8 text-green-600" />
+                <BarChart3 className="w-8 h-8 text-gray-900" />
               </div>
             </div>
 
@@ -146,13 +146,13 @@ const TrackingDashboard = () => {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-2xl border-2 border-purple-200">
+            <div className="bg-gradient-to-br from-purple-50 to-gray-100 p-6 rounded-2xl border-2 border-gray-200">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-purple-700 text-sm font-medium">Penyelesaian</p>
-                  <p className="text-3xl font-bold text-purple-900">{stats.completions}</p>
+                  <p className="text-gray-500 text-sm font-medium">Penyelesaian</p>
+                  <p className="text-3xl font-bold text-gray-900">{stats.completions}</p>
                 </div>
-                <Users className="w-8 h-8 text-purple-600" />
+                <Users className="w-8 h-8 text-gray-900" />
               </div>
             </div>
           </div>
@@ -162,7 +162,7 @@ const TrackingDashboard = () => {
             {/* Daily Changes Chart */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
               <div className="flex items-center space-x-3 mb-6">
-                <Clock className="w-6 h-6 text-blue-600" />
+                <Clock className="w-6 h-6 text-gray-900" />
                 <h3 className="text-xl font-bold text-gray-900">Aktivitas Harian</h3>
               </div>
               
@@ -175,7 +175,7 @@ const TrackingDashboard = () => {
                         <p className="text-sm text-gray-600">{day.unique_bookings} booking unik</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-lg font-bold text-blue-600">{day.total_changes}</p>
+                        <p className="text-lg font-bold text-gray-900">{day.total_changes}</p>
                         <p className="text-xs text-gray-500">perubahan</p>
                       </div>
                     </div>
@@ -192,7 +192,7 @@ const TrackingDashboard = () => {
             {/* Status Flow Chart */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
               <div className="flex items-center space-x-3 mb-6">
-                <TrendingUp className="w-6 h-6 text-green-600" />
+                <TrendingUp className="w-6 h-6 text-gray-900" />
                 <h3 className="text-xl font-bold text-gray-900">Transisi Status Teratas</h3>
               </div>
               
@@ -209,7 +209,7 @@ const TrackingDashboard = () => {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-lg font-bold text-green-600">{transition.transition_count}</p>
+                        <p className="text-lg font-bold text-gray-900">{transition.transition_count}</p>
                         <p className="text-xs text-gray-500">transisi</p>
                       </div>
                     </div>
@@ -225,7 +225,7 @@ const TrackingDashboard = () => {
           </div>
 
           {/* Summary */}
-          <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-6 text-white">
+          <div className="bg-gradient-to-r from-gray-800 to-gray-800 rounded-2xl p-6 text-gray-900">
             <div className="flex items-center space-x-3 mb-4">
               <Activity className="w-6 h-6" />
               <h3 className="text-xl font-bold">Ringkasan Analytics</h3>
@@ -233,19 +233,19 @@ const TrackingDashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="text-center">
                 <p className="text-3xl font-bold">{stats.uniqueBookings}</p>
-                <p className="text-purple-100">Total Booking Unik</p>
+                <p className="text-gray-100">Total Booking Unik</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-bold">
                   {stats.totalChanges > 0 ? Math.round((stats.confirmations / stats.totalChanges) * 100) : 0}%
                 </p>
-                <p className="text-purple-100">Tingkat Konfirmasi</p>
+                <p className="text-gray-100">Tingkat Konfirmasi</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-bold">
                   {stats.totalChanges > 0 ? Math.round((stats.completions / stats.totalChanges) * 100) : 0}%
                 </p>
-                <p className="text-purple-100">Tingkat Penyelesaian</p>
+                <p className="text-gray-100">Tingkat Penyelesaian</p>
               </div>
             </div>
           </div>
