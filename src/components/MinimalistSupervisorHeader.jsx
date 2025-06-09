@@ -85,7 +85,7 @@ const MinimalistSupervisorHeader = () => {
                     <span className="text-sm text-white">👤</span>
                   </div>
                   <div className="text-left">
-                    <p className="text-sm font-medium text-white">{getGreeting()}</p>
+                    <p className="text-sm font-medium text-gray-900">{getGreeting()}</p>
                     <p className="text-xs text-gray-600">{user?.name || "Supervisor"}</p>
                   </div>
                   <svg

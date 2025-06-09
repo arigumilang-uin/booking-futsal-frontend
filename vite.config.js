@@ -28,17 +28,12 @@ export default defineConfig(({ command, mode }) => {
           secure: true,
           rewrite: (path) => path, // Keep /api path as is
           configure: (proxy) => {
-            proxy.on('error', (err) => {
-              console.log('🚨 Proxy error:', err);
-            });
             proxy.on('proxyReq', (proxyReq, req) => {
-              console.log('📤 Sending Request to the Target:', req.method, req.url);
               // Add necessary headers for CORS and authentication
               proxyReq.setHeader('Origin', 'https://booking-futsal-production.up.railway.app');
               proxyReq.setHeader('Access-Control-Allow-Credentials', 'true');
             });
             proxy.on('proxyRes', (proxyRes, req) => {
-              console.log('📥 Received Response from the Target:', proxyRes.statusCode, req.url);
               // Add CORS headers to response
               proxyRes.headers['Access-Control-Allow-Origin'] = 'http://localhost:5174';
               proxyRes.headers['Access-Control-Allow-Credentials'] = 'true';

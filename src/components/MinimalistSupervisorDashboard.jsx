@@ -131,15 +131,17 @@ const MinimalistSupervisorDashboard = () => {
       {/* Soccer Supervisor Header */}
       <MinimalistSupervisorHeader />
 
-      <div className="max-w-7xl mx-auto p-6 space-y-6">
+      <div className="max-w-7xl mx-auto p-6 space-y-6 supervisor-dashboard">
         {/* Refresh Button - Soccer Style */}
         <div className="flex justify-end">
           <button
             onClick={loadDashboardData}
-            className="bg-gradient-to-r from-gray-800 to-gray-800 hover:from-gray-800 hover:to-gray-500 text-white px-6 py-3 rounded-lg flex items-center space-x-2 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 text-white px-6 py-3 rounded-xl flex items-center space-x-2 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium"
           >
-            <span>🔄</span>
-            <span className="font-medium">Muat Ulang Dashboard</span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span>Muat Ulang Dashboard</span>
           </button>
         </div>
 
@@ -152,8 +154,10 @@ const MinimalistSupervisorDashboard = () => {
                 <div className="text-sm font-medium text-gray-900 mt-1">Total Pengguna</div>
                 <div className="text-xs text-gray-500 mt-1">Semua role sistem</div>
               </div>
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                <span className="text-lg">👥</span>
+              <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                </svg>
               </div>
             </div>
           </div>
@@ -165,8 +169,10 @@ const MinimalistSupervisorDashboard = () => {
                 <div className="text-sm font-medium text-gray-900 mt-1">Total Lapangan</div>
                 <div className="text-xs text-gray-500 mt-1">{overview?.active_fields || 0} siap main</div>
               </div>
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                <span className="text-lg">🏟️</span>
+              <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
               </div>
             </div>
           </div>
@@ -178,21 +184,25 @@ const MinimalistSupervisorDashboard = () => {
                 <div className="text-sm font-medium text-gray-800 mt-1">Lapangan Aktif</div>
                 <div className="text-xs text-gray-500 mt-1">Siap pertandingan</div>
               </div>
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                <span className="text-lg">🥅</span>
+              <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-orange-500 hover:shadow-md transition-all duration-200 hover:border-l-orange-600">
+          <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-gray-800 hover:shadow-md transition-all duration-200 hover:border-l-gray-800">
             <div className="flex items-center justify-between">
               <div>
                 <div className="text-2xl font-bold text-gray-900">{overview?.total_bookings || 0}</div>
-                <div className="text-sm font-medium text-orange-600 mt-1">Booking Lapangan</div>
+                <div className="text-sm font-medium text-gray-900 mt-1">Booking Lapangan</div>
                 <div className="text-xs text-gray-500 mt-1">Hari ini</div>
               </div>
-              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                <span className="text-lg">📅</span>
+              <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
               </div>
             </div>
           </div>
@@ -206,8 +216,10 @@ const MinimalistSupervisorDashboard = () => {
                 <div className="text-sm font-medium text-gray-900 mt-1">Waktu Operasi</div>
                 <div className="text-xs text-gray-500 mt-1">Sistem berjalan</div>
               </div>
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                <span className="text-lg">⏱️</span>
+              <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
             </div>
           </div>
@@ -221,8 +233,10 @@ const MinimalistSupervisorDashboard = () => {
                 <div className="text-sm font-medium text-gray-900 mt-1">Performa</div>
                 <div className="text-xs text-gray-500 mt-1">Penggunaan memori</div>
               </div>
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                <span className="text-lg">📊</span>
+              <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
               </div>
             </div>
           </div>
@@ -232,21 +246,62 @@ const MinimalistSupervisorDashboard = () => {
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-1">
           <nav className="flex space-x-1">
             {[
-              { id: 'overview', label: 'Ringkasan', icon: '🏆' },
-              { id: 'users', label: 'Manajemen Pengguna', icon: '👥' },
-              { id: 'fields', label: 'Lapangan', icon: '🏟️' },
-              { id: 'system', label: 'Sistem & Audit', icon: '⚙️' },
-              { id: 'analytics', label: 'Analitik Bisnis', icon: '📈' }
+              {
+                id: 'overview',
+                label: 'Ringkasan',
+                icon: (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                )
+              },
+              {
+                id: 'users',
+                label: 'Manajemen Pengguna',
+                icon: (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                  </svg>
+                )
+              },
+              {
+                id: 'fields',
+                label: 'Lapangan',
+                icon: (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                )
+              },
+              {
+                id: 'system',
+                label: 'Sistem & Audit',
+                icon: (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                )
+              },
+              {
+                id: 'analytics',
+                label: 'Analitik Bisnis',
+                icon: (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                )
+              }
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveView(tab.id)}
                 className={`flex-1 py-3 px-4 rounded-lg font-medium text-sm transition-all duration-200 flex items-center justify-center space-x-2 ${activeView === tab.id
-                  ? 'bg-gradient-to-r from-gray-800 to-gray-800 text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-green-50'
+                  ? 'bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-lg'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
               >
-                <span>{tab.icon}</span>
+                {tab.icon}
                 <span className="hidden md:inline">{tab.label}</span>
               </button>
             ))}
@@ -261,45 +316,57 @@ const MinimalistSupervisorDashboard = () => {
 
               {/* Key Business Metrics - NO DUPLICATION */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div className="bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg p-6 text-gray-900">
+                <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-6 text-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-100 text-sm">Total Pengguna</p>
-                      <p className="text-3xl font-bold">{overview?.total_users || 0}</p>
+                      <p className="text-3xl font-bold text-white">{overview?.total_users || 0}</p>
                       <p className="text-gray-100 text-xs mt-1">Terdaftar di sistem</p>
                     </div>
-                    <div className="text-4xl opacity-80">👥</div>
+                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg p-6 text-gray-900">
+                <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-6 text-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-100 text-sm">Total Lapangan</p>
-                      <p className="text-3xl font-bold">{overview?.total_fields || 0}</p>
+                      <p className="text-3xl font-bold text-white">{overview?.total_fields || 0}</p>
                       <p className="text-gray-100 text-xs mt-1">{overview?.active_fields || 0} aktif</p>
                     </div>
-                    <div className="text-4xl opacity-80">🏟️</div>
+                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-gray-800 to-gray-800 rounded-lg p-6 text-gray-900">
+                <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-6 text-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-gray-100 text-sm">Total Booking</p>
-                      <p className="text-3xl font-bold">{overview?.total_bookings || 0}</p>
+                      <p className="text-3xl font-bold text-white">{overview?.total_bookings || 0}</p>
                       <p className="text-gray-100 text-xs mt-1">Bulan ini</p>
                     </div>
-                    <div className="text-4xl opacity-80">📅</div>
+                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-6 text-gray-900">
+                <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-6 text-white">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-orange-100 text-sm">Status Sistem</p>
-                      <p className="text-xl font-bold">{health?.status === 'healthy' ? 'Sehat' : 'Bermasalah'}</p>
-                      <p className="text-orange-100 text-xs mt-1">Uptime: {formatUptime(serverInfo?.uptime)}</p>
+                      <p className="text-gray-100 text-sm">Status Sistem</p>
+                      <p className="text-xl font-bold text-white">{health?.status === 'healthy' ? 'Sehat' : 'Bermasalah'}</p>
+                      <p className="text-gray-100 text-xs mt-1">Uptime: {formatUptime(serverInfo?.uptime)}</p>
                     </div>
                     <div className="text-4xl opacity-80">
                       {health?.status === 'healthy' ? '✅' : '⚠️'}

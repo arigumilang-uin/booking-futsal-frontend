@@ -14,16 +14,7 @@ if (isProduction) {
   baseURL = '/api';
 }
 
-// Environment logging
-console.log('🌍 Environment Mode:', isProduction ? 'PRODUCTION' : 'DEVELOPMENT');
-console.log('📡 API Base URL:', baseURL);
-
-if (isDevelopment) {
-  console.log('🔧 Development Mode - Using Vite Proxy');
-  console.log('🔍 VITE_API_URL env var:', import.meta.env.VITE_API_URL);
-} else {
-  console.log('🚀 Production Mode - Direct Railway API');
-}
+// Environment configuration
 
 // Create axios instance with default configuration
 const axiosInstance = axios.create({
@@ -49,23 +40,11 @@ axiosInstance.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    // Log request in development
-    if (isDevelopment) {
-      console.log('🚀 API Request:', {
-        method: config.method?.toUpperCase(),
-        url: config.url,
-        baseURL: config.baseURL,
-        hasAuth: !!config.headers.Authorization,
-        withCredentials: config.withCredentials
-      });
-    }
+
 
     return config;
   },
   (error) => {
-    if (isDevelopment) {
-      console.error('❌ Request Error:', error);
-    }
     return Promise.reject(error);
   }
 );
@@ -73,27 +52,9 @@ axiosInstance.interceptors.request.use(
 // Response interceptor for error handling
 axiosInstance.interceptors.response.use(
   (response) => {
-    // Log response in development
-    if (isDevelopment) {
-      console.log('📥 API Response:', {
-        status: response.status,
-        url: response.config.url,
-        success: response.data?.success,
-        message: response.data?.message
-      });
-    }
     return response;
   },
   (error) => {
-    // Log error in development
-    if (isDevelopment) {
-      console.error('❌ API Error:', {
-        status: error.response?.status,
-        url: error.config?.url,
-        message: error.response?.data?.error || error.message,
-        data: error.response?.data
-      });
-    }
 
     // Handle common errors
     if (error.response?.status === 401) {

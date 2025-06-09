@@ -62,19 +62,19 @@ const ModernAuthContainer = ({ children }) => {
             background: `linear-gradient(135deg, #1F2937 0%, #1F2937 50%, #374151 100%)`
           }}
         >
-          <div className="flex flex-col items-center justify-center h-full p-8 text-white">
+          <div className="flex flex-col items-center justify-center h-full p-8 text-white auth-text-white">
             {/* Logo in Panel */}
             <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4 backdrop-blur-sm bg-white/20">
               <span className="text-3xl">⚽</span>
             </div>
-            <h1 className="text-xl font-bold mb-6" style={{ color: 'white !important' }}>Panam Soccer Field</h1>
+            <h1 className="text-xl font-bold mb-6 !text-white">Panam Soccer Field</h1>
 
             {/* Content */}
             <div className="text-center">
-              <h2 className="text-3xl font-bold mb-4" style={{ color: 'white !important' }}>
+              <h2 className="text-3xl font-bold mb-4 !text-white">
                 {isLogin ? 'Selamat Datang Kembali!' : 'Bergabung dengan Kami!'}
               </h2>
-              <p className="mb-8 leading-relaxed text-white" style={{ color: 'white !important' }}>
+              <p className="mb-8 leading-relaxed !text-white">
                 {isLogin
                   ? 'Masuk ke akun Anda dan nikmati pengalaman booking lapangan soccer yang mudah dan cepat di Panam Soccer Field.'
                   : 'Daftar sekarang dan dapatkan akses ke sistem booking lapangan soccer terbaik di Panam.'
@@ -93,7 +93,7 @@ const ModernAuthContainer = ({ children }) => {
                 </span>
               </button>
 
-              <p className="mt-4 text-sm text-white" style={{ color: 'white !important' }}>
+              <p className="mt-4 text-sm !text-white">
                 {isLogin ? 'Daftar Akun Baru' : 'Masuk ke Akun'}
               </p>
             </div>

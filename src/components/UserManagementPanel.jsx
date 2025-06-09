@@ -161,43 +161,100 @@ const UserManagementPanel = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 management-panel">
       {/* Header */}
       <div className="bg-white rounded-lg shadow p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-semibold text-gray-900">
-            👥 User Management
-          </h2>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center shadow-lg">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+              </svg>
+            </div>
+            <div>
+              <h2 className="text-2xl font-black text-gray-900">User Management</h2>
+              <p className="text-sm font-medium text-gray-600">Kelola pengguna dan role sistem</p>
+            </div>
+          </div>
           <button
             onClick={() => setShowCreateForm(true)}
-            className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
+            className="bg-gradient-to-r from-gray-800 to-gray-900 text-white px-6 py-3 rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center space-x-2"
           >
-            ➕ Tambah Staff
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span className="font-medium">Tambah Staff</span>
           </button>
         </div>
 
         {/* Role Statistics */}
         {roleStats && (
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-            <div className="bg-purple-50 p-4 rounded-lg">
-              <p className="text-2xl font-bold text-gray-900">{roleStats.supervisor_count || 0}</p>
-              <p className="text-sm text-gray-900">Supervisor</p>
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-2xl font-black text-gray-900">{roleStats.supervisor_count || 0}</p>
+                  <p className="text-sm font-semibold text-purple-700">Supervisor</p>
+                </div>
+                <div className="w-10 h-10 bg-purple-200 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+              </div>
             </div>
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <p className="text-2xl font-bold text-gray-900">{roleStats.manager_count || 0}</p>
-              <p className="text-sm text-gray-900">Manager</p>
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-2xl font-black text-gray-900">{roleStats.manager_count || 0}</p>
+                  <p className="text-sm font-semibold text-blue-700">Manager</p>
+                </div>
+                <div className="w-10 h-10 bg-blue-200 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+              </div>
             </div>
-            <div className="bg-green-50 p-4 rounded-lg">
-              <p className="text-2xl font-bold text-gray-900">{roleStats.operator_count || 0}</p>
-              <p className="text-sm text-gray-900">Operator</p>
+            <div className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-2xl font-black text-gray-900">{roleStats.operator_count || 0}</p>
+                  <p className="text-sm font-semibold text-green-700">Operator</p>
+                </div>
+                <div className="w-10 h-10 bg-green-200 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+              </div>
             </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="text-2xl font-bold text-gray-900">{roleStats.kasir_count || 0}</p>
-              <p className="text-sm text-gray-900">Kasir</p>
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-2xl font-black text-gray-900">{roleStats.kasir_count || 0}</p>
+                  <p className="text-sm font-semibold text-gray-700">Kasir</p>
+                </div>
+                <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+              </div>
             </div>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="text-2xl font-bold text-gray-600">{roleStats.customer_count || 0}</p>
-              <p className="text-sm text-gray-900">Penyewa</p>
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 p-5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-2xl font-black text-gray-900">{roleStats.customer_count || 0}</p>
+                  <p className="text-sm font-semibold text-orange-700">Penyewa</p>
+                </div>
+                <div className="w-10 h-10 bg-orange-200 rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -335,9 +392,9 @@ const UserManagementPanel = () => {
           <div className="flex space-x-3 mt-6">
             <button
               onClick={handleCreateUser}
-              className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
+              className="bg-gradient-to-r from-gray-800 to-gray-900 text-white px-6 py-3 rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-200 shadow-lg hover:shadow-xl font-medium"
             >
-              Simpan
+              Simpan Staff
             </button>
             <button
               onClick={() => {
@@ -351,7 +408,7 @@ const UserManagementPanel = () => {
                   employee_id: ''
                 });
               }}
-              className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
+              className="bg-gray-200 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-300 transition-all duration-200 font-medium"
             >
               Batal
             </button>

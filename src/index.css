@@ -6,6 +6,7 @@
     transform: translateX(-20px);
     opacity: 0;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;
@@ -17,6 +18,7 @@
     transform: translateX(20px);
     opacity: 0;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;
@@ -30,6 +32,7 @@
     transform: translateY(30px);
     opacity: 0;
   }
+
   100% {
     transform: translateY(0);
     opacity: 1;
@@ -44,7 +47,8 @@
 }
 
 /* Enhanced focus states */
-input:focus, button:focus {
+input:focus,
+button:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
 }
@@ -59,4 +63,209 @@ button:hover {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Professional Design System for Panam Soccer Field */
+/* Typography Hierarchy - Only for dashboard/admin areas, not auth pages */
+.dashboard-content h1,
+.supervisor-dashboard h1,
+.admin-panel h1,
+.management-panel h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.dashboard-content h2,
+.supervisor-dashboard h2,
+.admin-panel h2,
+.management-panel h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.3;
+}
+
+.dashboard-content h3,
+.supervisor-dashboard h3,
+.admin-panel h3,
+.management-panel h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.4;
+}
+
+/* Professional Button Styles */
+.btn-primary {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: #e5e7eb;
+  color: #374151;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #d1d5db;
+  transform: translateY(-1px);
+}
+
+/* Professional Card Styles */
+.card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Professional Form Styles */
+.form-input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #6b7280;
+  box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
+}
+
+/* Professional Badge Styles */
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-success {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.badge-warning {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.badge-danger {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.badge-gray {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+/* Professional Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Professional Table Styles */
+.table-container {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.table-header {
+  background-color: #f9fafb;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Professional Animation */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Auth Pages Specific Styles - Ensure white text */
+.auth-container h1,
+.auth-page h1,
+.login-page h1,
+.register-page h1 {
+  color: white !important;
+  font-weight: 900 !important;
+}
+
+.auth-container h2,
+.auth-page h2,
+.login-page h2,
+.register-page h2 {
+  color: white !important;
+  font-weight: 700 !important;
+}
+
+.auth-container p,
+.auth-page p,
+.login-page p,
+.register-page p {
+  color: white !important;
+}
+
+/* Ensure auth text remains white */
+.auth-text-white {
+  color: white !important;
+}
+
+.auth-text-white h1,
+.auth-text-white h2,
+.auth-text-white h3,
+.auth-text-white p {
+  color: white !important;
 }

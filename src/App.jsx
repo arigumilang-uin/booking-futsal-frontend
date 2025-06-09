@@ -1,13 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import AuthProvider from "./contexts/AuthProvider";
-import NotificationProvider from "./contexts/NotificationProvider";
-import EnhancedErrorBoundary from "./components/EnhancedErrorBoundary";
-import performanceService from "./services/PerformanceService";
 
 // Layouts
 import CustomerLayout from "./layouts/CustomerLayout";
-import StaffLayout from "./layouts/StaffLayout";
-import SupervisorLayout from "./layouts/SupervisorLayout";
 import ConditionalStaffLayout from "./layouts/ConditionalStaffLayout";
 
 // Auth Pages
@@ -35,12 +30,6 @@ import UserManagement from "./pages/staff/User/UserManagement";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-  console.log('🚀 Booking Soccer App is starting...');
-
-  // Initialize performance monitoring
-  // if (typeof window !== 'undefined') {
-  //   performanceService.startMeasure('app-initialization');
-  // }
 
   return (
     <AuthProvider>
