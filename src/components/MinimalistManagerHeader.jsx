@@ -43,7 +43,7 @@ const MinimalistManagerHeader = () => {
             {/* Left Side - Soccer Brand */}
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-2xl text-gray-900">📊</span>
+                <span className="text-2xl text-white">📊</span>
               </div>
 
               <div>
@@ -67,7 +67,7 @@ const MinimalistManagerHeader = () => {
             {/* Right Side - Soccer Actions */}
             <div className="flex items-center space-x-4">
               {/* System Status */}
-              <div className="hidden md:flex items-center space-x-2 bg-blue-50 px-3 py-2 rounded-lg border border-gray-200">
+              <div className="hidden md:flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
                 <div className="w-2 h-2 bg-gray-800 rounded-full animate-pulse"></div>
                 <span className="text-sm text-gray-500 font-medium">Manager Aktif</span>
               </div>
@@ -85,7 +85,7 @@ const MinimalistManagerHeader = () => {
                     <span className="text-sm text-white">👤</span>
                   </div>
                   <div className="text-left">
-                    <p className="text-sm font-medium text-white">{getGreeting()}</p>
+                    <p className="text-sm font-medium text-gray-900">{getGreeting()}</p>
                     <p className="text-xs text-gray-600">{user?.name || "Manager"}</p>
                   </div>
                   <svg
@@ -102,10 +102,10 @@ const MinimalistManagerHeader = () => {
                 {showUserMenu && (
                   <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
                     {/* User Info */}
-                    <div className="px-4 py-3 border-b border-gray-100 bg-blue-50">
+                    <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center shadow-sm">
-                          <span className="text-sm font-bold text-gray-900">👤</span>
+                          <span className="text-sm font-bold text-white">📊</span>
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-900">{user?.name}</p>
@@ -118,7 +118,7 @@ const MinimalistManagerHeader = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Actions */}
                     <div className="py-2">
                       <button
@@ -126,7 +126,7 @@ const MinimalistManagerHeader = () => {
                           window.location.reload();
                           setShowUserMenu(false);
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 flex items-center space-x-3"
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
                       >
                         <span className="text-gray-900">🔄</span>
                         <span>Muat Ulang Dashboard</span>
@@ -193,9 +193,9 @@ const MinimalistManagerHeader = () => {
       </header>
 
       {/* Profile Settings Modal */}
-      <ProfileSettingsModal 
-        isOpen={showProfileModal} 
-        onClose={() => setShowProfileModal(false)} 
+      <ProfileSettingsModal
+        isOpen={showProfileModal}
+        onClose={() => setShowProfileModal(false)}
       />
     </>
   );

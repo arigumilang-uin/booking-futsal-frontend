@@ -73,8 +73,8 @@ export const deleteField = async (id) => {
 
 export const updateFieldStatus = async (id, status) => {
   try {
-    // Use admin endpoint for field status updates
-    const response = await axiosInstance.patch(`/admin/fields/${id}/status`, { status });
+    // Use admin endpoint for field updates (includes status)
+    const response = await axiosInstance.put(`/admin/fields/${id}`, { status });
     return response.data;
   } catch (error) {
     console.error('❌ Update field status error:', error.response?.data || error.message);

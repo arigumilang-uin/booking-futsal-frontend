@@ -26,6 +26,14 @@ const MinimalistCustomerHeader = () => {
     navigate('/login');
   };
 
+  const getGreeting = () => {
+    const hour = currentTime.getHours();
+    if (hour < 12) return 'Selamat Pagi';
+    if (hour < 15) return 'Selamat Siang';
+    if (hour < 18) return 'Selamat Sore';
+    return 'Selamat Malam';
+  };
+
   const formatTime = (date) => {
     return date.toLocaleTimeString('id-ID', {
       hour: '2-digit',
@@ -45,86 +53,89 @@ const MinimalistCustomerHeader = () => {
 
   return (
     <>
-      <header className="bg-gradient-to-r from-gray-800 via-teal-600 to-gray-900 shadow-2xl border-b-4 border-gray-300">
+      <header className="bg-white border-b-2 border-gray-800 shadow-lg">
         <div className="max-w-7xl mx-auto">
+          {/* Main Header */}
           <div className="flex items-center justify-between px-6 py-4">
-            {/* Left Side - Branding & Time */}
-            <div className="flex items-center space-x-6">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-2xl">⚽</span>
-                </div>
-                <div>
-                  <h1 className="text-2xl font-black text-gray-900">Panam Soccer Field</h1>
-                  <p className="text-gray-100 text-sm font-medium">Customer Portal</p>
-                </div>
+            {/* Left Side - Soccer Brand */}
+            <div className="flex items-center space-x-4">
+              <div className="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-2xl text-white">⚽</span>
               </div>
 
-              {/* Real-time Clock */}
-              <div className="hidden lg:flex items-center space-x-4 bg-gray-800/30 px-4 py-2 rounded-xl border border-gray-400/50 backdrop-blur-sm">
-                <div className="text-center">
-                  <div className="text-gray-900 font-bold text-lg">{formatTime(currentTime)}</div>
-                  <div className="text-gray-100 text-xs">{formatDate(currentTime)}</div>
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">
+                  Panam Soccer Field
+                </h1>
+                <div className="flex items-center space-x-2 mt-0.5">
+                  <span className="text-sm text-gray-600">Customer Portal</span>
+                  <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                  <span className="text-sm text-gray-600">
+                    {currentTime.toLocaleDateString('id-ID', {
+                      weekday: 'long',
+                      day: 'numeric',
+                      month: 'long'
+                    })}
+                  </span>
                 </div>
               </div>
             </div>
 
-            {/* Right Side - Customer Actions */}
+            {/* Right Side - Soccer Actions */}
             <div className="flex items-center space-x-4">
-              {/* Customer Status */}
+              {/* System Status */}
               <div className="hidden md:flex items-center space-x-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-200">
                 <div className="w-2 h-2 bg-gray-800 rounded-full animate-pulse"></div>
-                <span className="text-sm text-white font-medium">Customer Aktif</span>
+                <span className="text-sm text-gray-500 font-medium">Customer Aktif</span>
               </div>
 
               {/* Notifications */}
               <NotificationBadge />
 
-              {/* User Menu */}
+              {/* User Profile */}
               <div className="relative">
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center space-x-3 bg-gray-800/20 hover:bg-gray-700/30 px-4 py-2 rounded-xl border border-gray-400/50 transition-all duration-200 backdrop-blur-sm"
+                  className="flex items-center space-x-3 bg-gray-50 hover:bg-gray-100 rounded-lg px-4 py-2 transition-all duration-200 border border-gray-200"
                 >
-                  <div className="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-800 rounded-xl flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-lg">
+                  <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center shadow-sm">
+                    <span className="text-sm text-white">
                       {user?.name?.charAt(0)?.toUpperCase() || 'C'}
                     </span>
                   </div>
-                  <div className="hidden md:block text-left">
-                    <div className="text-white font-semibold text-sm">
-                      {user?.name || 'Customer'}
-                    </div>
-                    <div className="text-gray-100 text-xs">
-                      {user?.email || 'customer@example.com'}
-                    </div>
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-gray-900">{getGreeting()}</p>
+                    <p className="text-xs text-gray-600">{user?.name || "Customer"}</p>
                   </div>
-                  <svg className="w-4 h-4 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-200 text-gray-400 ${showUserMenu ? 'rotate-180' : ''}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
 
-                {/* Dropdown Menu */}
+                {/* Soccer User Dropdown */}
                 {showUserMenu && (
-                  <div className="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 overflow-hidden">
-                    {/* User Info Header */}
-                    <div className="bg-gradient-to-r from-gray-800 to-teal-600 p-6">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                          <span className="text-gray-800 font-bold text-2xl">
+                  <div className="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
+                    {/* User Info */}
+                    <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center shadow-sm">
+                          <span className="text-sm font-bold text-white">
                             {user?.name?.charAt(0)?.toUpperCase() || 'C'}
                           </span>
                         </div>
-                        <div className="flex-1">
-                          <h3 className="text-gray-900 font-bold text-lg">
-                            {user?.name || 'Customer'}
-                          </h3>
-                          <p className="text-gray-100 text-sm">
-                            {user?.email || 'customer@example.com'}
-                          </p>
-                          <span className="text-xs text-gray-200 bg-gray-400/30 px-2 py-1 rounded-full border border-gray-300">
-                            Customer
-                          </span>
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">{user?.name}</p>
+                          <p className="text-xs text-gray-600">{user?.email}</p>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+                              ⚽ {user?.role || 'Customer'}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -147,51 +158,15 @@ const MinimalistCustomerHeader = () => {
                           setShowProfileModal(true);
                           setShowUserMenu(false);
                         }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 flex items-center space-x-3"
                       >
                         <span className="text-gray-900">⚙️</span>
                         <span>Pengaturan Akun</span>
                       </button>
                     </div>
 
-                    {/* Quick Actions */}
-                    <div className="border-t border-gray-200 py-2">
-                      <button
-                        onClick={() => {
-                          navigate('/customer/booking/new');
-                          setShowUserMenu(false);
-                        }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
-                      >
-                        <span className="text-gray-900">📅</span>
-                        <span>Booking Baru</span>
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          navigate('/customer/bookings');
-                          setShowUserMenu(false);
-                        }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
-                      >
-                        <span className="text-gray-900">📋</span>
-                        <span>Riwayat Booking</span>
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          navigate('/customer/fields');
-                          setShowUserMenu(false);
-                        }}
-                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-3"
-                      >
-                        <span className="text-gray-900">🏟️</span>
-                        <span>Lihat Lapangan</span>
-                      </button>
-                    </div>
-
                     {/* Logout */}
-                    <div className="border-t border-gray-200 py-2">
+                    <div className="border-t border-gray-100 pt-2">
                       <button
                         onClick={() => {
                           handleLogout();
@@ -200,14 +175,37 @@ const MinimalistCustomerHeader = () => {
                         className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center space-x-3"
                       >
                         <span className="text-red-500">🚪</span>
-                        <span>Keluar</span>
+                        <span>Keluar Sistem</span>
                       </button>
                     </div>
                   </div>
                 )}
               </div>
+            </div>
+          </div>
 
-              <div className="text-xs text-gray-800 bg-gray-100 px-3 py-1 rounded-lg border border-gray-200">
+          {/* Time Display - Clean Style */}
+          <div className="px-6 pb-3 border-t border-gray-200 bg-gray-50">
+            <div className="flex items-center justify-between py-2">
+              <div className="flex items-center space-x-3 text-gray-700">
+                <div className="flex items-center space-x-2 bg-white px-3 py-1 rounded-lg border border-gray-200 shadow-sm">
+                  <span className="text-sm">🕐</span>
+                  <span className="text-sm font-medium">
+                    {currentTime.toLocaleTimeString('id-ID', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      second: '2-digit',
+                      hour12: false
+                    })}
+                  </span>
+                </div>
+                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                <span className="text-sm font-medium">
+                  {getGreeting()}, {user?.name?.split(' ')[0] || 'Customer'} ⚽
+                </span>
+              </div>
+
+              <div className="text-xs text-gray-900 bg-gray-100 px-3 py-1 rounded-lg border border-gray-200">
                 🟢 Live • Customer Portal
               </div>
             </div>

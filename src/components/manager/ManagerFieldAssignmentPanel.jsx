@@ -1,7 +1,7 @@
 // src/components/manager/ManagerFieldAssignmentPanel.jsx
 import { useState, useEffect } from 'react';
 import axiosInstance from '../../api/axiosInstance';
-import { assignOperatorToField, unassignOperatorFromField } from '../../api/fieldAPI';
+import { assignOperatorToField, unassignOperatorFromField, updateFieldStatus } from '../../api/fieldAPI';
 import LoadingSpinner from '../LoadingSpinner';
 import Notification from '../Notification';
 
@@ -11,6 +11,7 @@ const ManagerFieldAssignmentPanel = () => {
   const [operators, setOperators] = useState([]);
   const [notification, setNotification] = useState({ show: false, type: '', message: '' });
   const [assignmentLoading, setAssignmentLoading] = useState({});
+  const [statusLoading, setStatusLoading] = useState({});
 
   useEffect(() => {
     loadData();
@@ -129,6 +130,41 @@ const ManagerFieldAssignmentPanel = () => {
       showNotification('error', error.response?.data?.error || 'Gagal membatalkan penugasan operator');
     } finally {
       setAssignmentLoading(prev => ({ ...prev, [fieldId]: false }));
+    }
+  };
+
+  const handleToggleFieldStatus = async (fieldId) => {
+    const field = fields.find(f => f.id === fieldId);
+    const fieldName = field?.name || 'Lapangan';
+    const currentStatus = field?.status || 'active';
+    const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+    const statusText = newStatus === 'active' ? 'mengaktifkan' : 'menonaktifkan';
+
+    if (!confirm(`Apakah Anda yakin ingin ${statusText} "${fieldName}"?`)) {
+      return;
+    }
+
+    try {
+      setStatusLoading(prev => ({ ...prev, [fieldId]: true }));
+
+      await updateFieldStatus(fieldId, newStatus);
+
+      // Update local state
+      setFields(prevFields =>
+        prevFields.map(field =>
+          field.id === fieldId
+            ? { ...field, status: newStatus }
+            : field
+        )
+      );
+
+      const actionText = newStatus === 'active' ? 'diaktifkan' : 'dinonaktifkan';
+      showNotification('success', `${fieldName} berhasil ${actionText}`);
+    } catch (error) {
+      console.error('Error toggling field status:', error);
+      showNotification('error', error.response?.data?.error || 'Gagal mengubah status lapangan');
+    } finally {
+      setStatusLoading(prev => ({ ...prev, [fieldId]: false }));
     }
   };
 
@@ -271,6 +307,9 @@ const ManagerFieldAssignmentPanel = () => {
                   <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Aksi Assignment
                   </th>
+                  <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Kontrol Status
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -355,6 +394,31 @@ const ManagerFieldAssignmentPanel = () => {
                             ))}
                           </select>
                         )}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={() => handleToggleFieldStatus(field.id)}
+                          disabled={statusLoading[field.id]}
+                          className={`px-3 py-1 rounded text-xs font-medium transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${field.status === 'active'
+                              ? 'bg-red-100 text-red-800 hover:bg-red-200'
+                              : 'bg-green-100 text-green-800 hover:bg-green-200'
+                            }`}
+                        >
+                          {statusLoading[field.id]
+                            ? 'Loading...'
+                            : field.status === 'active'
+                              ? 'Nonaktifkan'
+                              : 'Aktifkan'
+                          }
+                        </button>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${field.status === 'active'
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-red-100 text-red-800'
+                          }`}>
+                          {field.status === 'active' ? 'Aktif' : 'Nonaktif'}
+                        </span>
                       </div>
                     </td>
                   </tr>

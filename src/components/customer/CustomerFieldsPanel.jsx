@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { getPublicFields, checkFieldAvailability } from '../../api/fieldAPI';
-import { getFavoriteFields, toggleFieldFavorite } from '../../api/customerAPI';
-import { MapPin, Clock, Users, Star, Heart, Calendar, Search, Filter } from 'lucide-react';
+import { MapPin, Clock, Users, Calendar, Search, Filter } from 'lucide-react';
 
 const CustomerFieldsPanel = () => {
   const [fields, setFields] = useState([]);
   const [filteredFields, setFilteredFields] = useState([]);
-  const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(false);
   const [checkingAvailability, setCheckingAvailability] = useState(false);
   const [error, setError] = useState(null);
@@ -48,25 +46,15 @@ const CustomerFieldsPanel = () => {
     setLoading(true);
     setError(null); // Clear previous errors
     try {
-      const [fieldsResponse, favoritesResponse] = await Promise.all([
-        getPublicFields(),
-        getFavoriteFields().catch(() => ({ success: false, data: [] }))
-      ]);
+      const fieldsResponse = await getPublicFields();
 
       console.log('Fields response:', fieldsResponse);
-      console.log('Favorites response:', favoritesResponse);
 
       if (fieldsResponse.success) {
         setFields(fieldsResponse.data || []);
         console.log('Fields loaded:', fieldsResponse.data?.length || 0);
       } else {
         setError(`Gagal memuat data lapangan: ${fieldsResponse.error || 'Unknown error'}`);
-      }
-
-      if (favoritesResponse.success) {
-        // Backend returns: { data: { favorites: [...] } }
-        const favoritesArray = favoritesResponse.data?.favorites || [];
-        setFavorites(favoritesArray.map(f => f.field_id) || []);
       }
     } catch (err) {
       console.error('Fetch data error:', err);
@@ -76,20 +64,7 @@ const CustomerFieldsPanel = () => {
     }
   };
 
-  const handleToggleFavorite = async (fieldId) => {
-    try {
-      const response = await toggleFieldFavorite(fieldId);
-      if (response.success) {
-        setFavorites(prev =>
-          prev.includes(fieldId)
-            ? prev.filter(id => id !== fieldId)
-            : [...prev, fieldId]
-        );
-      }
-    } catch (err) {
-      console.error('Toggle favorite error:', err);
-    }
-  };
+
 
   // Apply all filters including availability check
   const applyFilters = async () => {
@@ -266,8 +241,7 @@ const CustomerFieldsPanel = () => {
     const types = {
       'soccer': 'Soccer',
       'mini_soccer': 'Mini Soccer',
-      'basketball': 'Basket',
-      'badminton': 'Badminton'
+      'futsal': 'Futsal'
     };
     return types[type] || type;
   };
@@ -282,7 +256,7 @@ const CustomerFieldsPanel = () => {
           </div>
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Ketersediaan Lapangan</h2>
-            <p className="text-gray-600">Pilih lapangan favorit Anda</p>
+            <p className="text-gray-600">Lihat informasi dan ketersediaan lapangan</p>
           </div>
         </div>
 
@@ -337,8 +311,7 @@ const CustomerFieldsPanel = () => {
             <option value="all">Semua Jenis Lapangan</option>
             <option value="soccer">Soccer</option>
             <option value="mini_soccer">Mini Soccer</option>
-            <option value="basketball">Basket</option>
-            <option value="badminton">Badminton</option>
+            <option value="futsal">Futsal</option>
           </select>
 
           {/* Price Range */}
@@ -439,59 +412,23 @@ const CustomerFieldsPanel = () => {
               key={field.id}
               className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl hover:border-gray-200 transition-all duration-300 hover:-translate-y-1"
             >
-              {/* Field Image */}
-              <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200">
-                {field.image_url ? (
-                  <img
-                    src={field.image_url}
-                    alt={field.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="text-center">
-                      <MapPin className="w-16 h-16 text-gray-800 mx-auto mb-2" />
-                      <p className="text-gray-900 font-medium">Foto Lapangan</p>
-                    </div>
-                  </div>
-                )}
-
+              {/* Field Type Badge */}
+              <div className="p-4 bg-gray-50 border-b border-gray-200">
+                <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  {getFieldTypeLabel(field.type)}
+                </span>
                 {/* Availability Badge */}
                 {timeFilters.date && timeFilters.startTime && timeFilters.endTime && field.isAvailable && (
-                  <div className="absolute top-4 right-4">
-                    <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                      ✅ Tersedia
-                    </span>
-                  </div>
-                )}
-
-                {/* Favorite Button */}
-                <button
-                  onClick={() => handleToggleFavorite(field.id)}
-                  className={`absolute ${timeFilters.date && timeFilters.startTime && timeFilters.endTime ? 'top-16 right-4' : 'top-4 right-4'} w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${favorites.includes(field.id)
-                    ? 'bg-red-500 text-white shadow-lg'
-                    : 'bg-white/80 text-gray-600 hover:bg-white'
-                    }`}
-                >
-                  <Heart className={`w-5 h-5 ${favorites.includes(field.id) ? 'fill-current' : ''}`} />
-                </button>
-
-                {/* Field Type Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    {getFieldTypeLabel(field.type)}
+                  <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium ml-2">
+                    ✅ Tersedia
                   </span>
-                </div>
+                )}
               </div>
 
               {/* Field Info */}
               <div className="p-6">
-                <div className="flex items-start justify-between mb-3">
+                <div className="mb-3">
                   <h3 className="text-xl font-bold text-gray-900">{field.name}</h3>
-                  <div className="flex items-center space-x-1">
-                    <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                    <span className="text-sm text-gray-600">4.5</span>
-                  </div>
                 </div>
 
                 <div className="space-y-3">
@@ -525,12 +462,7 @@ const CustomerFieldsPanel = () => {
                       <p className="text-sm text-gray-500">per jam</p>
                     </div>
 
-                    <button className="bg-gradient-to-r from-gray-800 to-gray-800 hover:from-gray-700 hover:to-gray-900 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
-                      <div className="flex items-center space-x-2">
-                        <Calendar className="w-4 h-4" />
-                        <span>Booking</span>
-                      </div>
-                    </button>
+
                   </div>
                 </div>
 
