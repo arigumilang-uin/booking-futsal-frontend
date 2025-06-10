@@ -49,12 +49,33 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Response interceptor for error handling
+// Helper function for delay
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+// Response interceptor for error handling with retry logic
 axiosInstance.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
+  async (error) => {
+    const originalRequest = error.config;
+
+    // Handle rate limiting (429) with retry logic
+    if (error.response?.status === 429 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      // Get retry delay from response headers or use default
+      const retryAfter = error.response.headers['retry-after'];
+      const delayMs = retryAfter ? parseInt(retryAfter) * 1000 : 2000; // Default 2 seconds
+
+      console.warn(`⏳ Rate limited. Retrying after ${delayMs}ms...`);
+
+      // Wait before retrying
+      await delay(delayMs);
+
+      // Retry the original request
+      return axiosInstance(originalRequest);
+    }
 
     // Handle common errors
     if (error.response?.status === 401) {

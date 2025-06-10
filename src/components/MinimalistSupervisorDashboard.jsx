@@ -101,8 +101,8 @@ const MinimalistSupervisorDashboard = () => {
             <div className="absolute inset-0 rounded-full bg-gray-100 opacity-30 animate-pulse"></div>
           </div>
           <div className="space-y-3">
-            <h2 className="text-2xl font-bold text-gray-900">Loading Control Center</h2>
-            <p className="text-gray-900 font-medium">Preparing your supervisor dashboard...</p>
+            <h2 className="text-2xl font-bold text-gray-800">Loading Control Center</h2>
+            <p className="text-gray-600 font-medium">Preparing your supervisor dashboard...</p>
             <div className="flex justify-center space-x-1 mt-4">
               <div className="w-2 h-2 bg-gray-800 rounded-full animate-bounce"></div>
               <div className="w-2 h-2 bg-gray-800 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -124,10 +124,6 @@ const MinimalistSupervisorDashboard = () => {
       `,
       backgroundSize: '100% 100%, 100% 100%, 30px 30px, 30px 30px'
     }}>
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-gray-200 rounded-full opacity-10 animate-pulse"></div>
-      <div className="absolute bottom-20 right-10 w-24 h-24 bg-gray-800 rounded-full opacity-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-purple-400 rounded-full opacity-10 animate-pulse" style={{ animationDelay: '2s' }}></div>
       {/* Soccer Supervisor Header */}
       <MinimalistSupervisorHeader />
 
@@ -150,8 +146,8 @@ const MinimalistSupervisorDashboard = () => {
           <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-gray-800 hover:shadow-md transition-all duration-200 hover:border-l-gray-800">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-2xl font-bold text-gray-900">{overview?.total_users || 0}</div>
-                <div className="text-sm font-medium text-gray-900 mt-1">Total Pengguna</div>
+                <div className="text-2xl font-bold text-gray-800">{overview?.total_users || 0}</div>
+                <div className="text-sm font-medium text-gray-800 mt-1">Total Pengguna</div>
                 <div className="text-xs text-gray-500 mt-1">Semua role sistem</div>
               </div>
               <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center shadow-sm">
@@ -165,8 +161,8 @@ const MinimalistSupervisorDashboard = () => {
           <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-gray-800 hover:shadow-md transition-all duration-200 hover:border-l-gray-800">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-2xl font-bold text-gray-900">{overview?.total_fields || 0}</div>
-                <div className="text-sm font-medium text-gray-900 mt-1">Total Lapangan</div>
+                <div className="text-2xl font-bold text-gray-800">{overview?.total_fields || 0}</div>
+                <div className="text-sm font-medium text-gray-800 mt-1">Total Lapangan</div>
                 <div className="text-xs text-gray-500 mt-1">{overview?.active_fields || 0} siap main</div>
               </div>
               <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center shadow-sm">
@@ -180,7 +176,7 @@ const MinimalistSupervisorDashboard = () => {
           <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-gray-800 hover:shadow-md transition-all duration-200 hover:border-l-gray-800">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-2xl font-bold text-gray-900">{overview?.active_fields || 0}</div>
+                <div className="text-2xl font-bold text-gray-800">{overview?.active_fields || 0}</div>
                 <div className="text-sm font-medium text-gray-800 mt-1">Lapangan Aktif</div>
                 <div className="text-xs text-gray-500 mt-1">Siap pertandingan</div>
               </div>
@@ -195,8 +191,8 @@ const MinimalistSupervisorDashboard = () => {
           <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-gray-800 hover:shadow-md transition-all duration-200 hover:border-l-gray-800">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-2xl font-bold text-gray-900">{overview?.total_bookings || 0}</div>
-                <div className="text-sm font-medium text-gray-900 mt-1">Booking Lapangan</div>
+                <div className="text-2xl font-bold text-gray-800">{overview?.total_bookings || 0}</div>
+                <div className="text-sm font-medium text-gray-800 mt-1">Booking Lapangan</div>
                 <div className="text-xs text-gray-500 mt-1">Hari ini</div>
               </div>
               <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center shadow-sm">
@@ -210,10 +206,10 @@ const MinimalistSupervisorDashboard = () => {
           <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-gray-800 hover:shadow-md transition-all duration-200 hover:border-l-gray-800">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-800">
                   {serverInfo?.uptime ? formatUptime(serverInfo.uptime) : 'N/A'}
                 </div>
-                <div className="text-sm font-medium text-gray-900 mt-1">Waktu Operasi</div>
+                <div className="text-sm font-medium text-gray-800 mt-1">Waktu Operasi</div>
                 <div className="text-xs text-gray-500 mt-1">Sistem berjalan</div>
               </div>
               <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center shadow-sm">
@@ -227,10 +223,10 @@ const MinimalistSupervisorDashboard = () => {
           <div className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-l-gray-800 hover:shadow-md transition-all duration-200 hover:border-l-gray-800">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-2xl font-bold text-gray-900">
+                <div className="text-2xl font-bold text-gray-800">
                   {serverInfo?.memory_usage?.heapUsed ? formatMemory(serverInfo.memory_usage.heapUsed) : 'N/A'}
                 </div>
-                <div className="text-sm font-medium text-gray-900 mt-1">Performa</div>
+                <div className="text-sm font-medium text-gray-800 mt-1">Performa</div>
                 <div className="text-xs text-gray-500 mt-1">Penggunaan memori</div>
               </div>
               <div className="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center shadow-sm">
@@ -312,7 +308,7 @@ const MinimalistSupervisorDashboard = () => {
         <div className="bg-white rounded-lg border">
           {activeView === 'overview' && (
             <div className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-6">Ringkasan Sistem</h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-6">Ringkasan Sistem</h3>
 
               {/* Key Business Metrics - NO DUPLICATION */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

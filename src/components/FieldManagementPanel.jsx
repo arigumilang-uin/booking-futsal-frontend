@@ -573,9 +573,6 @@ const FieldManagementPanel = () => {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -619,31 +616,6 @@ const FieldManagementPanel = () => {
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(field)}`}>
                         {getStatusText(field)}
                       </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex space-x-2">
-                        <button
-                          onClick={() => {
-                            setSelectedField(field);
-                            setShowAssignModal(true);
-                          }}
-                          className="text-gray-900 hover:text-gray-900"
-                        >
-                          Assign
-                        </button>
-                        <button
-                          onClick={() => setEditingField(field)}
-                          className="text-gray-900 hover:text-gray-900"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDeleteField(field.id)}
-                          className="text-red-600 hover:text-red-900"
-                        >
-                          Delete
-                        </button>
-                      </div>
                     </td>
                   </tr>
                 ))}

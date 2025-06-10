@@ -261,51 +261,7 @@ export const completeBooking = async (bookingId, completionData) => {
   }
 };
 
-// ===== SCHEDULE APIs =====
 
-export const getTodaySchedule = async () => {
-  try {
-    const response = await axiosInstance.get('/staff/operator/schedule/today');
-    return {
-      success: true,
-      data: response.data.data,
-      _metadata: {
-        endpoint_used: '/staff/operator/schedule/today',
-        date: new Date().toISOString().split('T')[0],
-        timestamp: new Date().toISOString()
-      }
-    };
-  } catch (error) {
-    console.error('❌ Get today schedule error:', error.response?.data || error.message);
-    return {
-      success: false,
-      error: error.response?.data?.error || error.message,
-      code: error.response?.data?.code || 'TODAY_SCHEDULE_FAILED'
-    };
-  }
-};
-
-export const getScheduleByDate = async (date) => {
-  try {
-    const response = await axiosInstance.get(`/staff/operator/schedule/${date}`);
-    return {
-      success: true,
-      data: response.data.data,
-      _metadata: {
-        endpoint_used: `/staff/operator/schedule/${date}`,
-        date,
-        timestamp: new Date().toISOString()
-      }
-    };
-  } catch (error) {
-    console.error('❌ Get schedule by date error:', error.response?.data || error.message);
-    return {
-      success: false,
-      error: error.response?.data?.error || error.message,
-      code: error.response?.data?.code || 'SCHEDULE_BY_DATE_FAILED'
-    };
-  }
-};
 
 // ===== UTILITY FUNCTIONS =====
 

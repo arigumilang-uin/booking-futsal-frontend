@@ -146,6 +146,12 @@ const AuthProvider = ({ children }) => {
   }, [loadUser]);
 
   const login = async (credentials) => {
+    // Prevent multiple rapid login attempts
+    if (loading) {
+      console.warn('⚠️ Login already in progress, please wait...');
+      return;
+    }
+
     try {
       setLoading(true);
       const response = await loginUser(credentials);
@@ -162,9 +168,25 @@ const AuthProvider = ({ children }) => {
       return { success: false, error: response.error || 'Login failed' };
     } catch (error) {
       console.error('Login error:', error);
+
+      // Handle specific error types
+      let errorMessage = 'Login failed';
+
+      if (error.response?.status === 429) {
+        errorMessage = 'Terlalu banyak percobaan login. Silakan tunggu sebentar dan coba lagi.';
+      } else if (error.response?.status === 401) {
+        errorMessage = 'Email atau password salah.';
+      } else if (error.response?.status === 403) {
+        errorMessage = 'Akun Anda tidak memiliki akses.';
+      } else if (error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      } else if (error.code === 'NETWORK_ERROR') {
+        errorMessage = 'Koneksi bermasalah. Periksa internet Anda.';
+      }
+
       return {
         success: false,
-        error: error.response?.data?.error || 'Login failed'
+        error: errorMessage
       };
     } finally {
       setLoading(false);

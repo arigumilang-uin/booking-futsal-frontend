@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import {
   getAllPaymentsForKasir,
   confirmPayment,
-  processManualPayment,
-  getPaymentMethods,
   getPaymentStatusColor,
   getPaymentMethodLabel
 } from '../../api/kasirAPI';
@@ -14,7 +12,6 @@ import {
   CheckCircle,
   Clock,
   AlertCircle,
-  Plus,
   Search,
   Filter,
   Eye,
@@ -27,13 +24,10 @@ const KasirPaymentPanel = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
-  const [showManualPaymentModal, setShowManualPaymentModal] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState(null);
-  const [paymentMethods, setPaymentMethods] = useState([]);
 
   useEffect(() => {
     loadPayments();
-    loadPaymentMethods();
   }, []);
 
   const loadPayments = async () => {
@@ -86,16 +80,7 @@ const KasirPaymentPanel = () => {
     }
   };
 
-  const loadPaymentMethods = async () => {
-    try {
-      const response = await getPaymentMethods();
-      if (response.success) {
-        setPaymentMethods(response.data?.manual_methods || []);
-      }
-    } catch (err) {
-      console.error('Error loading payment methods:', err);
-    }
-  };
+
 
   const handleConfirmPayment = async (paymentId) => {
     try {
@@ -128,9 +113,9 @@ const KasirPaymentPanel = () => {
   const getStatusIcon = (status) => {
     switch (status) {
       case 'paid':
-        return <CheckCircle className="w-5 h-5 text-gray-900" />;
+        return <CheckCircle className="w-5 h-5 text-green-600" />;
       case 'pending':
-        return <Clock className="w-5 h-5 text-gray-900" />;
+        return <Clock className="w-5 h-5 text-yellow-600" />;
       case 'failed':
         return <AlertCircle className="w-5 h-5 text-red-600" />;
       default:
@@ -142,7 +127,7 @@ const KasirPaymentPanel = () => {
     return (
       <div className="p-6">
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-800 mx-auto mb-4"></div>
           <p className="text-gray-600">Memuat data pembayaran...</p>
         </div>
       </div>
@@ -152,24 +137,14 @@ const KasirPaymentPanel = () => {
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <CreditCard className="w-6 h-6 text-gray-900" />
-          </div>
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900">Pusat Pembayaran Kasir</h2>
-            <p className="text-gray-600">Kelola pembayaran, konfirmasi transfer, dan proses pembayaran manual</p>
-          </div>
+      <div className="flex items-center space-x-3">
+        <div className="w-12 h-12 bg-gray-800 rounded-2xl flex items-center justify-center shadow-lg">
+          <CreditCard className="w-6 h-6 text-white" />
         </div>
-
-        <button
-          onClick={() => setShowManualPaymentModal(true)}
-          className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-gray-900 px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center space-x-2"
-        >
-          <Plus className="w-5 h-5" />
-          <span>Proses Manual</span>
-        </button>
+        <div>
+          <h2 className="text-3xl font-black text-gray-900">Pusat Pembayaran Kasir</h2>
+          <p className="text-gray-600">Kelola pembayaran dan konfirmasi transfer</p>
+        </div>
       </div>
 
       {/* Search and Filter */}
@@ -182,7 +157,7 @@ const KasirPaymentPanel = () => {
               placeholder="Cari payment ID, booking ID, nama customer, email, atau lapangan..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-gray-800"
             />
           </div>
 
@@ -191,7 +166,7 @@ const KasirPaymentPanel = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 appearance-none"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-gray-800 appearance-none"
             >
               <option value="all">Semua Status</option>
               <option value="pending">Pending</option>
@@ -202,7 +177,7 @@ const KasirPaymentPanel = () => {
 
           <button
             onClick={loadPayments}
-            className="bg-orange-100 text-orange-700 px-4 py-3 rounded-xl hover:bg-orange-200 transition-colors font-medium"
+            className="bg-gray-100 text-gray-700 px-4 py-3 rounded-xl hover:bg-gray-200 transition-colors font-medium"
           >
             🔄 Refresh Data
           </button>
@@ -296,7 +271,7 @@ const KasirPaymentPanel = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                     <button
                       onClick={() => setSelectedPayment(payment)}
-                      className="text-orange-600 hover:text-orange-900 transition-colors"
+                      className="text-gray-600 hover:text-gray-900 transition-colors"
                       title="Lihat Detail"
                     >
                       <Eye className="w-4 h-4" />
@@ -304,7 +279,7 @@ const KasirPaymentPanel = () => {
                     {payment.status === 'pending' && (
                       <button
                         onClick={() => handleConfirmPayment(payment.id)}
-                        className="text-gray-900 hover:text-gray-900 transition-colors"
+                        className="text-green-600 hover:text-green-900 transition-colors"
                         title="Konfirmasi Pembayaran"
                       >
                         <CheckCircle className="w-4 h-4" />

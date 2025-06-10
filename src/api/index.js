@@ -89,8 +89,6 @@ export {
   getBookingDetailForOperator,
   confirmBooking as confirmBookingOperator,
   completeBooking,
-  getTodaySchedule,
-  getScheduleByDate,
   getBookingActions,
   getFieldStatusColor,
   getBookingStatusColor,
