@@ -58,12 +58,49 @@ export const formatCurrency = (amount) => {
 };
 
 export const formatDate = (dateString) => {
-  return new Date(dateString).toLocaleDateString('id-ID', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
+  if (!dateString) return 'N/A';
+
+  try {
+    // Handle ISO string format (2025-06-10T00:00:00.000Z)
+    const date = new Date(dateString);
+
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+      return dateString; // Return original if invalid
+    }
+
+    return date.toLocaleDateString('id-ID', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  } catch (error) {
+    console.error('Error formatting date:', error);
+    return dateString; // Return original if error
+  }
+};
+
+// Tambahan fungsi untuk format tanggal sederhana
+export const formatDateSimple = (dateString) => {
+  if (!dateString) return 'N/A';
+
+  try {
+    const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+      return dateString;
+    }
+
+    return date.toLocaleDateString('id-ID', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  } catch (error) {
+    console.error('Error formatting date simple:', error);
+    return dateString;
+  }
 };
 
 export const getStatusColor = (status) => {

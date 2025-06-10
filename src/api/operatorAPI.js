@@ -141,26 +141,43 @@ export const getAllBookingsForOperator = async (params = {}) => {
   try {
     const response = await axiosInstance.get('/staff/operator/bookings', { params });
 
-    // Ensure data is always an array
-    const bookingsData = response.data.data;
-    const safeData = Array.isArray(bookingsData) ? bookingsData : [];
+    // Handle different response structures
+    const responseData = response.data.data;
+    let bookingsArray = [];
+    let assignedFields = [];
+
+    // Check if response is object with bookings property or direct array
+    if (responseData && typeof responseData === 'object') {
+      if (Array.isArray(responseData)) {
+        // Direct array of bookings
+        bookingsArray = responseData;
+      } else if (responseData.bookings && Array.isArray(responseData.bookings)) {
+        // Object with bookings property
+        bookingsArray = responseData.bookings;
+        assignedFields = responseData.assigned_fields || [];
+      }
+    }
 
     console.log('📅 Operator Bookings API Response:', {
-      originalData: bookingsData,
-      safeData: safeData.length,
-      isArray: Array.isArray(bookingsData)
+      originalData: responseData,
+      bookingsArray: bookingsArray.length,
+      assignedFields: assignedFields.length,
+      isResponseArray: Array.isArray(responseData),
+      hasBookingsProperty: responseData && responseData.bookings ? true : false
     });
 
     return {
       success: true,
-      data: safeData,
+      data: bookingsArray,
+      assigned_fields: assignedFields,
       pagination: response.data.pagination,
       _metadata: {
         endpoint_used: '/staff/operator/bookings',
         params,
         timestamp: new Date().toISOString(),
         is_assigned_fields_only: true,
-        data_count: safeData.length
+        data_count: bookingsArray.length,
+        assigned_fields_count: assignedFields.length
       }
     };
   } catch (error) {
@@ -169,7 +186,8 @@ export const getAllBookingsForOperator = async (params = {}) => {
       success: false,
       error: error.response?.data?.error || error.message,
       code: error.response?.data?.code || 'OPERATOR_BOOKINGS_FAILED',
-      data: [] // Return empty array on error
+      data: [], // Return empty array on error
+      assigned_fields: []
     };
   }
 };
@@ -324,12 +342,22 @@ export const getFieldStatusColor = (status) => {
 
 export const getBookingStatusColor = (status) => {
   const statusColors = {
-    'pending': 'bg-gray-100 text-gray-900',
-    'confirmed': 'bg-gray-100 text-gray-900',
-    'completed': 'bg-gray-100 text-gray-900',
+    'pending': 'bg-yellow-100 text-yellow-800',
+    'confirmed': 'bg-blue-100 text-blue-800',
+    'completed': 'bg-green-100 text-green-800',
     'cancelled': 'bg-red-100 text-red-800'
   };
   return statusColors[status] || 'bg-gray-100 text-gray-900';
+};
+
+export const getBookingStatusLabel = (status) => {
+  const statusLabels = {
+    'pending': 'Menunggu',
+    'confirmed': 'Dikonfirmasi',
+    'completed': 'Selesai',
+    'cancelled': 'Dibatalkan'
+  };
+  return statusLabels[status] || status;
 };
 
 export const formatOperatorTime = (timeString) => {

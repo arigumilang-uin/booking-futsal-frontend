@@ -13,6 +13,14 @@ const CustomerBookingPanel = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
+  // Payment method options
+  const paymentMethods = [
+    { value: 'bank_transfer', label: 'Transfer Bank', description: 'Transfer ke rekening bank' },
+    { value: 'cash', label: 'Tunai', description: 'Bayar di tempat' },
+    { value: 'ewallet', label: 'E-Wallet', description: 'GoPay, OVO, DANA' },
+    { value: 'qris', label: 'QRIS', description: 'Scan QR Code' }
+  ];
+
   const [formData, setFormData] = useState({
     field_id: '',
     date: '',
@@ -21,7 +29,8 @@ const CustomerBookingPanel = () => {
     name: user?.name || '',
     phone: user?.phone || '',
     email: user?.email || '',
-    notes: ''
+    notes: '',
+    payment_method: 'bank_transfer' // Default payment method
   });
 
   useEffect(() => {
@@ -176,7 +185,7 @@ const CustomerBookingPanel = () => {
         // Auto-create payment for the booking
         try {
           const paymentData = {
-            method: 'bank_transfer', // Default method
+            method: formData.payment_method || 'bank_transfer', // Use selected method
             amount: booking.total_amount,
             currency: 'IDR'
           };
@@ -200,7 +209,8 @@ const CustomerBookingPanel = () => {
           name: '',
           phone: '',
           email: '',
-          notes: ''
+          notes: '',
+          payment_method: 'bank_transfer'
         });
       } else {
         setError(response.error || response.message || 'Gagal membuat booking');
@@ -452,6 +462,30 @@ const CustomerBookingPanel = () => {
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
               />
             </div>
+          </div>
+
+          {/* Payment Method Selection */}
+          <div>
+            <label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 mb-3">
+              <span>💳</span>
+              <span>Metode Pembayaran</span>
+            </label>
+            <select
+              name="payment_method"
+              value={formData.payment_method}
+              onChange={handleInputChange}
+              required
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
+            >
+              {paymentMethods.map(method => (
+                <option key={method.value} value={method.value}>
+                  {method.label} - {method.description}
+                </option>
+              ))}
+            </select>
+            <p className="text-sm text-gray-500 mt-2">
+              Pilih metode pembayaran yang akan Anda gunakan
+            </p>
           </div>
 
           {/* Notes */}
