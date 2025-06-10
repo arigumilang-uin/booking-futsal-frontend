@@ -22,7 +22,7 @@ const FieldManagementPanel = () => {
   const [newField, setNewField] = useState({
     name: '',
     description: '',
-    type: 'soccer',
+    type: 'futsal',
     price: '',
     price_weekend: '',
     capacity: '',
@@ -50,12 +50,23 @@ const FieldManagementPanel = () => {
         Object.entries(filters).filter(([_, value]) => value !== '')
       );
 
+      console.log('🔄 Loading fields with params:', params);
       const response = await axiosInstance.get('/admin/fields', { params });
-      console.log('✅ Fields data loaded:', response.data);
-      // Backend returns data as array directly, not data.fields
-      setFields(Array.isArray(response.data.data) ? response.data.data : []);
+      console.log('✅ Fields response:', response.data);
+
+      // Handle different response structures
+      let fieldsData = [];
+      if (response.data.success && Array.isArray(response.data.data)) {
+        fieldsData = response.data.data;
+      } else if (Array.isArray(response.data)) {
+        fieldsData = response.data;
+      }
+
+      console.log('📊 Setting fields data:', fieldsData.length, 'fields');
+      setFields(fieldsData);
     } catch (error) {
-      console.error('Error loading fields:', error);
+      console.error('❌ Error loading fields:', error);
+      setFields([]);
     } finally {
       setLoading(false);
     }
@@ -100,9 +111,12 @@ const FieldManagementPanel = () => {
         facilities: Array.isArray(newField.facilities) ? newField.facilities : newField.facilities.split(',').map(f => f.trim()).filter(f => f)
       };
 
+      console.log('📤 Creating field with data:', fieldData);
       const response = await axiosInstance.post('/admin/fields', fieldData);
+      console.log('✅ Create field response:', response.data);
 
       if (response.data.success) {
+        console.log('🔄 Refreshing fields list...');
         await loadFields();
         resetForm();
         setShowCreateForm(false);
@@ -170,7 +184,7 @@ const FieldManagementPanel = () => {
     setNewField({
       name: '',
       description: '',
-      type: 'soccer',
+      type: 'futsal',
       price: '',
       price_weekend: '',
       capacity: '',
@@ -251,11 +265,9 @@ const FieldManagementPanel = () => {
             className="border border-gray-300 rounded-lg px-3 py-2"
           >
             <option value="">Semua Type</option>
+            <option value="futsal">Futsal</option>
             <option value="soccer">Soccer</option>
-            <option value="indoor">Indoor</option>
-            <option value="outdoor">Outdoor</option>
-            <option value="synthetic">Synthetic</option>
-            <option value="grass">Grass</option>
+            <option value="mini_soccer">Mini Soccer</option>
           </select>
 
           <input
@@ -268,7 +280,7 @@ const FieldManagementPanel = () => {
 
           <button
             onClick={loadFields}
-            className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
+            className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
           >
             🔄 Refresh
           </button>
@@ -352,11 +364,9 @@ const FieldManagementPanel = () => {
                 }}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2"
               >
+                <option value="futsal">Futsal</option>
                 <option value="soccer">Soccer</option>
-                <option value="indoor">Indoor</option>
-                <option value="outdoor">Outdoor</option>
-                <option value="synthetic">Synthetic</option>
-                <option value="grass">Grass</option>
+                <option value="mini_soccer">Mini Soccer</option>
               </select>
             </div>
 
@@ -515,7 +525,7 @@ const FieldManagementPanel = () => {
           <div className="flex space-x-3 mt-6">
             <button
               onClick={editingField ? handleUpdateField : handleCreateField}
-              className="bg-gray-800 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-500"
+              className="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700"
             >
               {editingField ? 'Update' : 'Simpan'}
             </button>
@@ -528,7 +538,7 @@ const FieldManagementPanel = () => {
                   resetForm();
                 }
               }}
-              className="bg-gray-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-600"
+              className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
             >
               Batal
             </button>
