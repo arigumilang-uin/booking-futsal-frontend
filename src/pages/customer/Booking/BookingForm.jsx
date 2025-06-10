@@ -23,7 +23,8 @@ const BookingForm = () => {
     date: '',
     timeSlot: '',
     duration: 1,
-    notes: ''
+    notes: '',
+    paymentMethod: 'bank_transfer' // Default payment method
   });
 
   const timeSlots = [
@@ -31,6 +32,13 @@ const BookingForm = () => {
     '12:00-13:00', '13:00-14:00', '14:00-15:00', '15:00-16:00',
     '16:00-17:00', '17:00-18:00', '18:00-19:00', '19:00-20:00',
     '20:00-21:00', '21:00-22:00'
+  ];
+
+  const paymentMethods = [
+    { value: 'bank_transfer', label: 'Transfer Bank', description: 'Transfer ke rekening bank' },
+    { value: 'cash', label: 'Tunai', description: 'Bayar di tempat' },
+    { value: 'ewallet', label: 'E-Wallet', description: 'GoPay, OVO, DANA' },
+    { value: 'qris', label: 'QRIS', description: 'Scan QR Code' }
   ];
 
   const [availableSlots, setAvailableSlots] = useState(timeSlots); // Initialize dengan default slots
@@ -151,7 +159,8 @@ const BookingForm = () => {
           date: '',
           timeSlot: '',
           duration: 1,
-          notes: ''
+          notes: '',
+          paymentMethod: 'bank_transfer'
         });
 
         setTimeout(() => {
@@ -264,12 +273,13 @@ const BookingForm = () => {
             {/* Duration */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Durasi (jam)
+                Durasi (jam) *
               </label>
               <select
                 name="duration"
                 value={formData.duration}
                 onChange={handleInputChange}
+                required
                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
               >
                 <option value={1}>1 jam</option>
@@ -277,6 +287,29 @@ const BookingForm = () => {
                 <option value={3}>3 jam</option>
                 <option value={4}>4 jam</option>
               </select>
+            </div>
+
+            {/* Payment Method Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Metode Pembayaran *
+              </label>
+              <select
+                name="paymentMethod"
+                value={formData.paymentMethod}
+                onChange={handleInputChange}
+                required
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-600"
+              >
+                {paymentMethods.map(method => (
+                  <option key={method.value} value={method.value}>
+                    {method.label} - {method.description}
+                  </option>
+                ))}
+              </select>
+              <p className="text-sm text-gray-500 mt-1">
+                Pilih metode pembayaran yang akan Anda gunakan
+              </p>
             </div>
 
             {/* Notes */}
@@ -303,6 +336,7 @@ const BookingForm = () => {
                   <p><strong>Tanggal:</strong> {formData.date}</p>
                   <p><strong>Waktu:</strong> {formData.timeSlot}</p>
                   <p><strong>Durasi:</strong> {formData.duration} jam</p>
+                  <p><strong>Metode Pembayaran:</strong> {paymentMethods.find(m => m.value === formData.paymentMethod)?.label}</p>
                   <p><strong>Total Biaya:</strong> Rp {(selectedFieldData.price_per_hour * formData.duration).toLocaleString()}</p>
                 </div>
               </div>

@@ -6,7 +6,7 @@ import axiosInstance from '../api/axiosInstance';
 import MinimalistManagerHeader from './MinimalistManagerHeader';
 import ManagerBookingPanel from './manager/ManagerBookingPanel';
 import ManagerStaffPanel from './manager/ManagerStaffPanel';
-import TrackingDashboard from './tracking/TrackingDashboard';
+import ManagerFieldAssignmentPanel from './manager/ManagerFieldAssignmentPanel';
 
 
 
@@ -66,21 +66,52 @@ const MinimalistManagerDashboard = () => {
         user.role === 'staff_kasir' || user.role === 'operator_lapangan'
       );
 
-      // Note: Staff performance data should come from real backend payment records
-      // For now, we'll show staff list without fake random data
-      const staffPerformance = staffOnly.slice(0, 5).map(staff => ({
-        id: staff.id,
-        name: staff.name || 'Staff',
-        role: staff.role === 'staff_kasir' ? 'Staff Kasir' :
-          staff.role === 'operator_lapangan' ? 'Operator Lapangan' :
-            staff.role || 'Staff',
-        email: staff.email,
-        is_active: staff.is_active,
-        total_amount: 0, // Real data should come from backend payment records
-        processed_payments: 0, // Real data should come from backend payment records
-        last_login: staff.last_login_at,
-        status: staff.is_active ? 'Aktif' : 'Nonaktif'
-      }));
+      // Get real staff performance data
+      const staffPerformance = await Promise.all(
+        staffOnly.slice(0, 5).map(async (staff) => {
+          let performanceData = {
+            total_amount: 0,
+            processed_payments: 0,
+            bookings_confirmed: 0,
+            tasks_completed: 0
+          };
+
+          try {
+            if (staff.role === 'staff_kasir') {
+              // For kasir: get payment data
+              const paymentResponse = await axiosInstance.get('/staff/kasir/statistics');
+              if (paymentResponse.data.success) {
+                const stats = paymentResponse.data.data;
+                performanceData.total_amount = stats.total_revenue || 0;
+                performanceData.processed_payments = stats.total_payments || 0;
+              }
+            } else if (staff.role === 'operator_lapangan') {
+              // For operator: get booking confirmation data
+              const operatorResponse = await axiosInstance.get(`/staff/operator/performance/${staff.id}`);
+              if (operatorResponse.data.success) {
+                const stats = operatorResponse.data.data;
+                performanceData.bookings_confirmed = stats.bookings_confirmed || 0;
+                performanceData.tasks_completed = stats.maintenance_tasks || 0;
+              }
+            }
+          } catch (error) {
+            console.log(`⚠️ Performance data not available for ${staff.name}:`, error.message);
+          }
+
+          return {
+            id: staff.id,
+            name: staff.name || 'Staff',
+            role: staff.role === 'staff_kasir' ? 'Staff Kasir' :
+              staff.role === 'operator_lapangan' ? 'Operator Lapangan' :
+                staff.role || 'Staff',
+            email: staff.email,
+            is_active: staff.is_active,
+            ...performanceData,
+            last_login: staff.last_login_at,
+            status: staff.is_active ? 'Aktif' : 'Nonaktif'
+          };
+        })
+      );
 
       // Calculate metrics from actual data
       const totalBookings = bookings.length;
@@ -169,7 +200,7 @@ const MinimalistManagerDashboard = () => {
     { id: 'overview', label: 'Ringkasan Bisnis', icon: '📊', color: 'blue' },
     { id: 'bookings', label: 'Kelola Booking', icon: '📅', color: 'green' },
     { id: 'staff', label: 'Kelola Staff', icon: '👥', color: 'orange' },
-    { id: 'analytics', label: 'Analytics Tracking', icon: '📈', color: 'purple' }
+    { id: 'fields', label: 'Assignment Lapangan', icon: '🏟️', color: 'indigo' }
   ];
 
   if (loading) {
@@ -379,11 +410,17 @@ const MinimalistManagerDashboard = () => {
                               </div>
                             </div>
                           </div>
-                          <span className={`px-3 py-2 rounded-xl text-sm font-semibold shadow-sm ${booking.status === 'confirmed' ? 'bg-gray-100 text-gray-900 border border-gray-200' :
-                            booking.status === 'pending' ? 'bg-gray-100 text-gray-900 border border-gray-200' :
-                              'bg-gray-100 text-gray-900 border border-gray-200'
+                          <span className={`px-3 py-2 rounded-xl text-sm font-semibold shadow-sm ${booking.status === 'confirmed' ? 'bg-blue-100 text-blue-800 border border-blue-200' :
+                            booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
+                              booking.status === 'completed' ? 'bg-green-100 text-green-800 border border-green-200' :
+                                booking.status === 'cancelled' ? 'bg-red-100 text-red-800 border border-red-200' :
+                                  'bg-gray-100 text-gray-900 border border-gray-200'
                             }`}>
-                            {booking.status || 'pending'}
+                            {booking.status === 'confirmed' ? 'Dikonfirmasi' :
+                              booking.status === 'pending' ? 'Menunggu' :
+                                booking.status === 'completed' ? 'Selesai' :
+                                  booking.status === 'cancelled' ? 'Dibatalkan' :
+                                    booking.status || 'pending'}
                           </span>
                         </div>
                       </div>
@@ -413,16 +450,35 @@ const MinimalistManagerDashboard = () => {
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
                             <div className="flex items-center space-x-2 mb-2">
-                              <span className="text-lg">👤</span>
+                              <span className="text-lg">
+                                {staff.role === 'Staff Kasir' ? '💰' :
+                                  staff.role === 'Operator Lapangan' ? '🏟️' : '👤'}
+                              </span>
                               <p className="font-bold text-gray-900 text-lg">{staff.name || 'Staff'}</p>
                             </div>
                             <p className="text-sm text-gray-600 font-medium">{staff.role || 'Staff Role'}</p>
                           </div>
                           <div className="text-right">
-                            <p className="text-lg font-bold text-gray-900">
-                              Rp {staff.total_amount ? staff.total_amount.toLocaleString('id-ID') : '0'}
-                            </p>
-                            <p className="text-sm text-gray-600">{staff.processed_payments || 0} transaksi</p>
+                            {staff.role === 'Staff Kasir' ? (
+                              <>
+                                <p className="text-lg font-bold text-gray-900">
+                                  Rp {staff.total_amount ? parseFloat(staff.total_amount).toLocaleString('id-ID') : '0'}
+                                </p>
+                                <p className="text-sm text-gray-600">{staff.processed_payments || 0} pembayaran</p>
+                              </>
+                            ) : staff.role === 'Operator Lapangan' ? (
+                              <>
+                                <p className="text-lg font-bold text-gray-900">
+                                  {staff.bookings_confirmed || 0} booking
+                                </p>
+                                <p className="text-sm text-gray-600">dikonfirmasi</p>
+                              </>
+                            ) : (
+                              <>
+                                <p className="text-lg font-bold text-gray-900">-</p>
+                                <p className="text-sm text-gray-600">No data</p>
+                              </>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -443,7 +499,7 @@ const MinimalistManagerDashboard = () => {
 
           {activeView === 'bookings' && <ManagerBookingPanel />}
           {activeView === 'staff' && <ManagerStaffPanel />}
-          {activeView === 'analytics' && <TrackingDashboard />}
+          {activeView === 'fields' && <ManagerFieldAssignmentPanel />}
         </div>
       </div>
     </div>

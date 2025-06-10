@@ -1,19 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { getPublicFields } from '../../api/fieldAPI';
+import { getPublicFields, checkFieldAvailability } from '../../api/fieldAPI';
 import { getFavoriteFields, toggleFieldFavorite } from '../../api/customerAPI';
-import { MapPin, Clock, Users, Star, Heart, Calendar, Search } from 'lucide-react';
+import { MapPin, Clock, Users, Star, Heart, Calendar, Search, Filter } from 'lucide-react';
 
 const CustomerFieldsPanel = () => {
   const [fields, setFields] = useState([]);
+  const [filteredFields, setFilteredFields] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [checkingAvailability, setCheckingAvailability] = useState(false);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
 
+  // Filter waktu dan ketersediaan
+  const [timeFilters, setTimeFilters] = useState({
+    date: '',
+    startTime: '',
+    endTime: '',
+    priceRange: ''
+  });
+
+  const timeSlots = [
+    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
+    '14:00', '15:00', '16:00', '17:00', '18:00', '19:00',
+    '20:00', '21:00', '22:00'
+  ];
+
+  const priceRanges = [
+    { value: '', label: 'Semua Harga' },
+    { value: '0-50000', label: 'Di bawah Rp 50.000' },
+    { value: '50000-100000', label: 'Rp 50.000 - Rp 100.000' },
+    { value: '100000-200000', label: 'Rp 100.000 - Rp 200.000' },
+    { value: '200000-999999', label: 'Di atas Rp 200.000' }
+  ];
+
   useEffect(() => {
     fetchData();
   }, []);
+
+  // Apply filters when any filter changes
+  useEffect(() => {
+    applyFilters();
+  }, [fields, searchTerm, filterType, timeFilters]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -62,12 +91,168 @@ const CustomerFieldsPanel = () => {
     }
   };
 
-  const filteredFields = fields.filter(field => {
-    const matchesSearch = field.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      field.location?.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType = filterType === 'all' || field.type === filterType;
-    return matchesSearch && matchesType;
-  });
+  // Apply all filters including availability check
+  const applyFilters = async () => {
+    let filtered = [...fields];
+
+    // Filter by search
+    if (searchTerm) {
+      const searchLower = searchTerm.toLowerCase();
+      filtered = filtered.filter(field =>
+        field.name?.toLowerCase().includes(searchLower) ||
+        field.location?.toLowerCase().includes(searchLower) ||
+        field.description?.toLowerCase().includes(searchLower)
+      );
+    }
+
+    // Filter by field type
+    if (filterType !== 'all') {
+      filtered = filtered.filter(field => field.type === filterType);
+    }
+
+    // Filter by price range
+    if (timeFilters.priceRange) {
+      const [minPrice, maxPrice] = timeFilters.priceRange.split('-').map(Number);
+      filtered = filtered.filter(field => {
+        const price = field.price || 0;
+        return price >= minPrice && price <= maxPrice;
+      });
+    }
+
+    // Check availability if date and time are selected
+    if (timeFilters.date && timeFilters.startTime && timeFilters.endTime) {
+      setCheckingAvailability(true);
+      try {
+        console.log(`🔍 Checking availability for ${filtered.length} fields on ${timeFilters.date} from ${timeFilters.startTime} to ${timeFilters.endTime}`);
+
+        const availabilityPromises = filtered.map(async (field) => {
+          try {
+            console.log(`🔍 Checking availability for field ${field.id} (${field.name}) on ${timeFilters.date}`);
+            const availability = await checkFieldAvailability(field.id, timeFilters.date);
+            console.log(`📊 Availability response for field ${field.id}:`, availability);
+
+            if (availability.success && availability.data?.availability) {
+              // Check if the requested time slot is available
+              const availableSlots = availability.data.availability;
+
+              // Convert time to minutes for easier comparison
+              const timeToMinutes = (timeStr) => {
+                const [hours, minutes] = timeStr.split(':').map(Number);
+                return hours * 60 + minutes;
+              };
+
+              const requestStartMinutes = timeToMinutes(timeFilters.startTime);
+              const requestEndMinutes = timeToMinutes(timeFilters.endTime);
+
+              console.log(`⏰ Request time range: ${timeFilters.startTime} (${requestStartMinutes}min) to ${timeFilters.endTime} (${requestEndMinutes}min)`);
+
+              // Check if there are consecutive available slots that can accommodate the requested time range
+              const requestDurationMinutes = requestEndMinutes - requestStartMinutes;
+              console.log(`📏 Request duration: ${requestDurationMinutes} minutes (${requestDurationMinutes / 60} hours)`);
+
+              // Find consecutive available slots that cover the entire requested time range
+              let isAvailable = false;
+
+              // Sort slots by start time
+              const sortedSlots = availableSlots
+                .filter(slot => slot.available)
+                .sort((a, b) => timeToMinutes(a.start_time) - timeToMinutes(b.start_time));
+
+              console.log(`🔍 Available slots for field ${field.id}:`, sortedSlots.map(s => `${s.start_time}-${s.end_time}`));
+
+              if (sortedSlots.length === 0) {
+                console.log(`❌ Field ${field.id}: No available slots found`);
+                isAvailable = false;
+              } else {
+
+                // Check if we can find consecutive slots that cover the request
+                for (let i = 0; i < sortedSlots.length; i++) {
+                  const startSlot = sortedSlots[i];
+                  const startSlotMinutes = timeToMinutes(startSlot.start_time);
+                  const startSlotEndMinutes = timeToMinutes(startSlot.end_time);
+
+                  // Check if this slot can be the starting point
+                  if (startSlotMinutes <= requestStartMinutes && startSlotEndMinutes > requestStartMinutes) {
+                    let currentEndMinutes = startSlotEndMinutes;
+                    let canAccommodate = true;
+
+                    // Check if we need more slots to cover the entire duration
+                    while (currentEndMinutes < requestEndMinutes) {
+                      // Find the next consecutive slot
+                      const nextSlot = sortedSlots.find(slot =>
+                        timeToMinutes(slot.start_time) === currentEndMinutes
+                      );
+
+                      if (!nextSlot) {
+                        canAccommodate = false;
+                        break;
+                      }
+
+                      currentEndMinutes = timeToMinutes(nextSlot.end_time);
+                    }
+
+                    if (canAccommodate && currentEndMinutes >= requestEndMinutes) {
+                      isAvailable = true;
+                      console.log(`✅ Field ${field.id} available: consecutive slots can accommodate ${timeFilters.startTime}-${timeFilters.endTime}`);
+                      break;
+                    }
+                  }
+                }
+              }
+
+              console.log(`🎯 Field ${field.id} final availability:`, isAvailable);
+              return { ...field, isAvailable, availabilityData: availability.data };
+            }
+
+            console.log(`❌ Field ${field.id} no availability data`);
+            return { ...field, isAvailable: false };
+          } catch (error) {
+            console.error(`❌ Error checking availability for field ${field.id}:`, error);
+            return { ...field, isAvailable: false };
+          }
+        });
+
+        const fieldsWithAvailability = await Promise.all(availabilityPromises);
+        console.log(`📊 Availability check results:`, fieldsWithAvailability.map(f => ({ id: f.id, name: f.name, available: f.isAvailable })));
+
+        // Only show available fields if time filter is applied
+        filtered = fieldsWithAvailability.filter(field => field.isAvailable);
+        console.log(`✅ Final filtered fields: ${filtered.length} available out of ${fieldsWithAvailability.length} total`);
+
+      } catch (error) {
+        console.error('Error checking field availability:', error);
+      } finally {
+        setCheckingAvailability(false);
+      }
+    } else {
+      console.log(`ℹ️ No time filter applied, showing all ${filtered.length} fields`);
+    }
+
+    setFilteredFields(filtered);
+  };
+
+  const handleTimeFilterChange = (key, value) => {
+    setTimeFilters(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+
+  const clearAllFilters = () => {
+    setSearchTerm('');
+    setFilterType('all');
+    setTimeFilters({
+      date: '',
+      startTime: '',
+      endTime: '',
+      priceRange: ''
+    });
+  };
+
+  const getMinDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('id-ID', {
@@ -109,9 +294,29 @@ const CustomerFieldsPanel = () => {
         </button>
       </div>
 
-      {/* Search and Filter */}
+      {/* Enhanced Search and Filter */}
       <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+              <Filter className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900">Filter Ketersediaan</h3>
+              <p className="text-gray-600">Cari lapangan berdasarkan waktu dan preferensi</p>
+            </div>
+          </div>
+
+          <button
+            onClick={clearAllFilters}
+            className="px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            Reset Filter
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Search */}
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
@@ -123,6 +328,7 @@ const CustomerFieldsPanel = () => {
             />
           </div>
 
+          {/* Field Type */}
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
@@ -134,6 +340,81 @@ const CustomerFieldsPanel = () => {
             <option value="basketball">Basket</option>
             <option value="badminton">Badminton</option>
           </select>
+
+          {/* Price Range */}
+          <select
+            value={timeFilters.priceRange}
+            onChange={(e) => handleTimeFilterChange('priceRange', e.target.value)}
+            className="px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
+          >
+            {priceRanges.map(range => (
+              <option key={range.value} value={range.value}>{range.label}</option>
+            ))}
+          </select>
+
+          {/* Date */}
+          <div className="relative">
+            <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <input
+              type="date"
+              value={timeFilters.date}
+              onChange={(e) => handleTimeFilterChange('date', e.target.value)}
+              min={getMinDate()}
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
+            />
+          </div>
+
+          {/* Start Time */}
+          <div className="relative">
+            <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <select
+              value={timeFilters.startTime}
+              onChange={(e) => handleTimeFilterChange('startTime', e.target.value)}
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
+            >
+              <option value="">Pilih waktu mulai</option>
+              {timeSlots.map(time => (
+                <option key={time} value={time}>{time}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* End Time */}
+          <div className="relative">
+            <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <select
+              value={timeFilters.endTime}
+              onChange={(e) => handleTimeFilterChange('endTime', e.target.value)}
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-800"
+            >
+              <option value="">Pilih waktu selesai</option>
+              {timeSlots.map(time => (
+                <option key={time} value={time}>{time}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Status Info */}
+        <div className="mt-4 flex items-center justify-between text-sm">
+          <div className="text-gray-600">
+            {checkingAvailability ? (
+              <span className="flex items-center space-x-2">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+                <span>Mengecek ketersediaan...</span>
+              </span>
+            ) : (
+              <span>
+                Menampilkan {filteredFields.length} dari {fields.length} lapangan
+              </span>
+            )}
+          </div>
+
+          {timeFilters.date && timeFilters.startTime && timeFilters.endTime && (
+            <div className="text-blue-600 font-medium">
+              Filter aktif: {timeFilters.date} • {timeFilters.startTime} - {timeFilters.endTime}
+            </div>
+          )}
         </div>
       </div>
 
@@ -175,11 +456,20 @@ const CustomerFieldsPanel = () => {
                   </div>
                 )}
 
+                {/* Availability Badge */}
+                {timeFilters.date && timeFilters.startTime && timeFilters.endTime && field.isAvailable && (
+                  <div className="absolute top-4 right-4">
+                    <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                      ✅ Tersedia
+                    </span>
+                  </div>
+                )}
+
                 {/* Favorite Button */}
                 <button
                   onClick={() => handleToggleFavorite(field.id)}
-                  className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${favorites.includes(field.id)
-                    ? 'bg-red-500 text-gray-900 shadow-lg'
+                  className={`absolute ${timeFilters.date && timeFilters.startTime && timeFilters.endTime ? 'top-16 right-4' : 'top-4 right-4'} w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${favorites.includes(field.id)
+                    ? 'bg-red-500 text-white shadow-lg'
                     : 'bg-white/80 text-gray-600 hover:bg-white'
                     }`}
                 >
@@ -188,7 +478,7 @@ const CustomerFieldsPanel = () => {
 
                 {/* Field Type Badge */}
                 <div className="absolute top-4 left-4">
-                  <span className="bg-gray-800 text-gray-900 px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-gray-800 text-white px-3 py-1 rounded-full text-sm font-medium">
                     {getFieldTypeLabel(field.type)}
                   </span>
                 </div>
@@ -197,9 +487,9 @@ const CustomerFieldsPanel = () => {
               {/* Field Info */}
               <div className="p-6">
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-xl font-bold text-white">{field.name}</h3>
+                  <h3 className="text-xl font-bold text-gray-900">{field.name}</h3>
                   <div className="flex items-center space-x-1">
-                    <Star className="w-4 h-4 text-gray-900 fill-current" />
+                    <Star className="w-4 h-4 text-yellow-500 fill-current" />
                     <span className="text-sm text-gray-600">4.5</span>
                   </div>
                 </div>
@@ -235,7 +525,7 @@ const CustomerFieldsPanel = () => {
                       <p className="text-sm text-gray-500">per jam</p>
                     </div>
 
-                    <button className="bg-gradient-to-r from-gray-800 to-gray-800 hover:from-gray-800 hover:to-gray-900 text-gray-900 px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+                    <button className="bg-gradient-to-r from-gray-800 to-gray-800 hover:from-gray-700 hover:to-gray-900 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
                       <div className="flex items-center space-x-2">
                         <Calendar className="w-4 h-4" />
                         <span>Booking</span>

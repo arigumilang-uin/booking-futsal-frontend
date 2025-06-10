@@ -4,8 +4,8 @@ import {
   getAllBookingsForOperator,
   getBookingDetailForOperator,
   confirmBooking,
-  completeBooking,
   getBookingStatusColor,
+  getBookingStatusLabel,
   formatOperatorTime,
   formatOperatorDate
 } from '../../api/operatorAPI';
@@ -26,11 +26,21 @@ const OperatorBookingPanel = () => {
       setLoading(true);
       const params = filter !== 'all' ? { status: filter } : {};
       const response = await getAllBookingsForOperator(params);
+
+      console.log('🔍 OperatorBookingPanel - API Response:', response);
+
       if (response.success) {
-        setBookings(response.data);
+        // Use the bookings array from the API response
+        const bookingsData = response.data || [];
+        console.log('📅 OperatorBookingPanel - Bookings loaded:', bookingsData.length);
+        setBookings(bookingsData);
+      } else {
+        console.error('❌ Failed to load bookings:', response.error);
+        setBookings([]);
       }
     } catch (error) {
-      console.error('Error loading bookings:', error);
+      console.error('❌ Error loading bookings:', error);
+      setBookings([]);
     } finally {
       setLoading(false);
     }
@@ -71,29 +81,9 @@ const OperatorBookingPanel = () => {
     }
   };
 
-  const handleCompleteBooking = async (bookingId) => {
-    try {
-      setProcessing(true);
-      const response = await completeBooking(bookingId, {
-        completion_notes: 'Booking selesai dimainkan',
-        completed_at: new Date().toISOString()
-      });
-      if (response.success) {
-        await loadBookings();
-        if (selectedBooking?.id === bookingId) {
-          await loadBookingDetail(bookingId);
-        }
-        alert('Booking berhasil diselesaikan');
-      } else {
-        alert('Gagal menyelesaikan booking: ' + response.error);
-      }
-    } catch (error) {
-      console.error('Error completing booking:', error);
-      alert('Terjadi kesalahan saat menyelesaikan booking');
-    } finally {
-      setProcessing(false);
-    }
-  };
+  // REMOVED: Manual completion by operator
+  // Booking completion is now handled automatically by the system
+  // when the booking time ends. Operators should not manually complete bookings.
 
   const filteredBookings = bookings.filter(booking => {
     if (filter === 'all') return true;
@@ -172,12 +162,12 @@ const OperatorBookingPanel = () => {
                         <span className="text-lg">📅</span>
                       </div>
                       <div>
-                        <h4 className="text-lg font-semibold text-gray-900">{booking.customer_name}</h4>
+                        <h4 className="text-lg font-semibold text-gray-900">{booking.user_name || booking.name || booking.customer_name || 'Customer'}</h4>
                         <p className="text-sm text-gray-600">{booking.field_name}</p>
                       </div>
                     </div>
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${getBookingStatusColor(booking.status)}`}>
-                      {booking.status}
+                      {getBookingStatusLabel(booking.status)}
                     </span>
                   </div>
 
@@ -188,14 +178,14 @@ const OperatorBookingPanel = () => {
                     </div>
                     <div>
                       <span className="text-gray-600">Waktu:</span>
-                      <p className="font-medium">{booking.time_slot}</p>
+                      <p className="font-medium">{booking.start_time} - {booking.end_time}</p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 text-sm mt-3">
                     <div>
                       <span className="text-gray-600">Total:</span>
-                      <p className="font-medium">Rp {booking.total_amount?.toLocaleString() || 0}</p>
+                      <p className="font-medium">Rp {parseFloat(booking.total_amount || 0).toLocaleString()}</p>
                     </div>
                     <div>
                       <span className="text-gray-600">Payment:</span>
@@ -222,16 +212,9 @@ const OperatorBookingPanel = () => {
                       </button>
                     )}
                     {booking.status === 'confirmed' && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCompleteBooking(booking.id);
-                        }}
-                        disabled={processing}
-                        className="flex-1 bg-gray-800 text-white px-3 py-2 rounded-lg text-xs font-medium hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-                      >
-                        Selesaikan
-                      </button>
+                      <div className="flex-1 bg-gray-100 text-gray-600 px-3 py-2 rounded-lg text-xs font-medium text-center">
+                        Otomatis Selesai Saat Waktu Berakhir
+                      </div>
                     )}
                     {booking.status === 'pending' && booking.payment_status !== 'paid' && (
                       <div className="flex-1 bg-gray-100 text-white px-3 py-2 rounded-lg text-xs font-medium text-center">

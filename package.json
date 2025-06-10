@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --mode development --host localhost --port 5173",
-    "dev:prod-backend": "vite --mode development --host localhost --port 5173",
+    "dev:prod-backend": "vite --mode production --host localhost --port 5173",
     "build": "vite build --mode production",
     "build:dev": "vite build --mode development",
     "build:staging": "vite build --mode staging",
