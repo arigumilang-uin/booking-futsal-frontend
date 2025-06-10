@@ -23,11 +23,8 @@ const axiosInstance = axios.create({
   timeout: 15000, // 15 seconds timeout for production
   headers: {
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    // Add Origin header for production CORS
-    ...(isProduction && {
-      'Origin': 'https://booking-futsal-frontend.vercel.app'
-    })
+    'Accept': 'application/json'
+    // Browser will automatically set Origin header - don't set manually
   },
 });
 
